@@ -1,0 +1,11 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /admin/*
+
+# Host
+Host: https://lwaero.net
+
+# Sitemaps
+Sitemap: https://lwaero.net/sitemap.xml
+Sitemap: https://lwaero.net/server-sitemap.xml
