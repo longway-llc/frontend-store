@@ -29,7 +29,7 @@ module.exports = {
         ],
         'linebreak-style': [
             'warn',
-            'windows'
+            'unix'
         ],
         'quotes': [
             'error',
@@ -39,6 +39,7 @@ module.exports = {
             'error',
             'never'
         ],
-        "react/react-in-jsx-scope": "off"
+        'react/react-in-jsx-scope': 'off',
+        'react/prop-types': 'off'
     }
 }
