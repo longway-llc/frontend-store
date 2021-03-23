@@ -75,6 +75,12 @@ export const theme = createMuiTheme({
         secondary: {
             main: secondColor
         },
+        text: {
+            primary: typographyColor
+        },
+        common:{
+            black: typographyColor
+        }
     },
     typography: {
         fontFamily: [
