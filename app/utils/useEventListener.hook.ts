@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react'
+import {EventHandler, SyntheticEvent, useEffect, useRef} from 'react'
 
 
 /**
@@ -7,8 +7,8 @@ import { useRef, useEffect } from 'react'
  * @param {function} handler - handler function
  * @param {Object} element - object that be receive event @default window*/
 
-//@ts-ignore
-export default function useEventListener(eventName, handler, element=window){
+
+export default function useEventListener(eventName: string, handler: EventHandler<any> , element: Window | HTMLElement = window) {
     // Create a ref that stores handler
     const savedHandler = useRef(null)
 
@@ -24,12 +24,10 @@ export default function useEventListener(eventName, handler, element=window){
         () => {
             // Make sure element supports addEventListener
             // On
-            // @ts-ignore
             const isSupported = element ?? element?.addEventListener
             if (!isSupported) return
 
             // Create event listener that calls handler function stored in ref
-            // @ts-ignore
             const eventListener = event => savedHandler.current(event)
 
             // Add event listener
