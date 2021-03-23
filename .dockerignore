@@ -1,1 +1,16 @@
 **/node_modules/**
+logs
+app/.next
+app/build
+
+.env
+
+.git
+.cache
+
+.dockerignore
+Dockerfile
+docker-compose.yml
+
+*.md
+!README.md

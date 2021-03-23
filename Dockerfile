@@ -1,6 +1,5 @@
 FROM node:15.10.0-alpine3.13
 
-ARG env-file=.env.development
 EXPOSE 3000
 
 WORKDIR /app

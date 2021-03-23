@@ -2,7 +2,10 @@ version: '3.9'
 
 services:
   frontend:
-    image: 'lwaero/frontend'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: 'lwaero/frontend-store'
     container_name: frontend
     env_file: .env.development
     ports:
