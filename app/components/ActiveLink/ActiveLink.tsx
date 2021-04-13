@@ -1,0 +1,30 @@
+import React, {Children, FC, ReactNode} from 'react'
+import Link from 'next/link'
+import {useRouter} from 'next/router'
+
+
+const ActiveLink: FC<any & { children?: ReactNode; }> = ({children, activeClassName, ...props}) => {
+    const asPath = useRouter()?.asPath
+    const child = Children.only(children)
+
+    const childClassName: string = child?.props.className || ''
+
+    // page/index.js will be matched via props.href
+    // page/about.js will be matched via props.href
+    // page/[slug].js will be matched via props.as
+    const className = asPath === props.href || asPath === props.as
+            ? `${childClassName} ${activeClassName}`.trim()
+            : childClassName
+
+    return (
+        <Link {...props}>
+            {
+                React.cloneElement(child, {
+                    className: className || null
+                })}
+        </Link>
+    )
+}
+
+
+export default ActiveLink
