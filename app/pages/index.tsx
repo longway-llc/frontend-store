@@ -4,6 +4,8 @@ import MainLayout from '../layouts/AppLayout'
 import {typographyColor} from '../assets/theme'
 import SearchField from '../components/SearchField/SearchField'
 import {Container, createStyles, Grid, makeStyles, Typography, useMediaQuery, useTheme} from '@material-ui/core'
+import {useRouter} from 'next/router'
+import {CurrentLocale, useTranslation} from '../utils/localization'
 
 
 const useStyles = makeStyles(theme => createStyles({
@@ -45,22 +47,27 @@ const useStyles = makeStyles(theme => createStyles({
             marginBottom: 60
         },
         [theme.breakpoints.down('sm')]: {
-            marginTop: 0,
+            marginTop: 0
         }
     }
 }))
 
 const Home: FC = () => {
+    const styles = useStyles()
     const theme = useTheme()
     const isPhone = useMediaQuery(theme.breakpoints.down('md'))
-    const styles = useStyles()
+    const {locale} = useRouter()
+    const t = useTranslation(locale)
     return (
         <>
             <Head>
                 <meta name="description"
-                    content="Магазин специализированных материалов для технического обслуживания авиационной техники"/>
+                      content={t.meta.index.description}/>
                 <meta name="keywords"
-                    content="авиация, техническое обслуживание, самолёты, aviation, maintenance, aircraft, longway, лонгвей"/>
+                      content={t.meta.index.keywords}/>
+                {/*<link rel="alternate" hrefLang="ru" href="https://ru.lwaero.net"/>*/}
+                {/*<link rel="alternate" hrefLang="en" href="https://en.lwaero.net"/>*/}
+                {/*<link rel="alternate" hrefLang="x-default" href="https://lwaero.net"/>*/}
             </Head>
 
             <MainLayout logoVariant={'main'} title={'LWAero | Главная'}>
@@ -74,16 +81,16 @@ const Home: FC = () => {
                     >
                         <Grid item xs>
                             <Typography variant={'h1'} className={styles.title}>
-                                GLOBAL MRO SUPPLY MANAGEMENT
+                                {t.page.index.title}
                             </Typography>
                         </Grid>
                         <Grid item xs>
                             <Typography variant={'h2'} className={styles.subtitle}>
-                                we will help you purchase the right product at a great price
+                                {t.page.index.subtitle}
                             </Typography>
                         </Grid>
                         <Grid item xs>
-                            <SearchField mode={'main'}/>
+                            <SearchField mode={'main'} />
                         </Grid>
                     </Grid>
                 </Container>
