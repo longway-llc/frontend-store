@@ -1,0 +1,142 @@
+export const en = {
+    meta: {
+        index: {
+            description: 'Shop of specialized materials for the maintenance of aviation equipment',
+            keywords: 'lwaero, longway, aviation, aviation chemistry, maintenance, aircraft'
+        }
+    },
+    page: {
+        index: {
+            title: 'GLOBAL MRO SUPPLY MANAGEMENT',
+            subtitle: 'we will help you purchase the right product at a great price'
+        },
+        product_id: {
+            quantity: 'quantity',
+            productDescription: 'Product description',
+            specifications: 'Specifications'
+        },
+        cabinet: {
+            information: 'Information',
+            showOrders: 'Show orders'
+        }
+    },
+    header: {
+        general: 'main',
+        products: 'products',
+        aboutUs: 'about us'
+    },
+    footer: {
+        home: 'home',
+        search: 'search',
+        cart: 'cart'
+    },
+    components: {
+        AlgoliaSearch: {
+            filters: 'filters'
+        },
+        ASHit:{
+            specifications: 'Specifications',
+            price: 'Price',
+            buttons: {
+                add: 'Add to cart',
+                link: 'See more'
+            }
+        },
+        ASHitDetails: {
+            group: 'Group',
+            uom: 'Uom',
+            color: 'Color',
+            mfg: 'Manufacturing',
+            brand: 'Brand'
+        },
+        ASBoxInput:{
+            searchLabel: 'enter code or product name'
+        },
+        ASRefinementList:{
+            titles: {
+                group: 'Group',
+                mfg: 'Manufacturing'
+            }
+        },
+        ASRefinementResetButton:{
+            reset: 'Reset filters'
+        },
+        ButtonAddToCart:{
+            addToCart: 'add to cart',
+            successMessage: 'Product added to cart successfully',
+            errorMessage: 'Something was wrong'
+        },
+        CabinetMenu:{
+            cabinet: 'Cabinet',
+            orders: 'Orders',
+            settings: 'Settings'
+        },
+        CartItem:{
+            productPage: 'product page',
+            price: 'Price'
+        },
+        CartItemList:{
+            empty: 'Cart is empty'
+        },
+        ConsignmentDisplay: {
+            inStock: 'In stock',
+            quantity: 'quantity',
+            dateProduction: 'Manufacture date',
+            sellBy: 'Sell by'
+        },
+        ConsignmentStatus: {
+            available: 'Product is available in stock',
+            unavailable: 'Product available upon request'
+        },
+        MenuDrawer:{
+            menu: 'Menu',
+            home: 'Home',
+            about: 'About us',
+            cabinet: 'Cabinet',
+            orders: 'Orders',
+            settings: 'Settings'
+        },
+        OrderCreateForm: {
+            totalQuantity: 'Total quantity',
+            totalPrice: 'Total price',
+            contacts: 'Contacts',
+            phone: 'Phone',
+            email: 'E-mail',
+            fillInSettings: 'fill in the settings',
+            checkout: 'Checkout',
+            resetCart: 'Reset cart',
+            orderSuccess: 'Order successfully created'
+        },
+        OrderList:{
+            order: 'Order',
+            status: 'Status',
+            description: 'Description',
+            color: 'Color',
+            sellingPrice: 'Selling Price',
+            count: 'Quantity',
+            total: 'Total'
+        },
+        PhoneSetForm:{
+            phoneSuccessUpdate: 'Phone updated successfully',
+            updatePhone: 'Update phone number',
+            phoneLabel: 'Phone number',
+            wrongPhone: 'Phone number is incorrect',
+            phoneRequired: 'Required field',
+            updateButton: 'Update'
+        },
+        Price: {
+            quote: 'request quote',
+        },
+        SearchField: {
+            label: 'P\\N or keywords',
+            shortLabel: 'search'
+        }
+    },
+    search: {
+        input: 'enter code or product name',
+    },
+    auth: {
+        signOut: 'Sign Out',
+        signIn: 'Sign In'
+    }
+} as const
