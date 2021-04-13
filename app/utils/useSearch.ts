@@ -21,13 +21,13 @@ export const useSearch = ():useSearchReturnObject => {
     const [searchRequest, setSearchRequest] = useState('')
 
     const searchItem = useCallback(async () => {
-        await router.push({pathname: '/search', query: {item: searchRequest.trim()}})
+        await router.push({pathname: '/search', query: {query: searchRequest.trim(),page:1}})
     }, [searchRequest, router])
 
     useEventListener('keypress', async (e: React.KeyboardEvent) => {
         // keyCode = 13 => Enter button
         if (e.code == 'Enter' && searchRequest.trim().length > 0) {
-            await router.push({pathname: '/search', query: {item: searchRequest.trim()}})
+            await router.push({pathname: '/search', query: {query: searchRequest.trim(),page:1}})
         }
     })
 
