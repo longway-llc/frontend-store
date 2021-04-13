@@ -1,14 +1,10 @@
-const withCss = require("@zeit/next-css")
-const withPlugins = require("next-compose-plugins")
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const withCss = require('@zeit/next-css')
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const withPlugins = require('next-compose-plugins')
 
 
 module.exports = withPlugins([
-    {
-        env: {},
-        images: {
-            domains: ['localhost', 'lwaero.net', '*']
-        }
-    },
     [
         withCss,
         {
@@ -16,10 +12,10 @@ module.exports = withPlugins([
                 config.module.rules.push({
                     test: /\.(eot|woff|woff2|ttf|svg|png|jpg|gif)$/,
                     use: {
-                        loader: "url-loader",
+                        loader: 'url-loader',
                         options: {
                             limit: 100000,
-                            name: "[name].[ext]",
+                            name: '[name].[ext]',
                         },
                     },
                 })
@@ -27,4 +23,25 @@ module.exports = withPlugins([
             },
         },
     ],
-])
+], {
+    images: {
+        domains: ['localtest.me', 'localhost', 'lwaero.net', '*']
+    },
+    i18n: {
+        locales: ['en', 'ru'],
+        defaultLocale: 'en',
+        localeDetection: true,
+        // domains:[
+        //     {
+        //         domain: 'en.localtest.me',
+        //         defaultLocale: 'en',
+        //         http: true
+        //     },
+        //     {
+        //         domain: 'ru.localtest.me',
+        //         defaultLocale: 'ru',
+        //         http: true
+        //     },
+        // ]
+    }
+})
