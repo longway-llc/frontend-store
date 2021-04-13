@@ -1,6 +1,6 @@
 import {AppProps} from 'next/app'
 import NextNprogress from 'nextjs-progressbar'
-import {CssBaseline, ThemeProvider} from '@material-ui/core'
+import {CssBaseline, makeStyles, ThemeProvider} from '@material-ui/core'
 import {theme} from '../assets/theme'
 import {Provider as AuthProvider} from 'next-auth/client'
 import React, {useEffect} from 'react'
@@ -10,9 +10,19 @@ import * as gtag from '../utils/gtag'
 import {ymCode} from '../utils/yametrika'
 import {ApolloProvider} from '@apollo/client'
 import {useApollo} from '../utils/ApolloClient'
+// eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/ban-ts-comment
+// @ts-ignore
+import withYM from 'next-ym'
+import {SnackbarProvider} from 'notistack'
 
-const withYM = require('next-ym')
 
+const useStyles = makeStyles(theme => ({
+    root: {
+        [theme.breakpoints.down('sm')]: {
+            marginBottom: theme.spacing(8)
+        }
+    }
+}))
 
 function MyApp({Component, pageProps}: AppProps) {
     const apolloClient = useApollo(pageProps.initialApolloState)
@@ -30,52 +40,53 @@ function MyApp({Component, pageProps}: AppProps) {
     }, [router.events])
 
     //hydrate styles: official example https://github.com/mui-org/material-ui/blob/master/examples/nextjs
-    useEffect(() => {
+    React.useEffect(() => {
         // Remove the server-side injected CSS.
         const jssStyles = document.querySelector('#jss-server-side')
         if (jssStyles) {
-            jssStyles.parentElement?.removeChild(jssStyles)
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            jssStyles.parentElement.removeChild(jssStyles)
         }
     }, [])
 
     return (
         <>
             <Head>
-                <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width"/>
+                <meta name="viewport" content="minimum-scale=1, initial-scale=1, breackboint=device-breackboint"/>
             </Head>
-            <AuthProvider session={pageProps.session}>
-                <ApolloProvider client={apolloClient}>
-                    <ThemeProvider theme={theme}>
-                        <CssBaseline/>
-                        <NextNprogress
-                            options={{easing: 'ease', speed: 500}}
-                            color={theme.palette.primary.main}
-                            startPosition={0.3}
-                            stopDelayMs={200}
-                            height={3}
-                        />
-                        {/*<AuthProvider>*/}
-                        <Component {...pageProps} />
-                        {/*</AuthProvider>*/}
-
-                        <style global jsx>{`
-                        body {
-                            letter-spacing: 0.015em;
-                            min-height: 100vh;
-                        }
-                    
-                        #__next{
-                            min-height: inherit;
-                            display: flex;
-                            flex-direction: column;
-                        }
-                        a, a:hover {
-                            text-decoration: none;
-                        }
-                    `}</style>
-                    </ThemeProvider>
-                </ApolloProvider>
-            </AuthProvider>
+            <ThemeProvider theme={theme}>
+                <AuthProvider session={pageProps.session}>
+                    <ApolloProvider client={apolloClient}>
+                        <SnackbarProvider maxSnack={3} classes={{root: useStyles().root}}>
+                            <CssBaseline/>
+                            <NextNprogress
+                                options={{easing: 'ease', speed: 500}}
+                                color={'#C51D34'}
+                                startPosition={0.3}
+                                stopDelayMs={200}
+                                height={3}
+                            />
+                            <Component {...pageProps} />
+                            <style global jsx>{`
+                                body {
+                                    letter-spacing: 0.015em;
+                                    min-height: 100vh;
+                                }
+                            
+                                #__next{
+                                    min-height: inherit;
+                                    display: flex;
+                                    flex-direction: column;
+                                }
+                                a, a:hover {
+                                    text-decoration: none;
+                                }
+                            `}</style>
+                        </SnackbarProvider>
+                    </ApolloProvider>
+                </AuthProvider>
+            </ThemeProvider>
         </>
     )
 }
