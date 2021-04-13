@@ -3,14 +3,23 @@ import Header, {HeaderMode} from '../components/Header/Header'
 import Footer from '../components/Footer/Footer'
 import React, {FC} from 'react'
 import {theme} from '../assets/theme'
+import {createStyles, makeStyles} from '@material-ui/core'
 
 type MainLayoutType = {
     logoVariant?: HeaderMode,
     title?: string
 }
 
-const AppLayout: FC<MainLayoutType> = ({children, logoVariant = 'black', title = 'LWAero'}) => {
+const useStyles = makeStyles(theme => createStyles({
+    main: {
+        paddingTop: theme.spacing(5),
+        paddingBottom: theme.spacing(5)
+    }
+}))
 
+
+const AppLayout: FC<MainLayoutType> = ({children, logoVariant = 'black', title = 'LWAero'}) => {
+    const styles = useStyles()
     return (
         <>
             <Head>
@@ -22,7 +31,7 @@ const AppLayout: FC<MainLayoutType> = ({children, logoVariant = 'black', title =
             </Head>
 
             <Header headerMode={logoVariant}/>
-            <main>
+            <main className={styles.main}>
                 {children}
             </main>
             <Footer/>
