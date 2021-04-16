@@ -3,7 +3,10 @@ logs
 app/.next
 app/build
 
-.env
+**/.env
+**/.env.development
+**/.env.production
+**/.env.local
 
 .git
 .cache

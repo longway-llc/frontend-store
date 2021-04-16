@@ -10,4 +10,5 @@ RUN yarn
 
 COPY /app .
 
+RUN [ "yarn", "build" ]
 
