@@ -1,4 +1,4 @@
-import {EventHandler, SyntheticEvent, useEffect, useRef} from 'react'
+import {EventHandler, useEffect, useRef} from 'react'
 
 
 /**
@@ -8,9 +8,9 @@ import {EventHandler, SyntheticEvent, useEffect, useRef} from 'react'
  * @param {Object} element - object that be receive event @default window*/
 
 
-export default function useEventListener(eventName: string, handler: EventHandler<any> , element: Window | HTMLElement = window) {
+export default function useEventListener(eventName: string, handler: EventHandler<any>, element: Window | HTMLElement = window):void {
     // Create a ref that stores handler
-    const savedHandler = useRef(null)
+    const savedHandler = useRef<any>()
 
     // Update ref.current value if handler changes.
     // This allows our effect below to always get latest handler ...
@@ -24,11 +24,11 @@ export default function useEventListener(eventName: string, handler: EventHandle
         () => {
             // Make sure element supports addEventListener
             // On
-            const isSupported = element ?? element?.addEventListener
+            const isSupported = element ?? (element as HTMLElement).addEventListener
             if (!isSupported) return
 
             // Create event listener that calls handler function stored in ref
-            const eventListener = event => savedHandler.current(event)
+            const eventListener = (event: any) => savedHandler?.current(event)
 
             // Add event listener
             element.addEventListener(eventName, eventListener)

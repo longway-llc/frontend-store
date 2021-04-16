@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {FC, useEffect, useState} from 'react'
 import {
     BottomNavigation,
     BottomNavigationAction,
@@ -23,7 +23,7 @@ const pages = [
     '/cart'
 ]
 
-const useStyles = makeStyles(theme => createStyles({
+const useStyles = makeStyles(() => createStyles({
     footer: {
         marginTop: 'auto',
         position: 'sticky',
@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => createStyles({
     }
 }))
 
-const Footer = () => {
+const Footer:FC<any> = () => {
     const [session] = useSession()
     const theme = useTheme()
     const isTablet = useMediaQuery(theme.breakpoints.up('md'))

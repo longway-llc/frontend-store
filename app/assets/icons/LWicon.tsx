@@ -1,7 +1,7 @@
-import {SvgIcon} from '@material-ui/core'
-import React from 'react'
+import {SvgIcon, SvgIconProps} from '@material-ui/core'
+import React, {FC} from 'react'
 
-export default function LWicon(props:any) {
+const LWicon:FC<SvgIconProps> = (props) => {
     return (
         <SvgIcon {...props}>
             <path  d="M3.3,5.5h2.5l1.9,10h1.9l0.4,2H5.6L3.3,5.5z"/>
@@ -9,3 +9,5 @@ export default function LWicon(props:any) {
         </SvgIcon>
     )
 }
+
+export default LWicon

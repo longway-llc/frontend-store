@@ -11,7 +11,7 @@ type ProductDetails = {
     brand?: string
 }
 
-const useStyles = makeStyles(theme => createStyles({
+const useStyles = makeStyles(() => createStyles({
     root: {
         display: 'flex',
         flexDirection: 'column'

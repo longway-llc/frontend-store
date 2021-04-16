@@ -5,7 +5,7 @@ import {typographyColor} from '../assets/theme'
 import SearchField from '../components/SearchField/SearchField'
 import {Container, createStyles, Grid, makeStyles, Typography, useMediaQuery, useTheme} from '@material-ui/core'
 import {useRouter} from 'next/router'
-import {CurrentLocale, useTranslation} from '../utils/localization'
+import {useTranslation} from '../utils/localization'
 
 
 const useStyles = makeStyles(theme => createStyles({
@@ -90,7 +90,7 @@ const Home: FC = () => {
                             </Typography>
                         </Grid>
                         <Grid item xs>
-                            <SearchField mode={'main'} />
+                            <SearchField mode={'main'}/>
                         </Grid>
                     </Grid>
                 </Container>

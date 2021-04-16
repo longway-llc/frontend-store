@@ -25,7 +25,7 @@ type SettingsPageProps = {
     session: Session
 }
 
-const Settings: NextPage<SettingsPageProps> = ({session}) => {
+const Settings: NextPage<SettingsPageProps> = () => {
     const styles = useStyles()
     const theme = useTheme()
     const isPhone = useMediaQuery(theme.breakpoints.down('md'))

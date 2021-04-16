@@ -1,15 +1,6 @@
 import {createMuiTheme} from '@material-ui/core'
 import {F} from './fonts/fonts'
 
-
-interface PaletteColor {
-    light?: string;
-    main: string;
-    dark?: string;
-    contrastText?: string;
-}
-
-
 // FONTS EXPORT
 const helveticaRoman = {
     fontFamily: 'Helvetica Neue',

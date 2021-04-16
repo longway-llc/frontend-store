@@ -62,7 +62,7 @@ const MenuDrawer:FC<Props> = ({anchor, open, setState}) => {
         if (isLarge) {
             setState(false)
         }
-    }, [isLarge])
+    }, [isLarge,setState])
 
     return (
         <SwipeableDrawer className={classes.drawer} anchor={anchor} open={open} onOpen={() => setState(true)}

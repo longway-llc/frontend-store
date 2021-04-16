@@ -4,9 +4,7 @@ import {
     createStyles,
     FilledInput,
     FormControl,
-    FormHelperText,
     IconButton,
-    Input,
     InputAdornment,
     InputLabel,
     makeStyles,
@@ -26,8 +24,8 @@ interface StyleProps {
 }
 
 const useStyles = makeStyles<Theme, StyleProps>(theme => createStyles({
-    form:{
-      width: '100%'
+    form: {
+        width: '100%'
     },
     root: {
         '& > .MuiInput-root': {
@@ -115,30 +113,30 @@ const ASBoxInput: FC<SearchFieldProps> = ({currentRefinement, refine, width = ''
                     {t.components.ASBoxInput.searchLabel}
                 </InputLabel>
                 <FilledInput id="search-products" aria-describedby="product search" type="search"
-                       className={styles.input}
-                       value={searchState}
-                       onChange={handleChange}
-                       endAdornment={
-                           <InputAdornment position='end'>
-                               <IconButton
-                                   className={styles.icon}
-                                   aria-label='search'
-                                   type='submit'
-                                   edge='end'
-                               >
-                                   <Search/>
-                               </IconButton>
-                               <IconButton
-                                   className={styles.icon}
-                                   aria-label='reset'
-                                   type='button'
-                                   edge='end'
-                                   onClick={handleReset}
-                               >
-                                   <Clear/>
-                               </IconButton>
-                           </InputAdornment>
-                       }
+                             className={styles.input}
+                             value={searchState}
+                             onChange={handleChange}
+                             endAdornment={
+                                 <InputAdornment position='end'>
+                                     <IconButton
+                                         className={styles.icon}
+                                         aria-label='search'
+                                         type='submit'
+                                         edge='end'
+                                     >
+                                         <Search/>
+                                     </IconButton>
+                                     <IconButton
+                                         className={styles.icon}
+                                         aria-label='reset'
+                                         type='button'
+                                         edge='end'
+                                         onClick={handleReset}
+                                     >
+                                         <Clear/>
+                                     </IconButton>
+                                 </InputAdornment>
+                             }
 
                 />
             </FormControl>

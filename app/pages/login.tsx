@@ -1,7 +1,6 @@
 import AppLayout from '../layouts/AppLayout'
 import {getCsrfToken, getProviders, getSession, signIn} from 'next-auth/client'
 import {GetServerSideProps, NextPage} from 'next'
-import Providers from 'next-auth/providers'
 import {Session} from 'next-auth'
 import React, {useEffect, useState} from 'react'
 import {Avatar, Button, Container, Divider, Grid, makeStyles, TextField, Typography} from '@material-ui/core'
@@ -17,8 +16,8 @@ import ButtonSignInFacebook from '../components/ButtonSignInFacebook/ButtonSignI
 
 
 type LoginProps = {
-    providers: typeof Providers,
-    session: Session,
+    providers: Record<string, unknown>,
+    session?: Session,
     csrfToken: string,
     error?: string
 }
@@ -50,7 +49,7 @@ const useStyles = makeStyles(theme => ({
         alignItems: 'center'
     },
     avatar: {
-        margin: theme.spacing(1,'auto'),
+        margin: theme.spacing(1, 'auto'),
         backgroundColor: theme.palette.secondary.main
     },
     form: {
@@ -77,7 +76,7 @@ const Login: NextPage<LoginProps> = ({providers, session, csrfToken, error}) => 
     const handleLogin = async ({email}: FormData) => {
         try {
             setFetching(true)
-            const res = await signIn('email', { email ,redirect: false})
+            const res = await signIn('email', {email, redirect: false})
             if (!res.error) {
                 enqueueSnackbar('На ваш почтовый ящик было отправлено письмо', {variant: 'info'})
             }
@@ -92,8 +91,8 @@ const Login: NextPage<LoginProps> = ({providers, session, csrfToken, error}) => 
         if (error) enqueueSnackbar(error == 'Callback'
             ? 'Войдите способом, который использовали  при регистрации'
             : 'Необработанная ошибка, обратитесь в поддержку'
-            , {variant:'error', autoHideDuration: 10000})
-    },[error])
+            , {variant: 'error', autoHideDuration: 10000})
+    }, [error, enqueueSnackbar])
 
     return (
         <>
@@ -122,7 +121,7 @@ const Login: NextPage<LoginProps> = ({providers, session, csrfToken, error}) => 
                                   onSubmit={handleSubmit(handleLogin)}
                             >
                                 <Grid item xs={12}>
-                                    <input name="csrfToken" type="hidden" defaultValue={csrfToken} ref={register} />
+                                    <input name="csrfToken" type="hidden" defaultValue={csrfToken} ref={register}/>
                                     <TextField
                                         inputRef={register}
                                         variant="outlined"
@@ -148,9 +147,9 @@ const Login: NextPage<LoginProps> = ({providers, session, csrfToken, error}) => 
                                         Войти
                                     </Button>
                                 </Grid>
-                                <Divider variant='fullWidth' style={{width:'100%'}}/>
+                                <Divider variant='fullWidth' style={{width: '100%'}}/>
                                 <Grid item xs={12}>
-                                    <ButtonSignInGoogle provider={providers.google} />
+                                    <ButtonSignInGoogle provider={providers.google}/>
                                 </Grid>
                                 <Grid item xs={12}>
                                     <ButtonSignInFacebook provider={providers.facebook}/>

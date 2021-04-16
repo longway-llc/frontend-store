@@ -16,7 +16,7 @@ class MyDocument extends Document {
                     <meta name="theme-color" content={theme.palette.primary.main}/>
 
                     {/* Add gtag script into production build */}
-                    {(
+                    {isProduction && (
                         <>
                             <script
                                 async

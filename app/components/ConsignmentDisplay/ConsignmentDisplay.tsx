@@ -9,7 +9,7 @@ import {useTranslation} from '../../utils/localization'
 const ConsignmentDisplay: FC<any> = ({consignments}) => {
     const {locale} = useRouter()
     const t = useTranslation(locale)
-    const consignmentsDisplay = useMemo(() => consignments.map(consignment => (
+    const consignmentsDisplay = useMemo(() => consignments.map((consignment:any) => (
         <Accordion key={consignment.id}>
             <AccordionSummary
                 expandIcon={<ExpandMore/>}
@@ -25,7 +25,7 @@ const ConsignmentDisplay: FC<any> = ({consignments}) => {
                             {t.components.ConsignmentDisplay.inStock}
                         </Typography>
                         <Box>
-                            {consignment.placements.map(p => (
+                            {consignment.placements.map((p:any) => (
                                 <Typography key={p.stock.name}>
                                     <b>{p.stock.name}</b> {t.components.ConsignmentDisplay.quantity} <b>{p.balance}</b>
                                 </Typography>
@@ -49,7 +49,7 @@ const ConsignmentDisplay: FC<any> = ({consignments}) => {
 
             </AccordionDetails>
         </Accordion>
-    )) , [consignments])
+    )) , [consignments, t, locale])
 
     return (consignmentsDisplay)
 }

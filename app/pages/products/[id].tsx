@@ -12,7 +12,7 @@ import {
     Typography
 } from '@material-ui/core'
 import React, {useMemo, useState} from 'react'
-import {GetServerSideProps} from 'next'
+import {GetServerSideProps, NextPage} from 'next'
 import Image from 'next/image'
 import AppLayout from '../../layouts/AppLayout'
 import {useRouter} from 'next/router'
@@ -52,22 +52,27 @@ const useStyles = makeStyles(theme => createStyles({
         marginLeft: theme.spacing(1)
     },
     longReadWrapper: {
-        [theme.breakpoints.up('md')]:{
+        [theme.breakpoints.up('md')]: {
             marginLeft: theme.spacing(2)
         }
     }
 }))
 
+type ProductPageProps = {
+    products: any,
+    id: string
+}
 
-const Product = ({products, id}: any) => {
+
+const Product:NextPage<ProductPageProps> = ({products, id}) => {
     const styles = useStyles()
     const {locale} = useRouter()
     const t = useTranslation(locale)
-    const [selectedProduct, setSelectedProduct] = useState(products.find(p => p.id == id))
+    const [selectedProduct, setSelectedProduct] = useState(products.find((p:any) => p.id == id))
     const [count, setCount] = useState(1)
 
     const handleChange = (event: React.ChangeEvent<{ name?: string | undefined; value: unknown; }>) => {
-        setSelectedProduct(products.find(p => p.id == event.target.value))
+        setSelectedProduct(products.find((p:any) => p.id == event.target.value))
     }
 
     const handleInputCount = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -92,7 +97,7 @@ const Product = ({products, id}: any) => {
         (process.env.NEXT_PUBLIC_API_URL + selectedProduct?.photo.formats.medium.url)
         , [selectedProduct])
 
-    const uoms = useMemo(() => products.map(p =>
+    const uoms = useMemo(() => products.map((p:any) =>
         <MenuItem key={p.id} value={p.id}>{p.uom}</MenuItem>
     ), [products])
 

@@ -4,7 +4,7 @@ import {connectHits, HitsProvided} from 'react-instantsearch-core'
 import ASHit from '../ASHit/ASHit'
 
 
-const useStyles = makeStyles(theme => createStyles({
+const useStyles = makeStyles(() => createStyles({
     HitList: {
         listStyle: 'none',
         paddingLeft: 0

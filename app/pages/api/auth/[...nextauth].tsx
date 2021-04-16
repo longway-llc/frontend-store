@@ -1,3 +1,4 @@
+/* eslint-disable */
 import NextAuth, {NextAuthOptions} from 'next-auth'
 import Providers from 'next-auth/providers'
 import {NextApiRequest, NextApiResponse} from 'next'
@@ -49,7 +50,7 @@ const options: NextAuthOptions = {
         jwt: true
     },
     pages: {
-        signIn: '/login',
+        signIn: '/login'
     },
     cookies: {
         sessionToken:
@@ -62,20 +63,9 @@ const options: NextAuthOptions = {
                     secure: Boolean(useSecureCookies),
                     domain: hostName == 'localhost' ? hostName : '.' + hostName // add a . in front so that subdomains are included
                 }
-            },
+            }
     },
     callbacks: {
-        /**
-         * @param  {string} url      URL provided as callback URL by the client
-         * @param  {string} baseUrl  Default base URL of site (can be used as fallback)
-         * @return {string}          URL the client will be redirect to
-         */
-        // async redirect(url, baseUrl) {
-        //     return baseUrl
-        //     // return url.startsWith(baseUrl)
-        //     //     ? url
-        //     //     : baseUrl
-        // },
         session: async (session, user) => {
             const extendSession = {...session}
             extendSession.jwt = user.jwt as string
@@ -141,14 +131,7 @@ const options: NextAuthOptions = {
 }
 
 const Auth = (req: NextApiRequest, res: NextApiResponse) => {
-    // console.log(req.headers.host)
-    // overrideNextAuthEnv(req.headers.host as string)
     return NextAuth(req, res, options)
-}
-
-function overrideNextAuthEnv(host: string) {
-    const protocol = host.includes('localtest') ? 'http' : 'https'
-    process.env.NEXTAUTH_URL = `${protocol}://${host}`
 }
 
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Container, createStyles, Grid, Theme} from '@material-ui/core'
+import {Container, createStyles, Grid} from '@material-ui/core'
 import {makeStyles} from '@material-ui/styles'
 import {GetServerSideProps, NextPage} from 'next'
 import AppLayout from '../layouts/AppLayout'
@@ -13,7 +13,7 @@ type CartPageProps = {
     session: Session,
 }
 
-const useStyles = makeStyles(theme => createStyles({
+const useStyles = makeStyles(() => createStyles({
     orderItem: {
         '& + &': {
             marginTop: '25px'
@@ -58,7 +58,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
     return {
         props: {
-            session,
+            session
         }
     }
 }

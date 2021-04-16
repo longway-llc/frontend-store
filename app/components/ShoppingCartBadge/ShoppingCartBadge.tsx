@@ -1,5 +1,5 @@
-import React, {useEffect, useMemo} from 'react'
-import {Badge, createStyles, Theme, withStyles} from '@material-ui/core'
+import React, {FC, useEffect, useMemo} from 'react'
+import {Badge, createStyles, IconProps, Theme, withStyles} from '@material-ui/core'
 import {ShoppingCart, ShoppingCartOutlined} from '@material-ui/icons'
 import {useSession} from 'next-auth/client'
 import {gql, useLazyQuery} from '@apollo/client'
@@ -25,7 +25,13 @@ export const GET_CART_ITEMS_COUNT = gql`
     }
 `
 
-const ShoppingCartBadge = (props: any) => {
+interface StyledBadgeProps extends IconProps {
+    outlined?: any,
+    border?: any
+    color?: any
+}
+
+const ShoppingCartBadge: FC<StyledBadgeProps> = (props) => {
     const [session] = useSession()
 
     const [invoke, {data, loading}] = useLazyQuery<getCartCount>(GET_CART_ITEMS_COUNT)
@@ -34,7 +40,7 @@ const ShoppingCartBadge = (props: any) => {
         if (session?.user) {
             invoke({context: {headers: {authorization: `Bearer ${session?.jwt}`}}})
         }
-    }, [session])
+    }, [session, invoke])
 
     const count = useMemo(() => data && data.countProductsInCart, [data])
 
