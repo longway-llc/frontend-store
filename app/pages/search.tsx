@@ -2,19 +2,25 @@ import React, {useMemo} from 'react'
 import AppLayout from '../layouts/AppLayout'
 import Head from 'next/head'
 import {useRouter} from 'next/router'
-import {productIndexName, searchClient} from '../utils/searchClient'
+import {productIndexName} from '../utils/searchClient'
 import {GetServerSideProps, NextPage} from 'next'
 import {findResultsState} from 'react-instantsearch-dom/server'
 import AlgoliaSearch from '../components/AlgoliaSearch/AlgoliaSearch'
 import {Container, createStyles, makeStyles} from '@material-ui/core'
 import qs from 'qs'
+import algoliasearch from 'algoliasearch'
+import superjson from 'superjson'
 
 
+const searchClient = algoliasearch(
+    process.env.ALGOLIA_APP_ID as string,
+    process.env.ALGOLIA_SEARCH_API_KEY as string
+)
 
 const useStyles = makeStyles(theme => createStyles({
     root: {
         margin: theme.spacing(2, 'auto')
-    },
+    }
 
 }))
 
@@ -53,6 +59,8 @@ export type SearchPageProps = {
     indexName: string
     searchState: SearchState
     resultsState: Record<string, unknown>
+    ALGOLIA_APP_ID: string
+    ALGOLIA_SEARCH_API_KEY: string
 }
 
 const getQueryStringFromReqUrl = (url: string | undefined): string => {
@@ -64,14 +72,16 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const searchState = qs.parse(query) as unknown as SearchState
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const resultsState = await findResultsState(Search, {
+    const resultsState = await findResultsState(AlgoliaSearch, {
         searchClient,
         searchState,
         indexName: productIndexName
     })
     return {
         props: {
-            resultsState: JSON.parse(JSON.stringify(resultsState)),
+            ALGOLIA_APP_ID: process.env.ALGOLIA_APP_ID,
+            ALGOLIA_SEARCH_API_KEY: process.env.ALGOLIA_SEARCH_API_KEY,
+            resultsState: superjson.parse(superjson.stringify(resultsState)),
             searchState,
             indexName: productIndexName
         }
@@ -79,29 +89,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 }
 
 export default Search
-
-// Search.getInitialProps = async (context: NextPageContext): Promise<SearchPageProps> => {
-//     const query = getQueryStringFromReqUrl(context?.req?.url)
-//     const searchState = qs.parse(query) as unknown as SearchState
-//     // const searchState = context.query as unknown as SearchState
-//     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//     // @ts-ignore
-//     const resultsState = await findResultsState(Search, {
-//         searchClient,
-//         searchState,
-//         indexName: productIndexName
-//     })
-//     return {
-//         resultsState,
-//         searchState,
-//         indexName: productIndexName
-//     }
-// }
-//
-// export default withInstantSearch({
-//     indexName: productIndexName,
-//     searchClient
-// })(Search)
 
 
 

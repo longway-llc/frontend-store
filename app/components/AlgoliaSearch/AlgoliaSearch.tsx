@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react'
+import React, {FC, useMemo, useState} from 'react'
 import {SearchPageProps} from '../../pages/search'
 import {useRouter} from 'next/router'
 import ASBoxInput from '../ASBoxInput/ASBoxInput'
@@ -6,13 +6,13 @@ import Grid from '@material-ui/core/Grid'
 import {makeStyles, Typography} from '@material-ui/core'
 import ASHitList from '../ASHitList/ASHitList'
 import {Configure, InstantSearch} from 'react-instantsearch-dom'
-import {searchClient} from '../../utils/searchClient'
 import {createURL} from '../../utils/AlgoliaUtils'
 import {SearchState} from 'react-instantsearch-core'
 import ASRefinementList from '../ASRefinementList/ASRefinementList'
 import AsRefinementResetButton from '../ASRefinementResetButton/ASRefinementResetButton'
 import ASPagination from '../ASPagination/ASPagination'
 import {useTranslation} from '../../utils/localization'
+import algoliasearch from 'algoliasearch/lite'
 
 
 const useStyles = makeStyles(theme => ({
@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
     },
     center: {
         display: 'flex',
-        justifyContent: 'center',
+        justifyContent: 'center'
     }
 }))
 
@@ -31,13 +31,18 @@ const AlgoliaSearch: FC<SearchPageProps> = (props) => {
     const router = useRouter()
     const styles = useStyles()
     const t = useTranslation(router?.locale)
-    const [searchState, setSearchState] = useState<SearchState>(props.searchState)
 
+    const client = useMemo(() => algoliasearch(
+        props.ALGOLIA_APP_ID,
+        props.ALGOLIA_SEARCH_API_KEY
+    ), [props.ALGOLIA_APP_ID, props.ALGOLIA_SEARCH_API_KEY])
+
+    const [searchState, setSearchState] = useState<SearchState>(props.searchState)
 
     const handleSearchStateChange = async (state: SearchState) => {
         setSearchState(state)
         const queryString = createURL(state)
-        await router.push(`/${queryString}`, `/search${queryString}`, {shallow: true})
+        await router.push(`/search${queryString}`, `/search${queryString}`, {shallow: true})
     }
 
     return (
@@ -46,7 +51,7 @@ const AlgoliaSearch: FC<SearchPageProps> = (props) => {
             createURL={createURL}
             onSearchStateChange={handleSearchStateChange}
             searchState={searchState}
-            searchClient={searchClient}
+            searchClient={client}
         >
             <Configure hitsPerPage={9}/>
             <Grid container spacing={4}>
@@ -66,7 +71,8 @@ const AlgoliaSearch: FC<SearchPageProps> = (props) => {
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <ASRefinementList title={t.components.ASRefinementList.titles.group} attribute="group.name" limit={14}/>
+                                    <ASRefinementList title={t.components.ASRefinementList.titles.group}
+                                                      attribute="group.name" limit={14}/>
                                 </Grid>
                                 <Grid item xs={12}>
                                     <ASRefinementList title={t.components.ASRefinementList.titles.mfg} attribute="mfg"/>

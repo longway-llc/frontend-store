@@ -2,20 +2,21 @@
 import {useMemo} from 'react'
 import {ApolloClient, HttpLink, InMemoryCache, NormalizedCacheObject} from '@apollo/client'
 
+
 let apolloClient: ApolloClient<NormalizedCacheObject>
 
 function createApolloClient() {
     return new ApolloClient({
         ssrMode: typeof window === 'undefined', // set to true for SSR
         link: new HttpLink({
-            uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
+            uri: `${process.env.NEXT_PUBLIC_API_URL ?? 'https://api.lwaero.net'}/graphql`
         }),
         cache: new InMemoryCache(),
-        credentials: 'include',
+        credentials: 'include'
     })
 }
 
-export function initializeApollo(initialState: NormalizedCacheObject):ApolloClient<NormalizedCacheObject> {
+export function initializeApollo(initialState: NormalizedCacheObject): ApolloClient<NormalizedCacheObject> {
     const _apolloClient = apolloClient ?? createApolloClient()
 
     // If your page has Next.js data fetching methods that use Apollo Client,
@@ -37,6 +38,6 @@ export function initializeApollo(initialState: NormalizedCacheObject):ApolloClie
     return _apolloClient
 }
 
-export function useApollo(initialState: NormalizedCacheObject):ApolloClient<NormalizedCacheObject> {
+export function useApollo(initialState: NormalizedCacheObject): ApolloClient<NormalizedCacheObject> {
     return useMemo(() => initializeApollo(initialState), [initialState])
 }
