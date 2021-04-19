@@ -25,7 +25,7 @@ module.exports = withPlugins([
     ],
 ], {
     images: {
-        domains: ['localtest.me', 'localhost', 'lwaero.net', '*']
+        domains: ['localhost', 'lwaero.net', 'api.lwaero.net', '*']
     },
     i18n: {
         locales: ['en', 'ru'],
