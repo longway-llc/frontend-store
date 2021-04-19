@@ -4,6 +4,9 @@ EXPOSE 3000
 
 WORKDIR /app
 
+ARG env-file=.env.production
+ENV NODE_ENV=production
+
 COPY /app/package*.json .
 
 RUN yarn
