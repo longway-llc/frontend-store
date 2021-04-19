@@ -1,11 +1,10 @@
-FROM node:15.10.0-alpine3.13
+FROM node:15.14.0-alpine3.10
 
 EXPOSE 3000
 
 WORKDIR /app
 
 ARG env-file=.env.production
-ENV NODE_ENV=production
 
 COPY /app/package*.json .
 
