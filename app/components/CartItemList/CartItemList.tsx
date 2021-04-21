@@ -74,7 +74,7 @@ const CartItemList: FC<CartItemListProps> = ({jwt}) => {
                 count={p?.count as number}
             />
         </Grid>
-    )), [data])
+    )), [locale, data])
 
     if (loading) {
         return (
@@ -87,10 +87,10 @@ const CartItemList: FC<CartItemListProps> = ({jwt}) => {
     }
     if (data?.getCart?.cartItems?.length == 0) {
         return (
-            <Grid container >
+            <Grid container>
                 <Grid item>
                     <Typography variant={'h3'} component={'h3'}>
-                        {t.components.CartItemList}
+                        {t.components.CartItemList.empty}
                     </Typography>
                 </Grid>
             </Grid>
