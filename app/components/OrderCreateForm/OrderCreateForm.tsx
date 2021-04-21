@@ -31,6 +31,9 @@ const useStyles = makeStyles(theme => createStyles({
     contactLabel: {
         display: 'inline-block',
         width: 70
+    },
+    link: {
+        cursor: 'pointer'
     }
 }))
 
@@ -178,7 +181,7 @@ const OrderCreateForm: FC<OrderCreateFormProps> = ({session}) => {
                                     {phone}
                                 </Typography>
                                 :
-                                <NextLink href={'/cabinet/settings'}><Link>
+                                <NextLink href={'/cabinet/settings'}><Link className={styles.link}>
                                     {t.components.OrderCreateForm.fillInSettings}
                                 </Link></NextLink>
                         }
@@ -195,7 +198,7 @@ const OrderCreateForm: FC<OrderCreateFormProps> = ({session}) => {
                     </Grid>
                     <Grid item>
                         <Button type={'button'}
-                                disabled={loadingReset || !phone || createLoading}
+                                disabled={loadingReset || createLoading}
                                 variant={'text'}
                                 color={'default'}
                                 onClick={handleReset}
