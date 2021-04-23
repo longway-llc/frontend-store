@@ -8,14 +8,9 @@ import {findResultsState} from 'react-instantsearch-dom/server'
 import AlgoliaSearch from '../components/AlgoliaSearch/AlgoliaSearch'
 import {Container, createStyles, makeStyles} from '@material-ui/core'
 import qs from 'qs'
-import algoliasearch from 'algoliasearch'
 import superjson from 'superjson'
+import {searchClient} from '../utils/AlgoliaUtils'
 
-
-const searchClient = algoliasearch(
-    process.env.ALGOLIA_APP_ID as string,
-    process.env.ALGOLIA_SEARCH_API_KEY as string
-)
 
 const useStyles = makeStyles(theme => createStyles({
     root: {
@@ -59,8 +54,6 @@ export type SearchPageProps = {
     indexName: string
     searchState: SearchState
     resultsState: Record<string, unknown>
-    ALGOLIA_APP_ID: string
-    ALGOLIA_SEARCH_API_KEY: string
 }
 
 const getQueryStringFromReqUrl = (url: string | undefined): string => {
@@ -79,8 +72,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     })
     return {
         props: {
-            ALGOLIA_APP_ID: process.env.ALGOLIA_APP_ID,
-            ALGOLIA_SEARCH_API_KEY: process.env.ALGOLIA_SEARCH_API_KEY,
             resultsState: superjson.parse(superjson.stringify(resultsState)),
             searchState,
             indexName: productIndexName
