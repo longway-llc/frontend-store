@@ -18,6 +18,10 @@ export const en = {
         cabinet: {
             information: 'Information',
             showOrders: 'Show orders'
+        },
+        login: {
+            policies: 'Log in to the site, you agree to ',
+            policiesLink: 'our privacy policy'
         }
     },
     header: {

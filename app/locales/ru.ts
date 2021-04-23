@@ -18,6 +18,10 @@ export const ru = {
         cabinet: {
             information: 'Информация',
             showOrders: 'Посмотреть заказы'
+        },
+        login: {
+            policies: 'Авторизуйтесь на сайте, Вы соглашаетесь с ',
+            policiesLink: 'нашей политикой конфиденциальности'
         }
     },
     header: {

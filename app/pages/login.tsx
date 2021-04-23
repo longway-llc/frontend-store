@@ -13,6 +13,8 @@ import {VpnKey} from '@material-ui/icons'
 import {useSnackbar} from 'notistack'
 import ButtonSignInGoogle from '../components/ButtonSignInGoogle/ButtonSignInGoogle'
 import ButtonSignInFacebook from '../components/ButtonSignInFacebook/ButtonSignInFacebook'
+import Link from 'next/link'
+import {useTranslation} from '../utils/localization'
 
 
 type LoginProps = {
@@ -58,6 +60,9 @@ const useStyles = makeStyles(theme => ({
     },
     submit: {
         margin: theme.spacing(3, 0, 2)
+    },
+    policies: {
+        marginTop: theme.spacing(1)
     }
 }))
 
@@ -67,6 +72,7 @@ const Login: NextPage<LoginProps> = ({providers, session, csrfToken, error}) => 
     const [fetching, setFetching] = useState(false)
 
     const router = useRouter()
+    const t = useTranslation(router?.locale)
 
     const {register, errors, handleSubmit} = useForm<FormData>({
         mode: 'onBlur',
@@ -154,6 +160,12 @@ const Login: NextPage<LoginProps> = ({providers, session, csrfToken, error}) => 
                                 <Grid item xs={12}>
                                     <ButtonSignInFacebook provider={providers.facebook}/>
                                 </Grid>
+                                <Typography variant='caption' className={styles.policies}>
+                                    {t.page.login.policies}
+                                    <Link href="/policies"><a>
+                                        {t.page.login.policiesLink}
+                                    </a></Link>.
+                                </Typography>
                             </Grid>
                         </Grid>
                     </Grid>
