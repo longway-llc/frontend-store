@@ -6,6 +6,7 @@ import AppLayout from '../../layouts/AppLayout'
 import {Container, createStyles, Grid, makeStyles, useMediaQuery, useTheme} from '@material-ui/core'
 import CabinetMenu from '../../components/CabinetMenu/CabinetMenu'
 import PhoneSetForm from '../../components/PhoneSetForm/PhoneSetForm'
+import LocaleSetForm from '../../components/LocaleSetForm/LocaleSetForm'
 
 
 const useStyles = makeStyles(theme => createStyles({
@@ -36,9 +37,12 @@ const Settings: NextPage<SettingsPageProps> = () => {
                 <Grid container spacing={3}>
                     <CabinetMenu/>
                     <Grid item xs={12} md={isPhone ? 11 : 9}>
-                        <Grid container>
+                        <Grid container spacing={2}>
                             <Grid item xs={12} sm={6} md={4}>
                                 <PhoneSetForm/>
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={4}>
+                                <LocaleSetForm/>
                             </Grid>
                         </Grid>
                     </Grid>
