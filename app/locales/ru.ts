@@ -88,6 +88,11 @@ export const ru = {
             available: 'Товар доступен на складе',
             unavailable: 'Товар доступен под заказ'
         },
+        LocaleSetForm:{
+            title: 'Сменить локализацию',
+            label: 'Язык',
+            updateButton: 'Сохранить'
+        },
         MenuDrawer: {
             menu: 'Меню',
             home: 'Главная',

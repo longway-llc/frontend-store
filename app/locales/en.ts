@@ -88,6 +88,11 @@ export const en = {
             available: 'Product is available in stock',
             unavailable: 'Product available upon request'
         },
+        LocaleSetForm:{
+            title: 'Change localization',
+            label: 'Localization',
+            updateButton: 'Save'
+        },
         MenuDrawer:{
             menu: 'Menu',
             home: 'Home',
