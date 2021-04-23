@@ -5273,6 +5273,11 @@ react-transition-group@^4.4.0:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
+react-use-cookie@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/react-use-cookie/-/react-use-cookie-1.2.1.tgz#c14690217bd9f1e17c5cca0921653feb1ef48719"
+  integrity sha512-3StMDEL5TbwfX0KqbgtNcC+FD7hSE2DZpgvxz1jXrwBS2gsnb2W8EgkJoVgu+MxjFMKrW4wDBuGlf/jXLXb2cQ==
+
 react-ym@^0.0.7:
   version "0.0.7"
   resolved "https://registry.npmjs.org/react-ym/-/react-ym-0.0.7.tgz"
