@@ -87,11 +87,6 @@ const MenuDrawer:FC<Props> = ({anchor, open, setState}) => {
                     <ListItemText primary={t.components.MenuDrawer.about}/>
                 </ListItem>
 
-                {/*<ListItem button onClick={async () => await router.push('/search', '/search')}>*/}
-                {/*    <ListItemIcon><Build/></ListItemIcon>*/}
-                {/*    <ListItemText primary={'Продукция'}/>*/}
-                {/*</ListItem>*/}
-
                 {session?.user && <>
                     <Divider/>
                     <ListItem button onClick={async () => await router.push('/cabinet', '/cabinet')}>
@@ -125,7 +120,7 @@ const MenuDrawer:FC<Props> = ({anchor, open, setState}) => {
                                         <InputAdornment position="end">
                                             <IconButton
                                                 aria-label="search"
-                                                onClick={async () => await router.push(`/search?item=${searchValue}`)}
+                                                onClick={async () => await router.push(`/search?query=${searchValue}`)}
                                                 edge="end"
                                             >
                                                 <Search/>
