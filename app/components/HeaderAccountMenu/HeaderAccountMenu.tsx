@@ -60,7 +60,7 @@ const HeaderAccountMenu: FC<HeaderModeType> = ({headerMode = 'main'}) => {
         return <Box>
             <Button className={classes.menuButton} variant={'outlined'} aria-controls="header-account-menu"
                     aria-haspopup="true" onClick={handleClick}>
-                {session.user.email} <AccountBox className={classes.svg}/>
+                {session?.user?.email} <AccountBox className={classes.svg}/>
             </Button>
             <Menu
                 id="header-account-menu"

@@ -83,7 +83,7 @@ const Login: NextPage<LoginProps> = ({providers, session, csrfToken, error}) => 
         try {
             setFetching(true)
             const res = await signIn('email', {email, redirect: false})
-            if (!res.error) {
+            if (!res?.error) {
                 enqueueSnackbar('На ваш почтовый ящик было отправлено письмо', {variant: 'info'})
             }
         } catch (e) {

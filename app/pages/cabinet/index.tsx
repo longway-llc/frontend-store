@@ -65,7 +65,7 @@ const Cabinet: NextPage<CabinetPageProps> = ({session}) => {
                                     {t.page.cabinet.information}
                                 </Typography>
                                 <Typography variant="h5" component="h2">
-                                    {session.user.email}
+                                    {session?.user?.email}
                                 </Typography>
                             </CardContent>
                             <CardActions>

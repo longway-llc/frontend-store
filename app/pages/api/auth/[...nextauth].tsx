@@ -82,7 +82,7 @@ const options: NextAuthOptions = {
                 let loginData = null
 
                 // use switch to divide behavior. @account param has key "type" always when user exist (in my tests)
-                switch (account.type) {
+                switch (account!.type) {
                     // our scenario when we used NextAuth email authentication
                     case 'email': {
                         // check user in Strapi users
@@ -90,7 +90,7 @@ const options: NextAuthOptions = {
                             method: 'POST',
                             headers: {'Content-Type': 'application/json'},
                             body: JSON.stringify({
-                                identifier: user.email,
+                                identifier: user?.email,
                                 password: process.env.COMMON_PASSWORD
                             })
                         })
@@ -102,8 +102,8 @@ const options: NextAuthOptions = {
                                 method: 'POST',
                                 headers: {'Content-Type': 'application/json'},
                                 body: JSON.stringify({
-                                    username: account.providerAccountId,
-                                    email: account.providerAccountId,
+                                    username: account?.providerAccountId,
+                                    email: account?.providerAccountId,
                                     password: process.env.COMMON_PASSWORD
                                 })
                             })
@@ -116,8 +116,8 @@ const options: NextAuthOptions = {
                         break
                     }
                     default: {
-                        const url = new URL(`${process.env.NEXT_PUBLIC_API_URL}/auth/${account.provider}/callback`)
-                        url.searchParams.set('access_token', account.accessToken as string)
+                        const url = new URL(`${process.env.NEXT_PUBLIC_API_URL}/auth/${account?.provider}/callback`)
+                        url.searchParams.set('access_token', account?.accessToken as string)
                         const response = await fetch(url.toString())
                         const data = await response.json()
                         _token.jwt = data.jwt

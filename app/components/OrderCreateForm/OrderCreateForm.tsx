@@ -168,7 +168,7 @@ const OrderCreateForm: FC<OrderCreateFormProps> = ({session}) => {
                             {t.components.OrderCreateForm.email}:
                         </i></Typography>
                         <Typography variant={'body2'} component={'span'}>
-                            {session.user.email}
+                            {session?.user?.email}
                         </Typography>
                     </Grid>
                     <Grid item xs={12} className={styles.contactField}>
