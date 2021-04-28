@@ -134,7 +134,10 @@ export const ru = {
             updateButton: 'Обновить'
         },
         Price: {
-            quote: 'Запросить КП'
+            quote: 'Запросить КП',
+            error: 'Request failed, try again later',
+            success: 'Request success',
+            sending: 'Sending...'
         },
         SearchField: {
             label: 'наименование или код продукта',

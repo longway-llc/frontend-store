@@ -135,6 +135,9 @@ export const en = {
         },
         Price: {
             quote: 'request quote',
+            error: 'Запрос не удался, попробуйте позже',
+            success: 'Запрос успешно создан',
+            sending: 'Отправление...'
         },
         SearchField: {
             label: 'P\\N or keywords',
