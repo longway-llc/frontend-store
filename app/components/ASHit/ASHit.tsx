@@ -167,7 +167,7 @@ const ASHit = ({hit}: any) => {
                             </div>
                         </Grid>
                         <Grid item xs={12} sm={5} md={3}>
-                            <Price price={price} className={styles.priceWrapper}/>
+                            <Price price={price} productId={id} className={styles.priceWrapper}/>
                         </Grid>
                         <Divider className={[styles.divider, styles.mtAuto].join(' ')}/>
                         <Grid item xs={12} className={styles.buttonSectionWrapper}>

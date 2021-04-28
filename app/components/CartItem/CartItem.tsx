@@ -112,7 +112,7 @@ const CartItem: FC<CartItemProps> = ({photo, pn, uom, count, description, color,
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={12} sm={6} lg={5}>
-                                    <Price price={price * count}/>
+                                    <Price productId={id as string} price={price * count}/>
                                 </Grid>
                             </Grid>
                         </Grid>

@@ -165,7 +165,7 @@ const Product:NextPage<ProductPageProps> = ({products, id}) => {
                                     </FormControl>
                                 </Grid>
                                 <Grid item xs={12} md={6} lg={12}>
-                                    <Price price={price} className={styles.priceWrapper}/>
+                                    <Price productId={selectedProduct.id} price={price} className={styles.priceWrapper}/>
                                 </Grid>
                                 <Grid item xs={12} md={6} lg={4}>
                                     <TextField

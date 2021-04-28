@@ -118,8 +118,10 @@ const OrderCreateForm: FC<OrderCreateFormProps> = ({session}) => {
         , [orderData])
 
     const fullPrice = useMemo(() => orderData && orderData.getCart
-            //@ts-ignore
-            .cartItems?.reduce((acc, item) => acc + (item?.product[`price_${locale}`] ?? 0) * (item?.count ?? 0), 0)
+            .cartItems?.reduce((acc, item) => {
+                const price = locale == 'ru' ? item?.product?.price_ru : item?.product?.price_en
+                return acc + (price ?? 0) * (item?.count ?? 0)
+            }, 0)
         , [orderData, locale])
 
     const phone = phoneData?.me?.user?.customerInfo?.phone
