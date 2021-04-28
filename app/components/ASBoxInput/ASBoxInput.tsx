@@ -29,18 +29,6 @@ const useStyles = makeStyles<Theme, StyleProps>(theme => createStyles({
     },
     root: {
         '& > .MuiInput-root': {
-            '& > input[type=\'search\']::-webkit-search-decoration': {
-                display: 'none'
-            },
-            '& > input[type=\'search\']::-webkit-search-cancel-button': {
-                display: 'none'
-            },
-            '& > input[type=\'search\']::-webkit-search-results-button': {
-                display: 'none'
-            },
-            '& > input[type=\'search\']::-webkit-search-results-decoration': {
-                display: 'none'
-            },
             color: props => (props.mode == 'main')
                 ? theme.palette.common.white
                 : theme.palette.common.black
@@ -112,7 +100,7 @@ const ASBoxInput: FC<SearchFieldProps> = ({currentRefinement, refine, width = ''
                 <InputLabel htmlFor="search-products">
                     {t.components.ASBoxInput.searchLabel}
                 </InputLabel>
-                <FilledInput id="search-products" aria-describedby="product search" type="search"
+                <FilledInput id="search-products" aria-describedby="product search" type="text"
                              className={styles.input}
                              value={searchState}
                              onChange={handleChange}
