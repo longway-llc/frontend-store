@@ -43,5 +43,9 @@ module.exports = withPlugins([
         //         http: true
         //     },
         // ]
+    },
+    future: {
+        webpack5: true,
+        strictPostcssConfiguration: true
     }
 })
