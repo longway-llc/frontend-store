@@ -750,7 +750,8 @@ type Product {
   link: String
   unitDimension: ENUM_PRODUCT_UNITDIMENSION
   brand: Brand
-  published_at: DateTime
+  sync1cDisplay: Boolean
+  deletedFromSearch: Boolean
   consignments(sort: String, limit: Int, start: Int, where: JSON): [Consignment]
 }
 
@@ -811,7 +812,8 @@ type ProductGroupBy {
   link: [ProductConnectionLink]
   unitDimension: [ProductConnectionUnitDimension]
   brand: [ProductConnectionBrand]
-  published_at: [ProductConnectionPublished_at]
+  sync1cDisplay: [ProductConnectionSync1cDisplay]
+  deletedFromSearch: [ProductConnectionDeletedFromSearch]
 }
 
 type ProductConnectionId {
@@ -919,8 +921,13 @@ type ProductConnectionBrand {
   connection: ProductConnection
 }
 
-type ProductConnectionPublished_at {
-  key: DateTime
+type ProductConnectionSync1cDisplay {
+  key: Boolean
+  connection: ProductConnection
+}
+
+type ProductConnectionDeletedFromSearch {
+  key: Boolean
   connection: ProductConnection
 }
 
@@ -943,7 +950,8 @@ input ProductInput {
   link: String
   unitDimension: ENUM_PRODUCT_UNITDIMENSION
   brand: ID
-  published_at: DateTime
+  sync1cDisplay: Boolean
+  deletedFromSearch: Boolean
   created_by: ID
   updated_by: ID
 }
@@ -967,7 +975,8 @@ input editProductInput {
   link: String
   unitDimension: ENUM_PRODUCT_UNITDIMENSION
   brand: ID
-  published_at: DateTime
+  sync1cDisplay: Boolean
+  deletedFromSearch: Boolean
   created_by: ID
   updated_by: ID
 }
@@ -1780,7 +1789,8 @@ union Morph =
   | ProductConnectionLink
   | ProductConnectionUnitDimension
   | ProductConnectionBrand
-  | ProductConnectionPublished_at
+  | ProductConnectionSync1cDisplay
+  | ProductConnectionDeletedFromSearch
   | createProductPayload
   | updateProductPayload
   | deleteProductPayload
@@ -2091,6 +2101,7 @@ type Mutation {
   deleteProductFromCart(productId: ID!): Cart!
   resetCart: Cart!
   createOrderFromCart(region: String!): Order!
+  requestQuote(id: ID!): String
   upload(
     refId: ID
     ref: String
