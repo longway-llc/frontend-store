@@ -92,7 +92,10 @@ const ASBoxInput: FC<SearchFieldProps> = ({currentRefinement, refine, width = ''
         )
     }
 
-    const handleReset = () => refine('')
+    const handleReset = () => {
+        setSearchState('')
+        refine('')
+    }
 
     return (
         <form noValidate action="" role="search" className={styles.form}>
