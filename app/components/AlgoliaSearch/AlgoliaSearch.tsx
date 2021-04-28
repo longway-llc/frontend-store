@@ -47,7 +47,7 @@ const AlgoliaSearch: FC<SearchPageProps> = (props) => {
             searchState={searchState}
             searchClient={searchClient}
         >
-            <Configure hitsPerPage={9} filters={'deletedFromSearch=0'}/>
+            <Configure hitsPerPage={9} filters={'deletedFromSearch:false'}/>
             <Grid container spacing={4}>
                 <Grid item xs={12} className={styles.searchBox}>
                     <ASBoxInput mode={'black'}/>
