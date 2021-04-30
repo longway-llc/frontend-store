@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react'
+import React, {FC, useMemo, useState} from 'react'
 import {SearchPageProps} from '../../pages/search'
 import {useRouter} from 'next/router'
 import ASBoxInput from '../ASBoxInput/ASBoxInput'
@@ -6,12 +6,13 @@ import Grid from '@material-ui/core/Grid'
 import {makeStyles, Typography} from '@material-ui/core'
 import ASHitList from '../ASHitList/ASHitList'
 import {Configure, InstantSearch} from 'react-instantsearch-dom'
-import {createURL, searchClient} from '../../utils/AlgoliaUtils'
+import {createURL} from '../../utils/AlgoliaUtils'
 import {SearchState} from 'react-instantsearch-core'
 import ASRefinementList from '../ASRefinementList/ASRefinementList'
 import AsRefinementResetButton from '../ASRefinementResetButton/ASRefinementResetButton'
 import ASPagination from '../ASPagination/ASPagination'
 import {useTranslation} from '../../utils/localization'
+import algoliasearch from 'algoliasearch/lite'
 
 
 const useStyles = makeStyles(theme => ({
@@ -32,6 +33,11 @@ const AlgoliaSearch: FC<SearchPageProps> = (props) => {
     const t = useTranslation(router?.locale)
 
     const [searchState, setSearchState] = useState<SearchState>(props.searchState)
+
+    const searchClient = useMemo(() => algoliasearch(
+        props.NEXT_PUBLIC_ALGOLIA_APP_ID,
+        props.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY
+    ), [props])
 
     const handleSearchStateChange = async (state: SearchState) => {
         setSearchState(state)

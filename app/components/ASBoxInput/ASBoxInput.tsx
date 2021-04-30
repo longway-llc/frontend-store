@@ -92,13 +92,18 @@ const ASBoxInput: FC<SearchFieldProps> = ({currentRefinement, refine, width = ''
         )
     }
 
+    const handleSubmit = (event: React.FormEvent) => {
+        event.preventDefault()
+        refine(searchState)
+    }
+
     const handleReset = () => {
         setSearchState('')
         refine('')
     }
 
     return (
-        <form noValidate action="" role="search" className={styles.form}>
+        <form noValidate role="search" className={styles.form} onSubmit={handleSubmit}>
             <FormControl className={styles.root} fullWidth variant='filled'>
                 <InputLabel htmlFor="search-products">
                     {t.components.ASBoxInput.searchLabel}

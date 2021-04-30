@@ -53,7 +53,9 @@ type SearchState = {
 export type SearchPageProps = {
     indexName: string
     searchState: SearchState
-    resultsState: Record<string, unknown>
+    resultsState: Record<string, unknown>,
+    NEXT_PUBLIC_ALGOLIA_APP_ID: string
+    NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY: string
 }
 
 const getQueryStringFromReqUrl = (url: string | undefined): string => {
@@ -74,7 +76,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
         props: {
             resultsState: superjson.parse(superjson.stringify(resultsState)),
             searchState,
-            indexName: productIndexName
+            indexName: productIndexName,
+            NEXT_PUBLIC_ALGOLIA_APP_ID: process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
+            NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY: process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY
         }
     }
 }
