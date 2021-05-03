@@ -11,7 +11,13 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
         priority: 0.5
     }))
 
-    return getServerSideSitemap(ctx, fields)
+    const fieldsRu = ids.map((id: string) => ({
+        loc: `https://lwaero.net/ru/products/${id}`,
+        lastmod: new Date().toISOString(),
+        priority: 0.5
+    }))
+
+    return getServerSideSitemap(ctx, [...fields, ...fieldsRu])
 }
 
 

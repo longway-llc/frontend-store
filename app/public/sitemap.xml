@@ -5,33 +5,63 @@
         <changefreq>daily</changefreq>
         <priority>0.7</priority>
         <lastmod>2021-02-03T17:29:47.515Z</lastmod>
+        <xhtml:link
+                rel="alternate"
+                hreflang="ru"
+                href="https://lwaero.net/ru/"/>
     </url>
     <url>
         <loc>https://lwaero.net/login</loc>
         <changefreq>daily</changefreq>
         <priority>0.7</priority>
         <lastmod>2021-02-03T17:29:47.515Z</lastmod>
+        <xhtml:link
+                rel="alternate"
+                hreflang="ru"
+                href="https://lwaero.net/ru/login"/>
     </url>
     <url>
         <loc>https://lwaero.net/cabinet</loc>
         <changefreq>daily</changefreq>
         <priority>0.7</priority>
         <lastmod>2021-02-03T17:29:47.515Z</lastmod>
+        <xhtml:link
+                rel="alternate"
+                hreflang="ru"
+                href="https://lwaero.net/ru/cabinet"/>
     </url>
     <url>
         <loc>https://lwaero.net/cart</loc>
         <changefreq>daily</changefreq>
         <priority>0.7</priority>
         <lastmod>2021-02-03T17:29:47.515Z</lastmod>
+        <xhtml:link
+                rel="alternate"
+                hreflang="ru"
+                href="https://lwaero.net/ru/cart"/>
     </url>
     <url>
         <loc>https://lwaero.net/search</loc>
         <changefreq>daily</changefreq>
         <priority>0.7</priority>
         <lastmod>2021-02-03T17:29:47.515Z</lastmod>
+        <xhtml:link
+                rel="alternate"
+                hreflang="ru"
+                href="https://lwaero.net/ru/search"/>
     </url>
     <url>
         <loc>https://lwaero.net/about</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+        <lastmod>2021-02-03T17:29:47.515Z</lastmod>
+        <xhtml:link
+                rel="alternate"
+                hreflang="ru"
+                href="https://lwaero.net/ru/about"/>
+    </url>
+    <url>
+        <loc>https://lwaero.net/policies</loc>
         <changefreq>daily</changefreq>
         <priority>0.7</priority>
         <lastmod>2021-02-03T17:29:47.515Z</lastmod>
