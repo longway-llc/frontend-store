@@ -29,7 +29,7 @@
     "next": "10.2.0",
     "next-auth": "^3.18.0",
     "next-compose-plugins": "^2.2.1",
-    "next-sitemap": "^1.6.9",
+    "next-sitemap": "^1.6.29",
     "next-ym": "^2.3.5",
     "nextjs-progressbar": "^0.0.9",
     "notistack": "^1.0.5",
