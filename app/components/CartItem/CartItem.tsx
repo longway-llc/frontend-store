@@ -45,6 +45,13 @@ const useStyles = makeStyles(theme => createStyles({
         [theme.breakpoints.up('md')]: {
             textAlign: 'center'
         }
+    },
+    priceWrapper: {
+        padding: theme.spacing(1),
+        background: theme.palette.common.black,
+        color: theme.palette.common.white,
+        borderRadius: '8px',
+        textAlign: 'center',
     }
 }))
 
@@ -106,13 +113,13 @@ const CartItem: FC<CartItemProps> = ({photo, pn, uom, count, description, color,
                         </Grid>
                         <Grid item xs={12} sm={7}>
                             <Grid container spacing={1} alignItems={'center'}>
-                                <Grid item xs={12} sm={6} lg={7} className={classes.price}>
+                                <Grid item xs={12} sm={4} lg={6} className={classes.price}>
                                     <Typography variant={'body1'} component={'span'}>
                                         {t.components.CartItem.price}:
                                     </Typography>
                                 </Grid>
-                                <Grid item xs={12} sm={6} lg={5}>
-                                    <Price productId={id as string} price={price * count}/>
+                                <Grid item xs={12} sm={8} lg={6}>
+                                    <Price productId={id as string} className={classes.priceWrapper}  price={price * count}/>
                                 </Grid>
                             </Grid>
                         </Grid>
