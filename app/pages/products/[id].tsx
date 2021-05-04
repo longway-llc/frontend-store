@@ -106,6 +106,9 @@ const Product:NextPage<ProductPageProps> = ({products, id}) => {
             <Head>
                 <meta name="description"
                       content={`Product: ${selectedProduct.pn} UOM:${selectedProduct.uom} Description: ${selectedProduct.description_en}`}/>
+                <link rel="alternate" hrefLang="ru" href={`https://lwaero.net/ru/products/${selectedProduct.id}`}/>
+                <link rel="alternate" hrefLang="en" href={`https://lwaero.net/products/${selectedProduct.id}`}/>
+                <link rel="alternate" hrefLang="x-default" href={`https://lwaero.net/products/${selectedProduct.id}`}/>
             </Head>
             <AppLayout title={selectedProduct.pn}>
                 <Container maxWidth='lg'>

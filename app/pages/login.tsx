@@ -107,6 +107,9 @@ const Login: NextPage<LoginProps> = ({providers, session, csrfToken, error}) => 
                 <meta name="keywords"
                       content="авиация, техническое обслуживание, самолёты, aviation, maintenance, aircraft, longway, лонгвей"/>
                 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css"/>
+                <link rel="alternate" hrefLang="ru" href="https://lwaero.net/ru/login"/>
+                <link rel="alternate" hrefLang="en" href="https://lwaero.net/login"/>
+                <link rel="alternate" hrefLang="x-default" href="https://lwaero.net/login"/>
             </Head>
             <AppLayout logoVariant={'black'} title={'Login'}>
                 <Container maxWidth="xs" className={styles.mt}>

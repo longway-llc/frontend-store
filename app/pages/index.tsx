@@ -65,9 +65,9 @@ const Home: FC = () => {
                       content={t.meta.index.description}/>
                 <meta name="keywords"
                       content={t.meta.index.keywords}/>
-                {/*<link rel="alternate" hrefLang="ru" href="https://ru.lwaero.net"/>*/}
-                {/*<link rel="alternate" hrefLang="en" href="https://en.lwaero.net"/>*/}
-                {/*<link rel="alternate" hrefLang="x-default" href="https://lwaero.net"/>*/}
+                <link rel="alternate" hrefLang="ru" href="https://lwaero.net/ru"/>
+                <link rel="alternate" hrefLang="en" href="https://lwaero.net"/>
+                <link rel="alternate" hrefLang="x-default" href="https://lwaero.net"/>
             </Head>
 
             <MainLayout logoVariant={'main'} title={'LWAero | Главная'}>

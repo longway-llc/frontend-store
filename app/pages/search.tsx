@@ -34,7 +34,9 @@ const Search: NextPage<SearchPageProps> = (props) => {
                       content="Поиск среди товаров магазина LWAero для технического обслуживания авиационной техники"/>
                 <meta name="keywords"
                       content="авиация, магазин, техническое обслуживание, самолёты, aviation, maintenance, aircraft, shop, longway, лонгвей"/>
-
+                <link rel="alternate" hrefLang="ru" href="https://lwaero.net/ru/search"/>
+                <link rel="alternate" hrefLang="en" href="https://lwaero.net/search"/>
+                <link rel="alternate" hrefLang="x-default" href="https://lwaero.net/search"/>
             </Head>
             <AppLayout title={`Поиск${title}`}>
                 <Container maxWidth={'lg'} className={styles.root}>
