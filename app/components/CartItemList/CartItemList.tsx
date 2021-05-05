@@ -31,6 +31,7 @@ export const GET_CART = gql`
                     price_ru
                     photo {
                         url
+                        formats 
                     }
                     group {
                         name
