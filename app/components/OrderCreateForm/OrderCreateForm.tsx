@@ -92,7 +92,7 @@ const OrderCreateForm: FC<OrderCreateFormProps> = ({session}) => {
         context: {headers: {authorization: `Bearer ${session.jwt}`}}
     })
 
-    const [resetCart, {loading: loadingReset,error: resetError}] = useMutation<cartReset>(RESET_CART, {
+    const [resetCart, {loading: loadingReset, error: resetError}] = useMutation<cartReset>(RESET_CART, {
         context: {headers: {authorization: `Bearer ${session.jwt}`}},
         update: (cache) => {
             const cart = cache.readQuery<getCart>({query: GET_CART})?.getCart as getCart_getCart
@@ -138,80 +138,85 @@ const OrderCreateForm: FC<OrderCreateFormProps> = ({session}) => {
                     locale: locale
                 }
             })
+            await resetCart()
             enqueueSnackbar(t.components.OrderCreateForm.orderSuccess, {
-                variant: 'success',
-                action: (key) => (<Button color='primary' onClick={handleReset}>
-                    {t.components.OrderCreateForm.resetCart}
-                </Button>)
+                variant: 'success'
             })
+
         } catch (e) {
             enqueueSnackbar(error?.message || resetError?.message, {variant: 'error'})
         }
     }
-    return (
-        <Paper component={'form'} onSubmit={handleSubmit}>
-            <Box className={styles.header}>
-                <Typography style={{color: 'white'}} variant={'subtitle1'} component={'span'}>
-                    {t.components.OrderCreateForm.totalQuantity}: <b>{fullCount}</b>
-                    <br/>
-                    {t.components.OrderCreateForm.totalPrice}: <b>{Number(fullPrice).toLocaleString()}</b> USD
-                </Typography>
-            </Box>
 
-            <Container>
-                <Grid container justify={'center'} spacing={3} className={styles.contactField}>
-                    <Grid item xs={12}>
-                        <Typography className={styles.mt20} variant={'subtitle1'} component={'p'}>
-                            {t.components.OrderCreateForm.contacts}
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12} className={styles.contactField}>
-                        <Typography variant={'caption'} component={'span'} className={styles.contactLabel}><i>
-                            {t.components.OrderCreateForm.email}:
-                        </i></Typography>
-                        <Typography variant={'body2'} component={'span'}>
-                            {session?.user?.email}
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12} className={styles.contactField}>
-                        <Typography variant={'caption'} component={'span'} className={styles.contactLabel}><i>
-                            {t.components.OrderCreateForm.phone}:
-                        </i></Typography>
-                        {
-                            phone ?
-                                <Typography variant={'body2'} component={'span'}>
-                                    {phone}
-                                </Typography>
-                                :
-                                <NextLink href={'/cabinet/settings'}><Link className={styles.link}>
-                                    {t.components.OrderCreateForm.fillInSettings}
-                                </Link></NextLink>
-                        }
 
+    if (orderData?.getCart?.cartItems?.length) {
+        return (
+            <Paper component={'form'} onSubmit={handleSubmit}>
+                <Box className={styles.header}>
+                    <Typography style={{color: 'white'}} variant={'subtitle1'} component={'span'}>
+                        {t.components.OrderCreateForm.totalQuantity}: <b>{fullCount}</b>
+                        <br/>
+                        {t.components.OrderCreateForm.totalPrice}: <b>{Number(fullPrice).toLocaleString()}</b> USD
+                    </Typography>
+                </Box>
+
+                <Container>
+                    <Grid container justify={'center'} spacing={3} className={styles.contactField}>
+                        <Grid item xs={12}>
+                            <Typography className={styles.mt20} variant={'subtitle1'} component={'p'}>
+                                {t.components.OrderCreateForm.contacts}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} className={styles.contactField}>
+                            <Typography variant={'caption'} component={'span'} className={styles.contactLabel}><i>
+                                {t.components.OrderCreateForm.email}:
+                            </i></Typography>
+                            <Typography variant={'body2'} component={'span'}>
+                                {session?.user?.email}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} className={styles.contactField}>
+                            <Typography variant={'caption'} component={'span'} className={styles.contactLabel}><i>
+                                {t.components.OrderCreateForm.phone}:
+                            </i></Typography>
+                            {
+                                phone ?
+                                    <Typography variant={'body2'} component={'span'}>
+                                        {phone}
+                                    </Typography>
+                                    :
+                                    <NextLink href={'/cabinet/settings'}><Link className={styles.link}>
+                                        {t.components.OrderCreateForm.fillInSettings}
+                                    </Link></NextLink>
+                            }
+
+                        </Grid>
+                        <Grid item>
+                            <Button type={'submit'}
+                                    disabled={loading || !phone || createLoading}
+                                    variant={'contained'}
+                                    color={'primary'}
+                            >
+                                {t.components.OrderCreateForm.checkout}
+                            </Button>
+                        </Grid>
+                        <Grid item>
+                            <Button type={'button'}
+                                    disabled={loadingReset || createLoading}
+                                    variant={'text'}
+                                    color={'default'}
+                                    onClick={handleReset}
+                            >
+                                {t.components.OrderCreateForm.resetCart}
+                            </Button>
+                        </Grid>
                     </Grid>
-                    <Grid item>
-                        <Button type={'submit'}
-                                disabled={loading || !phone || createLoading}
-                                variant={'contained'}
-                                color={'primary'}
-                        >
-                            {t.components.OrderCreateForm.checkout}
-                        </Button>
-                    </Grid>
-                    <Grid item>
-                        <Button type={'button'}
-                                disabled={loadingReset || createLoading}
-                                variant={'text'}
-                                color={'default'}
-                                onClick={handleReset}
-                        >
-                            {t.components.OrderCreateForm.resetCart}
-                        </Button>
-                    </Grid>
-                </Grid>
-            </Container>
-        </Paper>
-    )
+                </Container>
+            </Paper>
+        )
+    } else {
+        return null
+    }
 }
 
 export default OrderCreateForm

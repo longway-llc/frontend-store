@@ -61,13 +61,17 @@ interface CartItemProps extends Partial<getCart_getCart_cartItems_product> {
     count: number
 }
 
+const host = process.env.NEXT_PUBLIC_API_URL ?? 'https://api.lwaero.net'
 
 const CartItem: FC<CartItemProps> = ({photo, pn, uom, count, description, color, id, price}) => {
     const classes = useStyles()
     const {locale} = useRouter()
     const t = useTranslation(locale)
     const imgSrc = useMemo(() => photo?.url
-        ? `${process.env.NEXT_PUBLIC_API_URL}${photo?.url}`
+        ? `${host}${
+            photo.formats?.small?.url 
+            || photo.formats?.medium?.url
+            || photo.url}`
         : '/defaultProduct.png'
         , [photo])
 

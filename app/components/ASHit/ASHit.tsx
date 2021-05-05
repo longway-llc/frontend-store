@@ -96,6 +96,7 @@ const useStyles = makeStyles(theme => createStyles({
     }
 }))
 
+const host = process.env.NEXT_PUBLIC_API_URL ?? 'https://api.lwaero.net'
 
 const ASHit = ({hit}: any) => {
     const styles = useStyles()
@@ -103,6 +104,7 @@ const ASHit = ({hit}: any) => {
     const t = useTranslation(router.locale)
     const theme = useTheme()
     const isPhone = useMediaQuery(theme.breakpoints.down('xs'))
+
 
     const id = hit.id || hit._id['$oid']
 
@@ -122,7 +124,7 @@ const ASHit = ({hit}: any) => {
         , [hit, router])
 
     const imageSrc = useMemo(() => hit.photo?.url
-        ? `${process.env.NEXT_PUBLIC_API_URL}${hit.photo.formats.small.url}`
+        ? `${host}${hit.photo?.formats?.small?.url ?? hit.photo.url}`
         : '/defaultProduct.png',
         [hit])
 

@@ -8,6 +8,7 @@
 // ====================================================
 
 export interface getCart_getCart_cartItems_product_photo {
+  formats: any
   __typename: "UploadFile";
   url: string;
 }

@@ -60,19 +60,20 @@ const useStyles = makeStyles(theme => createStyles({
 
 type ProductPageProps = {
     products: any,
-    id: string
+    id: string,
+    host: string
 }
 
 
-const Product:NextPage<ProductPageProps> = ({products, id}) => {
+const Product: NextPage<ProductPageProps> = ({products, id, host}) => {
     const styles = useStyles()
     const {locale} = useRouter()
     const t = useTranslation(locale)
-    const [selectedProduct, setSelectedProduct] = useState(products.find((p:any) => p.id == id))
+    const [selectedProduct, setSelectedProduct] = useState(products.find((p: any) => p.id == id))
     const [count, setCount] = useState(1)
 
     const handleChange = (event: React.ChangeEvent<{ name?: string | undefined; value: unknown; }>) => {
-        setSelectedProduct(products.find((p:any) => p.id == event.target.value))
+        setSelectedProduct(products.find((p: any) => p.id == event.target.value))
     }
 
     const handleInputCount = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -94,10 +95,14 @@ const Product:NextPage<ProductPageProps> = ({products, id}) => {
         , [locale, selectedProduct])
 
     const photoSrc = useMemo(() => selectedProduct?.photo &&
-        (process.env.NEXT_PUBLIC_API_URL + selectedProduct?.photo.formats.medium.url)
-        , [selectedProduct])
+        (host + (
+            selectedProduct?.photo?.formats?.medium?.url
+            || selectedProduct?.photo?.formats?.small?.url
+            || selectedProduct?.photo.url
+        ))
+        , [host, selectedProduct])
 
-    const uoms = useMemo(() => products.map((p:any) =>
+    const uoms = useMemo(() => products.map((p: any) =>
         <MenuItem key={p.id} value={p.id}>{p.uom}</MenuItem>
     ), [products])
 
@@ -168,7 +173,8 @@ const Product:NextPage<ProductPageProps> = ({products, id}) => {
                                     </FormControl>
                                 </Grid>
                                 <Grid item xs={12} md={6} lg={12}>
-                                    <Price productId={selectedProduct.id} price={price} className={styles.priceWrapper}/>
+                                    <Price productId={selectedProduct.id} price={price}
+                                           className={styles.priceWrapper}/>
                                 </Grid>
                                 <Grid item xs={12} md={6} lg={4}>
                                     <TextField
@@ -227,7 +233,14 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const {id} = ctx.params as Params
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/reference/${id}`)
     const products = await res.json()
-    return {props: {products, id}}
+    console.log(products)
+    return {
+        props: {
+            products,
+            id,
+            host: process.env.NEXT_PUBLIC_API_URL
+        }
+    }
 }
 
 export default Product

@@ -25,24 +25,12 @@ module.exports = withPlugins([
     ],
 ], {
     images: {
-        domains: ['localhost', 'lwaero.net', 'api.lwaero.net', '*']
+        domains: ['api.lwaero.net', 'lwaero.net', 'localhost']
     },
     i18n: {
         locales: ['en', 'ru'],
         defaultLocale: 'en',
         localeDetection: true,
-        // domains:[
-        //     {
-        //         domain: 'en.localtest.me',
-        //         defaultLocale: 'en',
-        //         http: true
-        //     },
-        //     {
-        //         domain: 'ru.localtest.me',
-        //         defaultLocale: 'ru',
-        //         http: true
-        //     },
-        // ]
     },
     future: {
         webpack5: true,
