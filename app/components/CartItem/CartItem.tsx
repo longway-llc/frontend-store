@@ -82,7 +82,7 @@ const CartItem: FC<CartItemProps> = ({photo, pn, uom, count, description, color,
                     <Box className={classes.imageBox}>
                         <Image
                             layout={'fill'}
-                            objectFit={'cover'}
+                            objectFit={'contain'}
                             src={imgSrc}
                             alt={pn as string}/>
                     </Box>

@@ -122,7 +122,7 @@ const Product: NextPage<ProductPageProps> = ({products, id, host}) => {
                             <div className={styles.imageBox}>
                                 <Image
                                     layout={'fill'}
-                                    objectFit={'cover'}
+                                    objectFit={'contain'}
                                     src={photoSrc ?? '/defaultProduct.png'}
                                     alt={selectedProduct.pn}/>
                             </div>
