@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from 'react'
+import React, {ChangeEvent, FC, FormEvent, useEffect, useState} from 'react'
 import {
     Button,
     Divider,
@@ -23,6 +23,7 @@ import {makeStyles} from '@material-ui/styles'
 import {useRouter} from 'next/router'
 import {signOut, useSession} from 'next-auth/client'
 import {useTranslation} from '../../utils/localization'
+import {useSearch} from '../../utils/useSearch'
 
 
 type Props = {
@@ -55,7 +56,7 @@ const MenuDrawer:FC<Props> = ({anchor, open, setState}) => {
     const theme = useTheme()
     const classes = useStyle()
     const isLarge = useMediaQuery(theme.breakpoints.up('xl'))
-    const [searchValue, setSearchValue] = useState('')
+    const {searchRequest, searchItem, setSearchRequest} = useSearch()
     const [session] = useSession()
 
     useEffect(() => {
@@ -63,6 +64,16 @@ const MenuDrawer:FC<Props> = ({anchor, open, setState}) => {
             setState(false)
         }
     }, [isLarge,setState])
+
+    const handelChange = (e:ChangeEvent<HTMLInputElement>) => {
+        setSearchRequest(e.target.value)
+    }
+
+    const handleSubmit = async (e:FormEvent) => {
+        e.preventDefault()
+        await searchItem()
+
+    }
 
     return (
         <SwipeableDrawer className={classes.drawer} anchor={anchor} open={open} onOpen={() => setState(true)}
@@ -107,21 +118,21 @@ const MenuDrawer:FC<Props> = ({anchor, open, setState}) => {
 
                 <ListItem>
                     <Grid container className={classes.padder} justify={'center'}>
-                        <Grid item>
+                        <Grid item component={'form'} onSubmit={handleSubmit}>
                             <FormControl>
                                 <InputLabel
                                     htmlFor="standard-adornment-search">{t.components.SearchField.shortLabel}</InputLabel>
                                 <Input
                                     id="standard-adornment-search"
                                     type={'text'}
-                                    value={searchValue}
-                                    onChange={(e) => setSearchValue(e.target.value)}
+                                    value={searchRequest}
+                                    onChange={handelChange}
                                     endAdornment={
                                         <InputAdornment position="end">
                                             <IconButton
                                                 aria-label="search"
-                                                onClick={async () => await router.push(`/search?query=${searchValue}`)}
                                                 edge="end"
+                                                type={'submit'}
                                             >
                                                 <Search/>
                                             </IconButton>

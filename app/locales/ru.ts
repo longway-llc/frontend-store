@@ -46,6 +46,10 @@ export const ru = {
                 link: 'Подробнее'
             }
         },
+        AsHitConsignmentStatus: {
+            available: 'на складе',
+            unavailable: 'под заказ'
+        },
         ASHitDetails: {
             group: 'Группа',
             uom: 'Uom',

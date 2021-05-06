@@ -46,6 +46,10 @@ export const en = {
                 link: 'See more'
             }
         },
+        AsHitConsignmentStatus: {
+            available: 'in stock',
+            unavailable: 'upon request'
+        },
         ASHitDetails: {
             group: 'Group',
             uom: 'Uom',

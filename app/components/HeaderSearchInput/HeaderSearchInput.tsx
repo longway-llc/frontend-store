@@ -1,4 +1,4 @@
-import React, {FC} from 'react'
+import React, {FC, FormEvent} from 'react'
 import {createStyles, FormControl, Input, InputAdornment, InputLabel, makeStyles, Theme} from '@material-ui/core'
 import {Search} from '@material-ui/icons'
 
@@ -54,26 +54,31 @@ const HeaderSearchInput: FC<HeaderModeType> = ({headerMode = 'main'}) => {
     const t = useTranslation(locale)
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setSearchRequest(e.target.value)
+
+    const setSearchItem = async (e:FormEvent) => {
+        e.preventDefault()
+        await searchItem()
+    }
+
     return (
-        <FormControl
-            className={styles.root}
-            onSubmit={searchItem}
-        >
-            <InputLabel className={styles.label} htmlFor='search-header'>
-                {t.components.SearchField.shortLabel}
-            </InputLabel>
-            <Input
-                className={styles.input}
-                value={searchRequest}
-                id="search-header"
-                startAdornment={
-                    <InputAdornment position="start" className={styles.icon}>
-                        <Search/>
-                    </InputAdornment>
-                }
-                onChange={handleChange}
-            />
-        </FormControl>
+        <form onSubmit={setSearchItem}>
+            <FormControl className={styles.root}>
+                <InputLabel className={styles.label} htmlFor='search-header'>
+                    {t.components.SearchField.shortLabel}
+                </InputLabel>
+                <Input
+                    className={styles.input}
+                    value={searchRequest}
+                    id="search-header"
+                    startAdornment={
+                        <InputAdornment position="start" className={styles.icon}>
+                            <Search type='submit'/>
+                        </InputAdornment>
+                    }
+                    onChange={handleChange}
+                />
+            </FormControl>
+        </form>
     )
 }
 

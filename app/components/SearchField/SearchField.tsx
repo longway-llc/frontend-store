@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC} from 'react'
+import React, {ChangeEvent, FC, FormEvent} from 'react'
 import {
     createStyles,
     FilledInput,
@@ -66,7 +66,8 @@ const SearchField:FC<SearchFieldProps> = ({width = '', mode = 'main'}) => {
     const {locale} = useRouter()
     const t = useTranslation(locale)
 
-    const setSearchItem = async () => {
+    const setSearchItem = async (e:FormEvent) => {
+        e.preventDefault()
         await searchItem()
     }
 
@@ -75,31 +76,33 @@ const SearchField:FC<SearchFieldProps> = ({width = '', mode = 'main'}) => {
     }
 
     return (
-        <FormControl variant="filled" onSubmit={setSearchItem} className={styles.root}>
-            <InputLabel htmlFor="mainSearch">
-                {t.components.SearchField.label}
-            </InputLabel>
-            <FilledInput
-                autoFocus={false}
-                id='mainSearch'
-                type='text'
-                value={searchRequest}
-                onChange={handleChange}
-                endAdornment={
-                    <InputAdornment position='end' >
-                        <IconButton
-                            className={styles.icon}
-                            aria-label={t.components.SearchField.shortLabel}
-                            type='submit'
-                            edge='end'
-                            onClick={setSearchItem}
-                        >
-                            <Search/>
-                        </IconButton>
-                    </InputAdornment>
-                }
-            />
-        </FormControl>
+        <form onSubmit={setSearchItem}>
+            <FormControl variant="filled" className={styles.root}>
+                <InputLabel htmlFor="mainSearch">
+                    {t.components.SearchField.label}
+                </InputLabel>
+                <FilledInput
+                    autoFocus={false}
+                    id='mainSearch'
+                    type='text'
+                    value={searchRequest}
+                    onChange={handleChange}
+                    endAdornment={
+                        <InputAdornment position='end' >
+                            <IconButton
+                                className={styles.icon}
+                                aria-label={t.components.SearchField.shortLabel}
+                                type='submit'
+                                edge='end'
+                                onClick={setSearchItem}
+                            >
+                                <Search/>
+                            </IconButton>
+                        </InputAdornment>
+                    }
+                />
+            </FormControl>
+        </form>
     )
 }
 
