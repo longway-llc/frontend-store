@@ -9,13 +9,15 @@ import {
     useMediaQuery,
     useTheme
 } from '@material-ui/core'
-import React, {useMemo} from 'react'
+import React, {FC, useMemo} from 'react'
 import Image from 'next/image'
 import ProductDetails from '../ProductDetails/ProductDetails'
 import {useRouter} from 'next/router'
 import {useTranslation} from '../../utils/localization'
 import Price from '../Price/Price'
 import ButtonAddToCart from '../ButtonAddToCart/ButtonAddToCart'
+import {HitsProps} from 'react-instantsearch-dom'
+import AsHitConsignmentStatus from '../ASHitConsignmentStatus/ASHitConsignmentStatus'
 
 
 const useStyles = makeStyles(theme => createStyles({
@@ -98,13 +100,12 @@ const useStyles = makeStyles(theme => createStyles({
 
 const host = process.env.NEXT_PUBLIC_API_URL ?? 'https://api.lwaero.net'
 
-const ASHit = ({hit}: any) => {
+const ASHit:FC<{hit:any}> = ({hit}) => {
     const styles = useStyles()
     const router = useRouter()
     const t = useTranslation(router.locale)
     const theme = useTheme()
     const isPhone = useMediaQuery(theme.breakpoints.down('xs'))
-
 
     const id = hit.id || hit._id['$oid']
 
@@ -123,10 +124,17 @@ const ASHit = ({hit}: any) => {
                 ?? 0
         , [hit, router])
 
-    const imageSrc = useMemo(() => hit.photo?.url
-        ? `${host}${hit.photo?.formats?.small?.url ?? hit.photo.url}`
-        : '/defaultProduct.png',
-        [hit])
+    const imageSrc = useMemo(() => {
+        let source = hit?.photo
+        if (Array.isArray(hit.photo)) {
+            source = hit?.photo[0]
+        }
+        if (source) {
+            return `${host}${source?.formats?.small?.url ?? source?.url}`
+        } else {
+            return '/defaultProduct.png'
+        }
+    }, [hit])
 
     return (
         <Paper>
@@ -136,7 +144,7 @@ const ASHit = ({hit}: any) => {
                         <Image
                             className={styles.image}
                             layout={'fill'}
-                            objectFit={'cover'}
+                            objectFit={'contain'}
                             src={imageSrc}
                             alt={`Product ${hit.pn}`}/>
                     </div>
@@ -144,9 +152,16 @@ const ASHit = ({hit}: any) => {
                 <Grid item xs={12} sm={7} md={8}>
                     <Grid container className={styles.details}>
                         <Grid item xs={12} className={styles.titleWrapper}>
-                            <Typography variant={'h6'} component={'h6'}>
-                                {hit.pn}
-                            </Typography>
+                            <Grid container justify={'space-between'} alignItems={'center'}>
+                               <Grid item>
+                                   <Typography variant={'h6'} component={'h6'}>
+                                       {hit.pn}
+                                   </Typography>
+                               </Grid>
+                                <Grid item>
+                                    <AsHitConsignmentStatus consignmnets={hit.consignments}/>
+                                </Grid>
+                            </Grid>
                         </Grid>
                         <Grid item xs={12} className={styles.titleWrapper}>
                             <Typography variant={'subtitle1'} component={'span'} className={styles.description}>
