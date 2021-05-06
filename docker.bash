@@ -1,0 +1,1 @@
+docker build -t lwaero/frontend-store:latest -f prod.Dockerfile . && docker push lwaero/frontend-store:latest
