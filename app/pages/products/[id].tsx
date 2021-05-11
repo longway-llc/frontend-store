@@ -152,7 +152,7 @@ const Product: NextPage<ProductPageProps> = ({products, id, host}) => {
                                     </Grid>
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <ConsignmentStatus consignments={selectedProduct.consignments}/>
+                                    <ConsignmentStatus consignments={selectedProduct.consignments} expectedDeliveryDate={selectedProduct.expectedDeliveryDate} />
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -233,7 +233,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const {id} = ctx.params as Params
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/reference/${id}`)
     const products = await res.json()
-    console.log(products)
     return {
         props: {
             products,

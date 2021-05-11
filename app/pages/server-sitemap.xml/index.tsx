@@ -1,6 +1,7 @@
 import {getServerSideSitemap} from 'next-sitemap'
 import {GetServerSideProps} from 'next'
 
+
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/availableIds`)
     const ids = await data.json()

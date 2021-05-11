@@ -1,4 +1,4 @@
-import React, {Props} from 'react'
+import React from 'react'
 import {signIn} from 'next-auth/client'
 
 
@@ -17,10 +17,9 @@ const ButtonSignInGoogle = (props:any) => {
             <style jsx>{`
   #googleBtn {
       cursor: pointer;
-      padding: 5px 0;
       display: flex;
       justify-content: flex-start;
-      padding-left: 20%;
+      padding: 5px 0 5px 20%;
       align-items: center;
       background: white;
       color: #444;

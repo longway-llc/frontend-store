@@ -94,7 +94,8 @@ export const en = {
         },
         ConsignmentStatus: {
             available: 'Product is available in stock',
-            unavailable: 'Product available upon request'
+            unavailable: 'Product available upon request',
+            expectedDelivery: 'Expected delivery date'
         },
         LocaleSetForm:{
             title: 'Change localization',

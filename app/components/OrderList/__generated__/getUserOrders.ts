@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { ENUM_ORDER_STATUS } from "./../../../__generated__/globalTypes";
+import { ENUM_ORDER_STATUS } from '../../../__generated__/globalTypes';
 
 // ====================================================
 // GraphQL query operation: getUserOrders

@@ -1,6 +1,6 @@
 import {Checkbox, Container, createStyles, FormControlLabel, Grid, makeStyles, Typography} from '@material-ui/core'
 import Paper from '@material-ui/core/Paper'
-import React, {FC, useMemo} from 'react'
+import React, {FC, useCallback, useMemo} from 'react'
 import {RefinementListProvided} from 'react-instantsearch-core'
 import {connectRefinementList} from 'react-instantsearch-dom'
 
@@ -38,9 +38,10 @@ interface CustomRefinementList extends RefinementListProvided {
 
 const ASRefinementList: FC<CustomRefinementList> = ({items, currentRefinement, refine, title}) => {
     const styles = useStyles()
-    const handleChange = (value: string[]) => (event: React.ChangeEvent<HTMLInputElement>) => {
+
+    const handleChange = useCallback((value: string[]) => (event: React.ChangeEvent<HTMLInputElement>) => {
         refine(value)
-    }
+    }, [refine])
 
     const listItems = useMemo(() => items.map(item => (
         <li key={item.label}>
@@ -50,13 +51,14 @@ const ASRefinementList: FC<CustomRefinementList> = ({items, currentRefinement, r
                 }
                 label={
                     <div className={styles.itemCaptionWrapper}>
-                        <Typography component='span' variant='body1' className={styles.itemCaption}>{item.label + '  '}</Typography>
+                        <Typography component='span' variant='body1'
+                                    className={styles.itemCaption}>{item.label + '  '}</Typography>
                         <Typography component='span' variant='caption'>({item.count})</Typography>
                     </div>
                 }
             />
         </li>
-    )), [items])
+    )), [styles, handleChange, items])
 
     return (
         <Paper>

@@ -6,7 +6,7 @@ import moment from 'moment'
 import {useTranslation} from '../../utils/localization'
 
 
-const ConsignmentDisplay: FC<any> = ({consignments}) => {
+const ConsignmentDisplay: FC<any> = ({consignments, expectedDeliveryDate}) => {
     const {locale} = useRouter()
     const t = useTranslation(locale)
     const consignmentsDisplay = useMemo(() => consignments.map((consignment:any) => (

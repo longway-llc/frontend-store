@@ -1,4 +1,4 @@
-import React, {FC} from 'react'
+import React from 'react'
 import {createStyles, makeStyles, Typography} from '@material-ui/core'
 import {useRouter} from 'next/router'
 import {useTranslation} from '../../utils/localization'

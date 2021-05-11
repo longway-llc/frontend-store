@@ -94,7 +94,8 @@ export const ru = {
         },
         ConsignmentStatus: {
             available: 'Товар доступен на складе',
-            unavailable: 'Товар доступен под заказ'
+            unavailable: 'Товар доступен под заказ',
+            expectedDelivery: 'Ожидаемая дата поступления'
         },
         LocaleSetForm:{
             title: 'Сменить локализацию',

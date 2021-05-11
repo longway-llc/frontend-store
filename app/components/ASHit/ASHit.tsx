@@ -16,7 +16,6 @@ import {useRouter} from 'next/router'
 import {useTranslation} from '../../utils/localization'
 import Price from '../Price/Price'
 import ButtonAddToCart from '../ButtonAddToCart/ButtonAddToCart'
-import {HitsProps} from 'react-instantsearch-dom'
 import AsHitConsignmentStatus from '../ASHitConsignmentStatus/ASHitConsignmentStatus'
 
 

@@ -8,7 +8,6 @@ import {useTranslation} from '../../utils/localization'
 import {SnackbarOrigin, useSnackbar} from 'notistack'
 import {getCartCount} from '../ShoppingCartBadge/__generated__/getCartCount'
 import {GET_CART_ITEMS_COUNT} from '../ShoppingCartBadge/ShoppingCartBadge'
-import {getCart} from '../CartItemList/__generated__/getCart'
 import {GET_CART} from '../CartItemList/CartItemList'
 
 

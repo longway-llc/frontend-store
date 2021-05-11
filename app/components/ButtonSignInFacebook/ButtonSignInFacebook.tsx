@@ -17,10 +17,9 @@ const ButtonSignInFacebook = (props: any) => {
             <style jsx>{`
   #facebookBtn {
       cursor: pointer;
-      padding: 5px 0;
       display: flex;
       justify-content: flex-start;
-      padding-left: 20%;
+      padding: 5px 0 5px 20%;
       align-items: center;
       background: white;
       color: #444;
