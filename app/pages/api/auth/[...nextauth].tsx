@@ -32,8 +32,8 @@ const options: NextAuthOptions = {
                     pass: process.env.EMAIL_PASSWORD as string
                 }
             },
-            from: 'system@lwaero.net',
-            name: 'Lwaero Auth'
+            from: 'LWaero Auth <system@lwaero.net>',
+            name: 'LWaero Auth'
         }),
         Providers.Google({
             clientId: process.env.GOOGLE_CLIENT_ID as string,
