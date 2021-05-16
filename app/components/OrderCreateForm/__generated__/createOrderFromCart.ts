@@ -18,4 +18,7 @@ export interface createOrderFromCart {
 
 export interface createOrderFromCartVariables {
   locale: string;
+  requestedShippingDate?: string | null;
+  deliveryInstruction?: string | null;
+  poNumber?: string | null;
 }
