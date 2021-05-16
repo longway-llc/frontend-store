@@ -38,7 +38,7 @@ export const en = {
         AlgoliaSearch: {
             filters: 'filters'
         },
-        ASHit:{
+        ASHit: {
             specifications: 'Specifications',
             price: 'Price',
             buttons: {
@@ -57,33 +57,33 @@ export const en = {
             mfg: 'Manufacturing',
             brand: 'Brand'
         },
-        ASBoxInput:{
+        ASBoxInput: {
             searchLabel: 'enter code or product name'
         },
-        ASRefinementList:{
+        ASRefinementList: {
             titles: {
                 group: 'Group',
                 mfg: 'Manufacturing'
             }
         },
-        ASRefinementResetButton:{
+        ASRefinementResetButton: {
             reset: 'Reset filters'
         },
-        ButtonAddToCart:{
+        ButtonAddToCart: {
             addToCart: 'add to cart',
             successMessage: 'Product added to cart successfully',
             errorMessage: 'Something was wrong'
         },
-        CabinetMenu:{
+        CabinetMenu: {
             cabinet: 'Cabinet',
             orders: 'Orders',
             settings: 'Settings'
         },
-        CartItem:{
+        CartItem: {
             productPage: 'product page',
             price: 'Price'
         },
-        CartItemList:{
+        CartItemList: {
             empty: 'Cart is empty'
         },
         ConsignmentDisplay: {
@@ -97,12 +97,12 @@ export const en = {
             unavailable: 'Product available upon request',
             expectedDelivery: 'Expected delivery date'
         },
-        LocaleSetForm:{
+        LocaleSetForm: {
             title: 'Change localization',
             label: 'Localization',
             updateButton: 'Save'
         },
-        MenuDrawer:{
+        MenuDrawer: {
             menu: 'Menu',
             home: 'Home',
             about: 'About us',
@@ -119,9 +119,13 @@ export const en = {
             fillInSettings: 'fill in the settings',
             checkout: 'Checkout',
             resetCart: 'Reset cart',
-            orderSuccess: 'Order successfully created'
+            orderSuccess: 'Order successfully created',
+            optionalFields: 'Optional fields',
+            requestedShippingDate: 'Requested Shipping Date',
+            deliveryInstruction: 'Delivery instruction',
+            poNumber: 'PO Number'
         },
-        OrderList:{
+        OrderList: {
             order: 'Order',
             status: 'Status',
             description: 'Description',
@@ -130,7 +134,7 @@ export const en = {
             count: 'Quantity',
             total: 'Total'
         },
-        PhoneSetForm:{
+        PhoneSetForm: {
             phoneSuccessUpdate: 'Phone updated successfully',
             updatePhone: 'Update phone number',
             phoneLabel: 'Phone number',

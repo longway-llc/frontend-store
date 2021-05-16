@@ -119,7 +119,11 @@ export const ru = {
             fillInSettings: 'заполнить в кабинете',
             checkout: 'Оформить заказ',
             resetCart: 'Очистить корзину',
-            orderSuccess: 'Заказ успешно создан'
+            orderSuccess: 'Заказ успешно создан',
+            optionalFields: 'Опциональные поля',
+            requestedShippingDate: 'Необходимая дата отгузки',
+            deliveryInstruction: 'Инструкции для отправки',
+            poNumber: 'Номер заказа клиента'
         },
         OrderList:{
             order: 'Заказ',
