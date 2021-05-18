@@ -8,8 +8,8 @@
     "start": "next start",
     "lint": "eslint --ext .tsx,.ts ./",
     "lint-fix": "eslint --ext .tsx,.ts ./ --fix",
-    "apollo-sync": "apollo client:download-schema schema.json && apollo client:download-schema schema.graphql",
-    "apollo-codegen": "apollo client:codegen --target=typescript --globalTypesFile __generated__/globalTypes.ts"
+    "apollo-sync": "cd .. && apollo client:download-schema .graphql/schema.json && apollo client:download-schema .graphql/schema.graphql",
+    "apollo-codegen": "cd .. && apollo client:codegen --target=typescript --globalTypesFile ./app/__generated__/globalTypes.ts"
   },
   "dependencies": {
     "@apollo/client": "^3.3.12",

@@ -5,7 +5,7 @@ module.exports = {
         service: {
             name: 'strapi-cms',
             url: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
-            localSchemaFile: './.graphql/schema.graphql',
+            localSchemaFile: '.graphql/schema.graphql',
             output: './app/__generated__',
         }
     }

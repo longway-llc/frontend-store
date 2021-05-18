@@ -1,37 +1,3 @@
-"""
-Direct the client to resolve this field locally, either from the cache or local resolvers.
-"""
-directive @client(
-  """
-  When true, the client will never use the cache for this value. See
-  https://www.apollographql.com/docs/react/essentials/local-state/#forcing-resolvers-with-clientalways-true
-  """
-  always: Boolean
-) on FIELD | FRAGMENT_DEFINITION | INLINE_FRAGMENT
-
-"""
-Export this locally resolved field as a variable to be used in the remainder of this query. See
-https://www.apollographql.com/docs/react/essentials/local-state/#using-client-fields-as-variables
-"""
-directive @export(
-  """The variable name to export this field as."""
-  as: String!
-) on FIELD
-
-"""
-Specify a custom store key for this result. See
-https://www.apollographql.com/docs/react/advanced/caching/#the-connection-directive
-"""
-directive @connection(
-  """Specify the store key."""
-  key: String!
-
-  """
-  An array of query argument names to include in the generated custom store key.
-  """
-  filter: [String!]
-) on FIELD
-
 input FileInfoInput {
   name: String
   alternativeText: String
@@ -1402,8 +1368,18 @@ type UsersPermissionsRole {
   name: String!
   description: String
   type: String
-  permissions(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsPermission]
-  users(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsUser]
+  permissions(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+  ): [UsersPermissionsPermission]
+  users(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+  ): [UsersPermissionsUser]
 }
 
 type UsersPermissionsRoleConnection {
@@ -1508,6 +1484,7 @@ type UsersPermissionsUser {
   role: UsersPermissionsRole
   customerInfo: ComponentCustomerCustomer
   cart: Cart
+  verifiedByAdmin: Boolean
   orders(sort: String, limit: Int, start: Int, where: JSON): [Order]
 }
 
@@ -1535,6 +1512,7 @@ type UsersPermissionsUserGroupBy {
   role: [UsersPermissionsUserConnectionRole]
   customerInfo: [UsersPermissionsUserConnectionCustomerInfo]
   cart: [UsersPermissionsUserConnectionCart]
+  verifiedByAdmin: [UsersPermissionsUserConnectionVerifiedByAdmin]
 }
 
 type UsersPermissionsUserConnectionId {
@@ -1597,6 +1575,11 @@ type UsersPermissionsUserConnectionCart {
   connection: UsersPermissionsUserConnection
 }
 
+type UsersPermissionsUserConnectionVerifiedByAdmin {
+  key: Boolean
+  connection: UsersPermissionsUserConnection
+}
+
 input UserInput {
   username: String!
   email: String!
@@ -1610,6 +1593,7 @@ input UserInput {
   customerInfo: ComponentCustomerCustomerInput
   orders: [ID]
   cart: ID
+  verifiedByAdmin: Boolean
   created_by: ID
   updated_by: ID
 }
@@ -1627,6 +1611,7 @@ input editUserInput {
   customerInfo: editComponentCustomerCustomerInput
   orders: [ID]
   cart: ID
+  verifiedByAdmin: Boolean
   created_by: ID
   updated_by: ID
 }
@@ -1731,7 +1716,209 @@ input editComponentSaleProductDataSaleProductDatumInput {
   sellingPrice: Float
 }
 
-union Morph = UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | UserPermissionsPasswordPayload | Brand | BrandConnection | BrandAggregator | BrandGroupBy | BrandConnectionId | BrandConnection_id | BrandConnectionCreatedAt | BrandConnectionUpdatedAt | BrandConnectionName | BrandConnectionPhoto | createBrandPayload | updateBrandPayload | deleteBrandPayload | Cart | CartConnection | CartAggregator | CartGroupBy | CartConnectionId | CartConnection_id | CartConnectionCreatedAt | CartConnectionUpdatedAt | CartConnectionUser | createCartPayload | updateCartPayload | deleteCartPayload | Category | CategoryConnection | CategoryAggregator | CategoryGroupBy | CategoryConnectionId | CategoryConnection_id | CategoryConnectionCreatedAt | CategoryConnectionUpdatedAt | CategoryConnectionName | createCategoryPayload | updateCategoryPayload | deleteCategoryPayload | Consignment | ConsignmentConnection | ConsignmentAggregator | ConsignmentGroupBy | ConsignmentConnectionId | ConsignmentConnection_id | ConsignmentConnectionCreatedAt | ConsignmentConnectionUpdatedAt | ConsignmentConnectionName | ConsignmentConnectionProductionDate | ConsignmentConnectionValidUntil | ConsignmentConnectionCode_1c | ConsignmentConnectionProduct | ConsignmentConnectionPublished_at | createConsignmentPayload | updateConsignmentPayload | deleteConsignmentPayload | Contacts | updateContactPayload | deleteContactPayload | Group | GroupConnection | GroupAggregator | GroupGroupBy | GroupConnectionId | GroupConnection_id | GroupConnectionCreatedAt | GroupConnectionUpdatedAt | GroupConnectionName | GroupConnectionCategory | createGroupPayload | updateGroupPayload | deleteGroupPayload | Order | OrderConnection | OrderAggregator | OrderGroupBy | OrderConnectionId | OrderConnection_id | OrderConnectionCreatedAt | OrderConnectionUpdatedAt | OrderConnectionStatus | OrderConnectionUser | OrderConnectionInvoice | OrderConnectionRequestedShippingDate | OrderConnectionDeliveryInstruction | OrderConnectionPoNumber | createOrderPayload | updateOrderPayload | deleteOrderPayload | Product | ProductConnection | ProductAggregator | ProductAggregatorSum | ProductAggregatorAvg | ProductAggregatorMin | ProductAggregatorMax | ProductGroupBy | ProductConnectionId | ProductConnection_id | ProductConnectionCreatedAt | ProductConnectionUpdatedAt | ProductConnectionPn | ProductConnectionDescription_ru | ProductConnectionLongRead_ru | ProductConnectionUom | ProductConnectionCode_1c_uom | ProductConnectionColor | ProductConnectionMfg | ProductConnectionPrice_ru | ProductConnectionPrice_en | ProductConnectionPhoto | ProductConnectionCode_1c | ProductConnectionDescription_en | ProductConnectionLongRead_en | ProductConnectionGroup | ProductConnectionLink | ProductConnectionUnitDimension | ProductConnectionBrand | ProductConnectionSync1cDisplay | ProductConnectionDeletedFromSearch | ProductConnectionExpectedDeliveryDate | createProductPayload | updateProductPayload | deleteProductPayload | Stock | StockConnection | StockAggregator | StockGroupBy | StockConnectionId | StockConnection_id | StockConnectionCreatedAt | StockConnectionUpdatedAt | StockConnectionName | createStockPayload | updateStockPayload | deleteStockPayload | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileAggregatorSum | UploadFileAggregatorAvg | UploadFileAggregatorMin | UploadFileAggregatorMax | UploadFileGroupBy | UploadFileConnectionId | UploadFileConnection_id | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionWidth | UploadFileConnectionHeight | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_metadata | deleteFilePayload | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnectionId | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionCreatedAt | UsersPermissionsUserConnectionUpdatedAt | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | UsersPermissionsUserConnectionCustomerInfo | UsersPermissionsUserConnectionCart | createUserPayload | updateUserPayload | deleteUserPayload | ComponentCartCartItem | ComponentCustomerCustomer | ComponentPlacementPlacement | ComponentSaleProductDataSaleProductData
+union Morph =
+    UsersPermissionsMe
+  | UsersPermissionsMeRole
+  | UsersPermissionsLoginPayload
+  | UserPermissionsPasswordPayload
+  | Brand
+  | BrandConnection
+  | BrandAggregator
+  | BrandGroupBy
+  | BrandConnectionId
+  | BrandConnection_id
+  | BrandConnectionCreatedAt
+  | BrandConnectionUpdatedAt
+  | BrandConnectionName
+  | BrandConnectionPhoto
+  | createBrandPayload
+  | updateBrandPayload
+  | deleteBrandPayload
+  | Cart
+  | CartConnection
+  | CartAggregator
+  | CartGroupBy
+  | CartConnectionId
+  | CartConnection_id
+  | CartConnectionCreatedAt
+  | CartConnectionUpdatedAt
+  | CartConnectionUser
+  | createCartPayload
+  | updateCartPayload
+  | deleteCartPayload
+  | Category
+  | CategoryConnection
+  | CategoryAggregator
+  | CategoryGroupBy
+  | CategoryConnectionId
+  | CategoryConnection_id
+  | CategoryConnectionCreatedAt
+  | CategoryConnectionUpdatedAt
+  | CategoryConnectionName
+  | createCategoryPayload
+  | updateCategoryPayload
+  | deleteCategoryPayload
+  | Consignment
+  | ConsignmentConnection
+  | ConsignmentAggregator
+  | ConsignmentGroupBy
+  | ConsignmentConnectionId
+  | ConsignmentConnection_id
+  | ConsignmentConnectionCreatedAt
+  | ConsignmentConnectionUpdatedAt
+  | ConsignmentConnectionName
+  | ConsignmentConnectionProductionDate
+  | ConsignmentConnectionValidUntil
+  | ConsignmentConnectionCode_1c
+  | ConsignmentConnectionProduct
+  | ConsignmentConnectionPublished_at
+  | createConsignmentPayload
+  | updateConsignmentPayload
+  | deleteConsignmentPayload
+  | Contacts
+  | updateContactPayload
+  | deleteContactPayload
+  | Group
+  | GroupConnection
+  | GroupAggregator
+  | GroupGroupBy
+  | GroupConnectionId
+  | GroupConnection_id
+  | GroupConnectionCreatedAt
+  | GroupConnectionUpdatedAt
+  | GroupConnectionName
+  | GroupConnectionCategory
+  | createGroupPayload
+  | updateGroupPayload
+  | deleteGroupPayload
+  | Order
+  | OrderConnection
+  | OrderAggregator
+  | OrderGroupBy
+  | OrderConnectionId
+  | OrderConnection_id
+  | OrderConnectionCreatedAt
+  | OrderConnectionUpdatedAt
+  | OrderConnectionStatus
+  | OrderConnectionUser
+  | OrderConnectionInvoice
+  | OrderConnectionRequestedShippingDate
+  | OrderConnectionDeliveryInstruction
+  | OrderConnectionPoNumber
+  | createOrderPayload
+  | updateOrderPayload
+  | deleteOrderPayload
+  | Product
+  | ProductConnection
+  | ProductAggregator
+  | ProductAggregatorSum
+  | ProductAggregatorAvg
+  | ProductAggregatorMin
+  | ProductAggregatorMax
+  | ProductGroupBy
+  | ProductConnectionId
+  | ProductConnection_id
+  | ProductConnectionCreatedAt
+  | ProductConnectionUpdatedAt
+  | ProductConnectionPn
+  | ProductConnectionDescription_ru
+  | ProductConnectionLongRead_ru
+  | ProductConnectionUom
+  | ProductConnectionCode_1c_uom
+  | ProductConnectionColor
+  | ProductConnectionMfg
+  | ProductConnectionPrice_ru
+  | ProductConnectionPrice_en
+  | ProductConnectionPhoto
+  | ProductConnectionCode_1c
+  | ProductConnectionDescription_en
+  | ProductConnectionLongRead_en
+  | ProductConnectionGroup
+  | ProductConnectionLink
+  | ProductConnectionUnitDimension
+  | ProductConnectionBrand
+  | ProductConnectionSync1cDisplay
+  | ProductConnectionDeletedFromSearch
+  | ProductConnectionExpectedDeliveryDate
+  | createProductPayload
+  | updateProductPayload
+  | deleteProductPayload
+  | Stock
+  | StockConnection
+  | StockAggregator
+  | StockGroupBy
+  | StockConnectionId
+  | StockConnection_id
+  | StockConnectionCreatedAt
+  | StockConnectionUpdatedAt
+  | StockConnectionName
+  | createStockPayload
+  | updateStockPayload
+  | deleteStockPayload
+  | UploadFile
+  | UploadFileConnection
+  | UploadFileAggregator
+  | UploadFileAggregatorSum
+  | UploadFileAggregatorAvg
+  | UploadFileAggregatorMin
+  | UploadFileAggregatorMax
+  | UploadFileGroupBy
+  | UploadFileConnectionId
+  | UploadFileConnection_id
+  | UploadFileConnectionCreatedAt
+  | UploadFileConnectionUpdatedAt
+  | UploadFileConnectionName
+  | UploadFileConnectionAlternativeText
+  | UploadFileConnectionCaption
+  | UploadFileConnectionWidth
+  | UploadFileConnectionHeight
+  | UploadFileConnectionFormats
+  | UploadFileConnectionHash
+  | UploadFileConnectionExt
+  | UploadFileConnectionMime
+  | UploadFileConnectionSize
+  | UploadFileConnectionUrl
+  | UploadFileConnectionPreviewUrl
+  | UploadFileConnectionProvider
+  | UploadFileConnectionProvider_metadata
+  | deleteFilePayload
+  | UsersPermissionsPermission
+  | UsersPermissionsRole
+  | UsersPermissionsRoleConnection
+  | UsersPermissionsRoleAggregator
+  | UsersPermissionsRoleGroupBy
+  | UsersPermissionsRoleConnectionId
+  | UsersPermissionsRoleConnection_id
+  | UsersPermissionsRoleConnectionName
+  | UsersPermissionsRoleConnectionDescription
+  | UsersPermissionsRoleConnectionType
+  | createRolePayload
+  | updateRolePayload
+  | deleteRolePayload
+  | UsersPermissionsUser
+  | UsersPermissionsUserConnection
+  | UsersPermissionsUserAggregator
+  | UsersPermissionsUserGroupBy
+  | UsersPermissionsUserConnectionId
+  | UsersPermissionsUserConnection_id
+  | UsersPermissionsUserConnectionCreatedAt
+  | UsersPermissionsUserConnectionUpdatedAt
+  | UsersPermissionsUserConnectionUsername
+  | UsersPermissionsUserConnectionEmail
+  | UsersPermissionsUserConnectionProvider
+  | UsersPermissionsUserConnectionConfirmed
+  | UsersPermissionsUserConnectionBlocked
+  | UsersPermissionsUserConnectionRole
+  | UsersPermissionsUserConnectionCustomerInfo
+  | UsersPermissionsUserConnectionCart
+  | UsersPermissionsUserConnectionVerifiedByAdmin
+  | createUserPayload
+  | updateUserPayload
+  | deleteUserPayload
+  | ComponentCartCartItem
+  | ComponentCustomerCustomer
+  | ComponentPlacementPlacement
+  | ComponentSaleProductDataSaleProductData
 
 input InputID {
   id: ID!
@@ -1751,38 +1938,161 @@ type AdminUser {
 
 type Query {
   brand(id: ID!, publicationState: PublicationState): Brand
-  brands(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Brand]
-  brandsConnection(sort: String, limit: Int, start: Int, where: JSON): BrandConnection
+  brands(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+    publicationState: PublicationState
+  ): [Brand]
+  brandsConnection(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+  ): BrandConnection
   cart(id: ID!, publicationState: PublicationState): Cart
-  carts(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Cart]
-  cartsConnection(sort: String, limit: Int, start: Int, where: JSON): CartConnection
+  carts(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+    publicationState: PublicationState
+  ): [Cart]
+  cartsConnection(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+  ): CartConnection
   category(id: ID!, publicationState: PublicationState): Category
-  categories(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Category]
-  categoriesConnection(sort: String, limit: Int, start: Int, where: JSON): CategoryConnection
+  categories(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+    publicationState: PublicationState
+  ): [Category]
+  categoriesConnection(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+  ): CategoryConnection
   consignment(id: ID!, publicationState: PublicationState): Consignment
-  consignments(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Consignment]
-  consignmentsConnection(sort: String, limit: Int, start: Int, where: JSON): ConsignmentConnection
+  consignments(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+    publicationState: PublicationState
+  ): [Consignment]
+  consignmentsConnection(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+  ): ConsignmentConnection
   contact(publicationState: PublicationState): Contacts
   group(id: ID!, publicationState: PublicationState): Group
-  groups(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Group]
-  groupsConnection(sort: String, limit: Int, start: Int, where: JSON): GroupConnection
+  groups(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+    publicationState: PublicationState
+  ): [Group]
+  groupsConnection(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+  ): GroupConnection
   order(id: ID!, publicationState: PublicationState): Order
-  orders(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Order]
-  ordersConnection(sort: String, limit: Int, start: Int, where: JSON): OrderConnection
+  orders(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+    publicationState: PublicationState
+  ): [Order]
+  ordersConnection(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+  ): OrderConnection
   product(id: ID!, publicationState: PublicationState): Product
-  products(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Product]
-  productsConnection(sort: String, limit: Int, start: Int, where: JSON): ProductConnection
+  products(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+    publicationState: PublicationState
+  ): [Product]
+  productsConnection(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+  ): ProductConnection
   stock(id: ID!, publicationState: PublicationState): Stock
-  stocks(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Stock]
-  stocksConnection(sort: String, limit: Int, start: Int, where: JSON): StockConnection
-  files(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [UploadFile]
-  filesConnection(sort: String, limit: Int, start: Int, where: JSON): UploadFileConnection
+  stocks(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+    publicationState: PublicationState
+  ): [Stock]
+  stocksConnection(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+  ): StockConnection
+  files(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+    publicationState: PublicationState
+  ): [UploadFile]
+  filesConnection(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+  ): UploadFileConnection
   role(id: ID!, publicationState: PublicationState): UsersPermissionsRole
-  roles(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [UsersPermissionsRole]
-  rolesConnection(sort: String, limit: Int, start: Int, where: JSON): UsersPermissionsRoleConnection
+
+  # Retrieve all the existing roles. You can't apply filters on this query.
+  roles(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+    publicationState: PublicationState
+  ): [UsersPermissionsRole]
+  rolesConnection(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+  ): UsersPermissionsRoleConnection
   user(id: ID!, publicationState: PublicationState): UsersPermissionsUser
-  users(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [UsersPermissionsUser]
-  usersConnection(sort: String, limit: Int, start: Int, where: JSON): UsersPermissionsUserConnection
+  users(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+    publicationState: PublicationState
+  ): [UsersPermissionsUser]
+  usersConnection(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+  ): UsersPermissionsUserConnection
   me: UsersPermissionsMe
   countProductsInCart: Int
   getCart: Cart!
@@ -1815,37 +2125,79 @@ type Mutation {
   createStock(input: createStockInput): createStockPayload
   updateStock(input: updateStockInput): updateStockPayload
   deleteStock(input: deleteStockInput): deleteStockPayload
+
+  # Delete one file
   deleteFile(input: deleteFileInput): deleteFilePayload
+
+  # Create a new role
   createRole(input: createRoleInput): createRolePayload
+
+  # Update an existing role
   updateRole(input: updateRoleInput): updateRolePayload
+
+  # Delete an existing role
   deleteRole(input: deleteRoleInput): deleteRolePayload
+
+  # Create a new user
   createUser(input: createUserInput): createUserPayload
+
+  # Update an existing user
   updateUser(input: updateUserInput): updateUserPayload
+
+  # Delete an existing user
   deleteUser(input: deleteUserInput): deleteUserPayload
-  upload(refId: ID, ref: String, field: String, source: String, info: FileInfoInput, file: Upload!): UploadFile!
-  multipleUpload(refId: ID, ref: String, field: String, source: String, files: [Upload]!): [UploadFile]!
+  upload(
+    refId: ID
+    ref: String
+    field: String
+    source: String
+    info: FileInfoInput
+    file: Upload!
+  ): UploadFile!
+  multipleUpload(
+    refId: ID
+    ref: String
+    field: String
+    source: String
+    files: [Upload]!
+  ): [UploadFile]!
   updateFileInfo(id: ID!, info: FileInfoInput!): UploadFile!
   login(input: UsersPermissionsLoginInput!): UsersPermissionsLoginPayload!
   register(input: UsersPermissionsRegisterInput!): UsersPermissionsLoginPayload!
   forgotPassword(email: String!): UserPermissionsPasswordPayload
-  resetPassword(password: String!, passwordConfirmation: String!, code: String!): UsersPermissionsLoginPayload
+  resetPassword(
+    password: String!
+    passwordConfirmation: String!
+    code: String!
+  ): UsersPermissionsLoginPayload
   emailConfirmation(confirmation: String!): UsersPermissionsLoginPayload
   addToCart(productId: ID!, count: Int): Cart!
   changeProductCountInCart(productId: ID!, count: Int!): Cart!
   deleteProductFromCart(productId: ID!): Cart!
   resetCart: Cart!
-  createOrderFromCart(region: String!, requestedShippingDate: String, deliveryInstruction: String, poNumber: String): Order!
+  createOrderFromCart(
+    region: String!
+    requestedShippingDate: String
+    deliveryInstruction: String
+    poNumber: String
+  ): Order!
   requestQuote(id: ID!): String
 }
 
+# The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 scalar JSON
 
+# A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
 scalar DateTime
 
+# A time string with format: HH:mm:ss.SSS
 scalar Time
 
+# A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
 scalar Date
 
+# The `Long` scalar type represents 52-bit integers
 scalar Long
 
+# The `Upload` scalar type represents a file upload.
 scalar Upload
