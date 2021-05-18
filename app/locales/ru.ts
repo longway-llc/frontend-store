@@ -95,7 +95,8 @@ export const ru = {
         ConsignmentStatus: {
             available: 'Товар доступен на складе',
             unavailable: 'Товар доступен под заказ',
-            expectedDelivery: 'Ожидаемая дата поступления'
+            expectedDelivery: 'Ожидаемая дата поступления',
+            verifiedRequirement: 'Подождите, пока администратор установит ваш верифицированный статус, чтобы увидеть подробности о размещении на складах'
         },
         LocaleSetForm:{
             title: 'Сменить локализацию',

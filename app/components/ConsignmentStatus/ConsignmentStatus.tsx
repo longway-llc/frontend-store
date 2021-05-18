@@ -1,77 +1,121 @@
-import React, { FC } from 'react'
-import { useSession } from 'next-auth/client'
-import { Box, createStyles, Grid, makeStyles, Typography } from '@material-ui/core'
-import { green, grey, orange } from '@material-ui/core/colors'
-import { theme } from '../../assets/theme'
+import React, {FC, useEffect} from 'react'
+import {useSession} from 'next-auth/client'
+import {Box, createStyles, Grid, makeStyles, Typography} from '@material-ui/core'
+import {green, grey, orange} from '@material-ui/core/colors'
+import {theme} from '../../assets/theme'
 import ConsignmentDisplay from '../ConsignmentDisplay/ConsignmentDisplay'
-import { useRouter } from 'next/router'
-import { useTranslation } from '../../utils/localization'
+import {useRouter} from 'next/router'
+import {useTranslation} from '../../utils/localization'
+import moment from 'moment'
+import {gql, useLazyQuery} from '@apollo/client'
+import {verifiedStatus} from './__generated__/verifiedStatus'
+
 
 type ConsignmentStatusProps = {
-  consignments: Array<any>
-  expectedDeliveryDate: string
+    consignments: Array<any>
+    expectedDeliveryDate: string
 }
 
+const GET_VERIFIED_STATUS = gql`
+    query verifiedStatus {
+        me {
+            user {
+                verifiedByAdmin
+            }
+        }
+    }
+`
+
 const useStyles = makeStyles(() =>
-  createStyles({
-    available: {
-      color: green['700'],
-      textAlign: 'center',
-      border: `1px solid ${green['200']}`,
-      borderRadius: `${theme.shape.borderRadius}px`,
-    },
-    notAvailable: {
-      color: orange['700'],
-      textAlign: 'center',
-      border: `1px solid ${orange['200']}`,
-      borderRadius: `${theme.shape.borderRadius}px`,
-    },
-    mt1: {
-      marginTop: theme.spacing(1),
-    },
-    ml1: {
-      marginLeft: theme.spacing(1),
-      color: grey['500'],
-    },
-  })
+    createStyles({
+        available: {
+            color: green['700'],
+            textAlign: 'center',
+            border: `1px solid ${green['200']}`,
+            borderRadius: `${theme.shape.borderRadius}px`
+        },
+        notAvailable: {
+            color: orange['700'],
+            textAlign: 'center',
+            border: `1px solid ${orange['200']}`,
+            borderRadius: `${theme.shape.borderRadius}px`
+        },
+        mt1: {
+            marginTop: theme.spacing(1)
+        },
+        ml1: {
+            marginLeft: theme.spacing(1),
+            color: grey['500']
+        },
+        bordered: {
+            border: `1px solid ${grey['200']}`,
+            borderRadius: `${theme.shape.borderRadius}px`
+        },
+        pd1:{
+            padding: theme.spacing(1)
+        }
+    })
 )
 
-const ConsignmentStatus: FC<ConsignmentStatusProps> = ({ consignments, expectedDeliveryDate }) => {
-  const styles = useStyles()
-  const { locale } = useRouter()
-  const t = useTranslation(locale)
-  const [session] = useSession()
+const ConsignmentStatus: FC<ConsignmentStatusProps> = ({consignments, expectedDeliveryDate}) => {
+    const styles = useStyles()
+    const {locale} = useRouter()
+    const t = useTranslation(locale)
+    const [session] = useSession()
 
-  if (!session?.user) {
-    return (
-      <Typography variant={'subtitle1'} className={styles.available}>
-        {t.components.ConsignmentStatus.available}!
-      </Typography>
-    )
-  }
+    const [invoke, {data}] = useLazyQuery<verifiedStatus>(GET_VERIFIED_STATUS)
 
-  return (
-    <Grid container>
-      <Grid item xs={12}>
-        {consignments.length > 0 ? (
-          <>
+    useEffect(() => {
+        if (session)
+            invoke({context:{headers:{authorization: `Bearer ${session.jwt}`}}})
+    }, [invoke, session])
+
+
+    if (!session?.user) {
+        return (
             <Typography variant={'subtitle1'} className={styles.available}>
-              {t.components.ConsignmentStatus.available}!
+                {t.components.ConsignmentStatus.available}!
             </Typography>
-            <Box className={styles.mt1}>
-              <ConsignmentDisplay consignments={consignments} />
-            </Box>
-          </>
-        ) : (
-          <>
-            <Typography variant={'subtitle1'} className={styles.notAvailable}>
-              {t.components.ConsignmentStatus.unavailable}!
-            </Typography>
-          </>
-        )}
-      </Grid>
-    </Grid>
-  )
+        )
+    }
+
+
+    return (
+        <Grid container>
+            <Grid item xs={12}>
+                {consignments.length > 0 ?
+                    <>
+                        <Typography variant={'subtitle1'} className={styles.available}>
+                            {t.components.ConsignmentStatus.available}!
+                        </Typography>
+                        {
+                            data?.me?.user?.verifiedByAdmin ?
+                                <Box className={styles.mt1}>
+                                    <ConsignmentDisplay consignments={consignments}/>
+                                </Box>
+                                :
+                                <Box className={[styles.bordered, styles.mt1,styles.pd1].join(' ')}>
+                                    <Typography variant={'caption'} className={styles.ml1}>
+                                        <i>{t.components.ConsignmentStatus.verifiedRequirement}</i>
+                                    </Typography>
+                                </Box>
+                        }
+                    </>
+                    :
+                    <>
+                        {
+                            expectedDeliveryDate && <Typography variant={'overline'} className={styles.ml1}>
+                                {t.components.ConsignmentStatus.expectedDelivery}: <b>{moment(expectedDeliveryDate).locale(locale ?? 'en').format('L')}</b>
+                            </Typography>
+                        }
+                        <Typography variant={'subtitle1'} className={styles.notAvailable}>
+                            {t.components.ConsignmentStatus.unavailable}!
+                        </Typography>
+                    </>
+                }
+            </Grid>
+        </Grid>
+    )
 }
 
 export default ConsignmentStatus
