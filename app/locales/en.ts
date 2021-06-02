@@ -1,3 +1,6 @@
+import OrderSearch from '../components/OrderSearch/OrderSearch'
+
+
 export const en = {
     meta: {
         index: {
@@ -22,6 +25,9 @@ export const en = {
         login: {
             policies: 'Log in to the site, you agree to ',
             policiesLink: 'our privacy policy'
+        },
+        orders: {
+            orderList: 'Orders list'
         }
     },
     header: {
@@ -133,7 +139,11 @@ export const en = {
             color: 'Color',
             sellingPrice: 'Selling Price',
             count: 'Quantity',
-            total: 'Total'
+            total: 'Total',
+            notFound: 'Orders not found'
+        },
+        OrderSearch: {
+           searchBy: 'Search order by invoice'
         },
         PhoneSetForm: {
             phoneSuccessUpdate: 'Phone updated successfully',

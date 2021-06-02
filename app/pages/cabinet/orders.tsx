@@ -7,6 +7,8 @@ import {getSession} from 'next-auth/client'
 import AppLayout from '../../layouts/AppLayout'
 import OrderList from '../../components/OrderList/OrderList'
 import {Session} from 'next-auth'
+import {useRouter} from 'next/router'
+import {useTranslation} from '../../utils/localization'
 
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -40,13 +42,14 @@ type OrdersPageProps = {
 }
 
 const Orders: NextPage<OrdersPageProps> = ({session}) => {
-    const classes = useStyles()
+    const styles = useStyles()
     const theme = useTheme()
     const isPhone = useMediaQuery(theme.breakpoints.down('md'))
-
+    const router = useRouter()
+    const t = useTranslation(router?.locale)
     return (
         <AppLayout title={'Мои заказы'}>
-            <Container maxWidth={'lg'} className={classes.container}>
+            <Container maxWidth={'lg'} className={styles.container}>
                 <Grid spacing={3} container>
                     <Hidden mdUp>
                         <Grid item xs={12}>
@@ -55,6 +58,7 @@ const Orders: NextPage<OrdersPageProps> = ({session}) => {
                     </Hidden>
                     <CabinetMenu/>
                     <Grid item xs={12} md={isPhone ? 11 : 9}>
+                        <Typography variant={'h3'} component={'h1'}>{t.page.orders.orderList}</Typography>
                         <OrderList jwt={session.jwt}/>
                     </Grid>
                 </Grid>

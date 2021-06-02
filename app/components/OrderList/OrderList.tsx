@@ -22,6 +22,7 @@ import {gql, useQuery} from '@apollo/client'
 import {getUserOrders} from './__generated__/getUserOrders'
 import {useRouter} from 'next/router'
 import {useTranslation} from '../../utils/localization'
+import OrderSearch from '../OrderSearch/OrderSearch'
 
 
 const useStyles = makeStyles(theme => createStyles({
@@ -29,7 +30,7 @@ const useStyles = makeStyles(theme => createStyles({
         paddingInlineStart: 0
     },
     listItem: {
-        listStyle: 'none',
+        listStyle: 'none'
     },
     alignRight: {
         textAlign: 'right'
@@ -94,16 +95,21 @@ const OrderList: FC<OrderListProps> = ({jwt}) => {
     const theme = useTheme()
     const isSmallPhone = useMediaQuery(theme.breakpoints.down('xs'))
 
+    const [filter, setFilter] = useState('')
     const [expanded, setExpanded] = useState<string>()
 
     const openOrder = (orderId: string) => (event: React.ChangeEvent<Record<string, unknown>>, isExpanded: boolean) => {
         setExpanded(isExpanded ? orderId : '')
     }
 
-    const {data, loading, error} = useQuery<getUserOrders>(GET_USER_ORDERS, {context: {headers: {authorization: `Bearer ${jwt}`}}})
+    const {
+        data,
+        loading,
+        error
+    } = useQuery<getUserOrders>(GET_USER_ORDERS, {context: {headers: {authorization: `Bearer ${jwt}`}}})
 
-    const orders = useMemo(() => data && data?.me?.user?.orders?.map(item => item && (
-        <Grid item key={item.id} xs={12} component='li' className={styles.listItem}>
+    const orders = useMemo(() => data && data?.me?.user?.orders?.filter(item => item?.invoice?.search(filter) != -1).map(item => item && (
+        <Grid item key={item.id} xs={12} component="li" className={styles.listItem}>
             <Accordion expanded={expanded == item.id} onChange={openOrder(item.id)}>
                 <AccordionSummary
                     expandIcon={<ExpandMore/>}
@@ -162,21 +168,27 @@ const OrderList: FC<OrderListProps> = ({jwt}) => {
                 </AccordionDetails>
             </Accordion>
         </Grid>
-    )), [data, expanded, isSmallPhone, styles, t, router])
+    )), [filter, data, expanded, isSmallPhone, styles, t, router])
 
 
     if (error) return (
         <Grid container justify={loading ? 'center' : 'space-evenly'} spacing={1}>
-            <Typography variant='subtitle1' color='error'>{error.message}</Typography>
+            <Typography variant="subtitle1" color="error">{error.message}</Typography>
         </Grid>
     )
 
     return (
-        <Grid container justify={loading ? 'center' : 'space-evenly'} className={styles.container} spacing={1} component='ul'>
+        <Grid container justify={loading ? 'center' : 'space-evenly'} className={styles.container} spacing={1}
+              component="ul" direction={'column'}>
             {loading ?
                 <img src="/Preloader.svg" alt="loading"/>
                 :
-                orders
+                <>
+                    <OrderSearch onChange={setFilter} value={filter}/>
+                    {orders && (orders?.length > 0) ? orders :
+                        <Typography variant={'overline'} color={'error'}>{t.components.OrderList.notFound}</Typography>
+                    }
+                </>
             }
         </Grid>
     )

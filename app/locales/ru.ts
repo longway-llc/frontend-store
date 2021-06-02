@@ -22,6 +22,9 @@ export const ru = {
         login: {
             policies: 'Авторизуйтесь на сайте, Вы соглашаетесь с ',
             policiesLink: 'нашей политикой конфиденциальности'
+        },
+        orders: {
+            orderList: 'Список заказов'
         }
     },
     header: {
@@ -133,7 +136,11 @@ export const ru = {
             color: 'Цвет',
             sellingPrice: 'Цена продажи',
             count: 'Кол-во',
-            total: 'Итого'
+            total: 'Итого',
+            notFound: 'Заказов не найдено'
+        },
+        OrderSearch: {
+            searchBy: 'Поиск по номеру заказа'
         },
         PhoneSetForm:{
             phoneSuccessUpdate: 'Номер телефона успешно обновлен',
