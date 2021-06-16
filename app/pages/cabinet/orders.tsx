@@ -58,7 +58,7 @@ const Orders: NextPage<OrdersPageProps> = ({session}) => {
                     </Hidden>
                     <CabinetMenu/>
                     <Grid item xs={12} md={isPhone ? 11 : 9}>
-                        <Typography variant={'h3'} component={'h1'}>{t.page.orders.orderList}</Typography>
+                        <Typography variant={'h5'} component={'h1'}>{t.page.orders.orderList}</Typography>
                         <OrderList jwt={session.jwt}/>
                     </Grid>
                 </Grid>

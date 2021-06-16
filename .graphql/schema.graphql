@@ -1,2203 +1,1970 @@
-input FileInfoInput {
-  name: String
-  alternativeText: String
-  caption: String
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+    mutation: Mutation
 }
 
-type UsersPermissionsMe {
-  id: ID!
-  username: String!
-  email: String!
-  confirmed: Boolean
-  blocked: Boolean
-  role: UsersPermissionsMeRole
-  user: UsersPermissionsUser
-  cart: Cart
-}
+union Morph = Brand | BrandAggregator | BrandConnection | BrandConnectionCreatedAt | BrandConnectionId | BrandConnectionName | BrandConnectionPhoto | BrandConnectionUpdatedAt | BrandConnection_id | BrandGroupBy | Cart | CartAggregator | CartConnection | CartConnectionCreatedAt | CartConnectionId | CartConnectionUpdatedAt | CartConnectionUser | CartConnection_id | CartGroupBy | Category | CategoryAggregator | CategoryConnection | CategoryConnectionCreatedAt | CategoryConnectionId | CategoryConnectionName | CategoryConnectionUpdatedAt | CategoryConnection_id | CategoryGroupBy | ComponentCartCartItem | ComponentCustomerCustomer | ComponentPlacementPlacement | ComponentSaleProductDataSaleProductData | ComponentVirtualStockAvailableOnVirtualStock | Consignment | ConsignmentAggregator | ConsignmentConnection | ConsignmentConnectionCode_1c | ConsignmentConnectionCreatedAt | ConsignmentConnectionId | ConsignmentConnectionName | ConsignmentConnectionProduct | ConsignmentConnectionProductionDate | ConsignmentConnectionPublished_at | ConsignmentConnectionUpdatedAt | ConsignmentConnectionValidUntil | ConsignmentConnection_id | ConsignmentGroupBy | Contacts | Group | GroupAggregator | GroupConnection | GroupConnectionCategory | GroupConnectionCreatedAt | GroupConnectionId | GroupConnectionName | GroupConnectionUpdatedAt | GroupConnection_id | GroupGroupBy | Order | OrderAggregator | OrderConnection | OrderConnectionCreatedAt | OrderConnectionDeliveryInstruction | OrderConnectionId | OrderConnectionInvoice | OrderConnectionPoNumber | OrderConnectionRequestedShippingDate | OrderConnectionStatus | OrderConnectionUpdatedAt | OrderConnectionUser | OrderConnection_id | OrderGroupBy | Product | ProductAggregator | ProductAggregatorAvg | ProductAggregatorMax | ProductAggregatorMin | ProductAggregatorSum | ProductConnection | ProductConnectionBrand | ProductConnectionCode_1c | ProductConnectionCode_1c_uom | ProductConnectionColor | ProductConnectionCreatedAt | ProductConnectionDeletedFromSearch | ProductConnectionDescription_en | ProductConnectionDescription_ru | ProductConnectionExpectedDeliveryDate | ProductConnectionGroup | ProductConnectionId | ProductConnectionLink | ProductConnectionLongRead_en | ProductConnectionLongRead_ru | ProductConnectionMfg | ProductConnectionPhoto | ProductConnectionPn | ProductConnectionPrice_en | ProductConnectionPrice_ru | ProductConnectionSync1cDisplay | ProductConnectionUnitDimension | ProductConnectionUom | ProductConnectionUpdatedAt | ProductConnection_id | ProductGroupBy | Stock | StockAggregator | StockConnection | StockConnectionCreatedAt | StockConnectionId | StockConnectionName | StockConnectionUpdatedAt | StockConnection_id | StockGroupBy | UploadFile | UploadFileAggregator | UploadFileAggregatorAvg | UploadFileAggregatorMax | UploadFileAggregatorMin | UploadFileAggregatorSum | UploadFileConnection | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionCreatedAt | UploadFileConnectionExt | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionHeight | UploadFileConnectionId | UploadFileConnectionMime | UploadFileConnectionName | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_metadata | UploadFileConnectionSize | UploadFileConnectionUpdatedAt | UploadFileConnectionUrl | UploadFileConnectionWidth | UploadFileConnection_id | UploadFileGroupBy | UserPermissionsPasswordPayload | UsersPermissionsLoginPayload | UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleAggregator | UsersPermissionsRoleConnection | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionType | UsersPermissionsRoleConnection_id | UsersPermissionsRoleGroupBy | UsersPermissionsUser | UsersPermissionsUserAggregator | UsersPermissionsUserConnection | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionCart | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionCreatedAt | UsersPermissionsUserConnectionCustomerInfo | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionRole | UsersPermissionsUserConnectionUpdatedAt | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionVerifiedByAdmin | UsersPermissionsUserConnection_id | UsersPermissionsUserGroupBy | VirtualStock | VirtualStockAggregator | VirtualStockConnection | VirtualStockConnectionAddress | VirtualStockConnectionCreatedAt | VirtualStockConnectionId | VirtualStockConnectionName | VirtualStockConnectionUpdatedAt | VirtualStockConnection_id | VirtualStockGroupBy | createBrandPayload | createCartPayload | createCategoryPayload | createConsignmentPayload | createGroupPayload | createOrderPayload | createProductPayload | createRolePayload | createStockPayload | createUserPayload | createVirtualStockPayload | deleteBrandPayload | deleteCartPayload | deleteCategoryPayload | deleteConsignmentPayload | deleteContactPayload | deleteFilePayload | deleteGroupPayload | deleteOrderPayload | deleteProductPayload | deleteRolePayload | deleteStockPayload | deleteUserPayload | deleteVirtualStockPayload | updateBrandPayload | updateCartPayload | updateCategoryPayload | updateConsignmentPayload | updateContactPayload | updateGroupPayload | updateOrderPayload | updateProductPayload | updateRolePayload | updateStockPayload | updateUserPayload | updateVirtualStockPayload
 
-type UsersPermissionsMeRole {
-  id: ID!
-  name: String!
-  description: String
-  type: String
-}
-
-input UsersPermissionsRegisterInput {
-  username: String!
-  email: String!
-  password: String!
-}
-
-input UsersPermissionsLoginInput {
-  identifier: String!
-  password: String!
-  provider: String = "local"
-}
-
-type UsersPermissionsLoginPayload {
-  jwt: String
-  user: UsersPermissionsMe!
-}
-
-type UserPermissionsPasswordPayload {
-  ok: Boolean!
+type AdminUser {
+    firstname: String!
+    id: ID!
+    lastname: String!
+    username: String
 }
 
 type Brand {
-  id: ID!
-  _id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  name: String
-  photo: UploadFile
-  products(sort: String, limit: Int, start: Int, where: JSON): [Product]
-}
-
-type BrandConnection {
-  values: [Brand]
-  groupBy: BrandGroupBy
-  aggregate: BrandAggregator
+    _id: ID!
+    createdAt: DateTime!
+    id: ID!
+    name: String
+    photo: UploadFile
+    products(limit: Int, sort: String, start: Int, where: JSON): [Product]
+    updatedAt: DateTime!
 }
 
 type BrandAggregator {
-  count: Int
-  totalCount: Int
+    count: Int
+    totalCount: Int
 }
 
-type BrandGroupBy {
-  id: [BrandConnectionId]
-  _id: [BrandConnection_id]
-  createdAt: [BrandConnectionCreatedAt]
-  updatedAt: [BrandConnectionUpdatedAt]
-  name: [BrandConnectionName]
-  photo: [BrandConnectionPhoto]
-}
-
-type BrandConnectionId {
-  key: ID
-  connection: BrandConnection
-}
-
-type BrandConnection_id {
-  key: ID
-  connection: BrandConnection
+type BrandConnection {
+    aggregate: BrandAggregator
+    groupBy: BrandGroupBy
+    values: [Brand]
 }
 
 type BrandConnectionCreatedAt {
-  key: DateTime
-  connection: BrandConnection
+    connection: BrandConnection
+    key: DateTime
 }
 
-type BrandConnectionUpdatedAt {
-  key: DateTime
-  connection: BrandConnection
+type BrandConnectionId {
+    connection: BrandConnection
+    key: ID
 }
 
 type BrandConnectionName {
-  key: String
-  connection: BrandConnection
+    connection: BrandConnection
+    key: String
 }
 
 type BrandConnectionPhoto {
-  key: ID
-  connection: BrandConnection
+    connection: BrandConnection
+    key: ID
 }
 
-input BrandInput {
-  name: String
-  products: [ID]
-  photo: ID
-  created_by: ID
-  updated_by: ID
+type BrandConnectionUpdatedAt {
+    connection: BrandConnection
+    key: DateTime
 }
 
-input editBrandInput {
-  name: String
-  products: [ID]
-  photo: ID
-  created_by: ID
-  updated_by: ID
+type BrandConnection_id {
+    connection: BrandConnection
+    key: ID
 }
 
-input createBrandInput {
-  data: BrandInput
-}
-
-type createBrandPayload {
-  brand: Brand
-}
-
-input updateBrandInput {
-  where: InputID
-  data: editBrandInput
-}
-
-type updateBrandPayload {
-  brand: Brand
-}
-
-input deleteBrandInput {
-  where: InputID
-}
-
-type deleteBrandPayload {
-  brand: Brand
+type BrandGroupBy {
+    _id: [BrandConnection_id]
+    createdAt: [BrandConnectionCreatedAt]
+    id: [BrandConnectionId]
+    name: [BrandConnectionName]
+    photo: [BrandConnectionPhoto]
+    updatedAt: [BrandConnectionUpdatedAt]
 }
 
 type Cart {
-  id: ID!
-  _id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  cartItems: [ComponentCartCartItem]
-  user: UsersPermissionsUser
-}
-
-type CartConnection {
-  values: [Cart]
-  groupBy: CartGroupBy
-  aggregate: CartAggregator
+    _id: ID!
+    cartItems: [ComponentCartCartItem]
+    createdAt: DateTime!
+    id: ID!
+    updatedAt: DateTime!
+    user: UsersPermissionsUser
 }
 
 type CartAggregator {
-  count: Int
-  totalCount: Int
+    count: Int
+    totalCount: Int
 }
 
-type CartGroupBy {
-  id: [CartConnectionId]
-  _id: [CartConnection_id]
-  createdAt: [CartConnectionCreatedAt]
-  updatedAt: [CartConnectionUpdatedAt]
-  user: [CartConnectionUser]
-}
-
-type CartConnectionId {
-  key: ID
-  connection: CartConnection
-}
-
-type CartConnection_id {
-  key: ID
-  connection: CartConnection
+type CartConnection {
+    aggregate: CartAggregator
+    groupBy: CartGroupBy
+    values: [Cart]
 }
 
 type CartConnectionCreatedAt {
-  key: DateTime
-  connection: CartConnection
+    connection: CartConnection
+    key: DateTime
+}
+
+type CartConnectionId {
+    connection: CartConnection
+    key: ID
 }
 
 type CartConnectionUpdatedAt {
-  key: DateTime
-  connection: CartConnection
+    connection: CartConnection
+    key: DateTime
 }
 
 type CartConnectionUser {
-  key: ID
-  connection: CartConnection
+    connection: CartConnection
+    key: ID
 }
 
-input CartInput {
-  cartItems: [ComponentCartCartItemInput]
-  user: ID
-  created_by: ID
-  updated_by: ID
+type CartConnection_id {
+    connection: CartConnection
+    key: ID
 }
 
-input editCartInput {
-  cartItems: [editComponentCartCartItemInput]
-  user: ID
-  created_by: ID
-  updated_by: ID
-}
-
-input createCartInput {
-  data: CartInput
-}
-
-type createCartPayload {
-  cart: Cart
-}
-
-input updateCartInput {
-  where: InputID
-  data: editCartInput
-}
-
-type updateCartPayload {
-  cart: Cart
-}
-
-input deleteCartInput {
-  where: InputID
-}
-
-type deleteCartPayload {
-  cart: Cart
+type CartGroupBy {
+    _id: [CartConnection_id]
+    createdAt: [CartConnectionCreatedAt]
+    id: [CartConnectionId]
+    updatedAt: [CartConnectionUpdatedAt]
+    user: [CartConnectionUser]
 }
 
 type Category {
-  id: ID!
-  _id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  name: String!
-  groups(sort: String, limit: Int, start: Int, where: JSON): [Group]
-}
-
-type CategoryConnection {
-  values: [Category]
-  groupBy: CategoryGroupBy
-  aggregate: CategoryAggregator
+    _id: ID!
+    createdAt: DateTime!
+    groups(limit: Int, sort: String, start: Int, where: JSON): [Group]
+    id: ID!
+    name: String!
+    updatedAt: DateTime!
 }
 
 type CategoryAggregator {
-  count: Int
-  totalCount: Int
+    count: Int
+    totalCount: Int
 }
 
-type CategoryGroupBy {
-  id: [CategoryConnectionId]
-  _id: [CategoryConnection_id]
-  createdAt: [CategoryConnectionCreatedAt]
-  updatedAt: [CategoryConnectionUpdatedAt]
-  name: [CategoryConnectionName]
-}
-
-type CategoryConnectionId {
-  key: ID
-  connection: CategoryConnection
-}
-
-type CategoryConnection_id {
-  key: ID
-  connection: CategoryConnection
+type CategoryConnection {
+    aggregate: CategoryAggregator
+    groupBy: CategoryGroupBy
+    values: [Category]
 }
 
 type CategoryConnectionCreatedAt {
-  key: DateTime
-  connection: CategoryConnection
+    connection: CategoryConnection
+    key: DateTime
 }
 
-type CategoryConnectionUpdatedAt {
-  key: DateTime
-  connection: CategoryConnection
+type CategoryConnectionId {
+    connection: CategoryConnection
+    key: ID
 }
 
 type CategoryConnectionName {
-  key: String
-  connection: CategoryConnection
+    connection: CategoryConnection
+    key: String
 }
 
-input CategoryInput {
-  name: String!
-  groups: [ID]
-  created_by: ID
-  updated_by: ID
+type CategoryConnectionUpdatedAt {
+    connection: CategoryConnection
+    key: DateTime
 }
 
-input editCategoryInput {
-  name: String
-  groups: [ID]
-  created_by: ID
-  updated_by: ID
+type CategoryConnection_id {
+    connection: CategoryConnection
+    key: ID
 }
 
-input createCategoryInput {
-  data: CategoryInput
-}
-
-type createCategoryPayload {
-  category: Category
-}
-
-input updateCategoryInput {
-  where: InputID
-  data: editCategoryInput
-}
-
-type updateCategoryPayload {
-  category: Category
-}
-
-input deleteCategoryInput {
-  where: InputID
-}
-
-type deleteCategoryPayload {
-  category: Category
-}
-
-type Consignment {
-  id: ID!
-  _id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  name: String
-  productionDate: Date
-  validUntil: Date
-  code_1c: String
-  product: Product
-  placements: [ComponentPlacementPlacement]
-  published_at: DateTime
-}
-
-type ConsignmentConnection {
-  values: [Consignment]
-  groupBy: ConsignmentGroupBy
-  aggregate: ConsignmentAggregator
-}
-
-type ConsignmentAggregator {
-  count: Int
-  totalCount: Int
-}
-
-type ConsignmentGroupBy {
-  id: [ConsignmentConnectionId]
-  _id: [ConsignmentConnection_id]
-  createdAt: [ConsignmentConnectionCreatedAt]
-  updatedAt: [ConsignmentConnectionUpdatedAt]
-  name: [ConsignmentConnectionName]
-  productionDate: [ConsignmentConnectionProductionDate]
-  validUntil: [ConsignmentConnectionValidUntil]
-  code_1c: [ConsignmentConnectionCode_1c]
-  product: [ConsignmentConnectionProduct]
-  published_at: [ConsignmentConnectionPublished_at]
-}
-
-type ConsignmentConnectionId {
-  key: ID
-  connection: ConsignmentConnection
-}
-
-type ConsignmentConnection_id {
-  key: ID
-  connection: ConsignmentConnection
-}
-
-type ConsignmentConnectionCreatedAt {
-  key: DateTime
-  connection: ConsignmentConnection
-}
-
-type ConsignmentConnectionUpdatedAt {
-  key: DateTime
-  connection: ConsignmentConnection
-}
-
-type ConsignmentConnectionName {
-  key: String
-  connection: ConsignmentConnection
-}
-
-type ConsignmentConnectionProductionDate {
-  key: ID
-  connection: ConsignmentConnection
-}
-
-type ConsignmentConnectionValidUntil {
-  key: ID
-  connection: ConsignmentConnection
-}
-
-type ConsignmentConnectionCode_1c {
-  key: String
-  connection: ConsignmentConnection
-}
-
-type ConsignmentConnectionProduct {
-  key: ID
-  connection: ConsignmentConnection
-}
-
-type ConsignmentConnectionPublished_at {
-  key: DateTime
-  connection: ConsignmentConnection
-}
-
-input ConsignmentInput {
-  name: String
-  productionDate: Date
-  validUntil: Date
-  code_1c: String
-  product: ID
-  placements: [ComponentPlacementPlacementInput]
-  published_at: DateTime
-  created_by: ID
-  updated_by: ID
-}
-
-input editConsignmentInput {
-  name: String
-  productionDate: Date
-  validUntil: Date
-  code_1c: String
-  product: ID
-  placements: [editComponentPlacementPlacementInput]
-  published_at: DateTime
-  created_by: ID
-  updated_by: ID
-}
-
-input createConsignmentInput {
-  data: ConsignmentInput
-}
-
-type createConsignmentPayload {
-  consignment: Consignment
-}
-
-input updateConsignmentInput {
-  where: InputID
-  data: editConsignmentInput
-}
-
-type updateConsignmentPayload {
-  consignment: Consignment
-}
-
-input deleteConsignmentInput {
-  where: InputID
-}
-
-type deleteConsignmentPayload {
-  consignment: Consignment
-}
-
-type Contacts {
-  id: ID!
-  _id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  email: String
-  phone: String
-  address: String
-  published_at: DateTime
-}
-
-input ContactInput {
-  email: String
-  phone: String
-  address: String
-  published_at: DateTime
-  created_by: ID
-  updated_by: ID
-}
-
-input editContactInput {
-  email: String
-  phone: String
-  address: String
-  published_at: DateTime
-  created_by: ID
-  updated_by: ID
-}
-
-input updateContactInput {
-  data: editContactInput
-}
-
-type updateContactPayload {
-  contact: Contacts
-}
-
-type deleteContactPayload {
-  contact: Contacts
-}
-
-type Group {
-  id: ID!
-  _id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  name: String
-  category: Category
-  products(sort: String, limit: Int, start: Int, where: JSON): [Product]
-}
-
-type GroupConnection {
-  values: [Group]
-  groupBy: GroupGroupBy
-  aggregate: GroupAggregator
-}
-
-type GroupAggregator {
-  count: Int
-  totalCount: Int
-}
-
-type GroupGroupBy {
-  id: [GroupConnectionId]
-  _id: [GroupConnection_id]
-  createdAt: [GroupConnectionCreatedAt]
-  updatedAt: [GroupConnectionUpdatedAt]
-  name: [GroupConnectionName]
-  category: [GroupConnectionCategory]
-}
-
-type GroupConnectionId {
-  key: ID
-  connection: GroupConnection
-}
-
-type GroupConnection_id {
-  key: ID
-  connection: GroupConnection
-}
-
-type GroupConnectionCreatedAt {
-  key: DateTime
-  connection: GroupConnection
-}
-
-type GroupConnectionUpdatedAt {
-  key: DateTime
-  connection: GroupConnection
-}
-
-type GroupConnectionName {
-  key: String
-  connection: GroupConnection
-}
-
-type GroupConnectionCategory {
-  key: ID
-  connection: GroupConnection
-}
-
-input GroupInput {
-  name: String
-  products: [ID]
-  category: ID
-  created_by: ID
-  updated_by: ID
-}
-
-input editGroupInput {
-  name: String
-  products: [ID]
-  category: ID
-  created_by: ID
-  updated_by: ID
-}
-
-input createGroupInput {
-  data: GroupInput
-}
-
-type createGroupPayload {
-  group: Group
-}
-
-input updateGroupInput {
-  where: InputID
-  data: editGroupInput
-}
-
-type updateGroupPayload {
-  group: Group
-}
-
-input deleteGroupInput {
-  where: InputID
-}
-
-type deleteGroupPayload {
-  group: Group
-}
-
-enum ENUM_ORDER_STATUS {
-  open
-  inProgress
-  paid
-  closed
-}
-
-type Order {
-  id: ID!
-  _id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  status: ENUM_ORDER_STATUS
-  saleProductData: [ComponentSaleProductDataSaleProductData]
-  user: UsersPermissionsUser
-  invoice: String
-  requestedShippingDate: Date
-  deliveryInstruction: String
-  poNumber: String
-}
-
-type OrderConnection {
-  values: [Order]
-  groupBy: OrderGroupBy
-  aggregate: OrderAggregator
-}
-
-type OrderAggregator {
-  count: Int
-  totalCount: Int
-}
-
-type OrderGroupBy {
-  id: [OrderConnectionId]
-  _id: [OrderConnection_id]
-  createdAt: [OrderConnectionCreatedAt]
-  updatedAt: [OrderConnectionUpdatedAt]
-  status: [OrderConnectionStatus]
-  user: [OrderConnectionUser]
-  invoice: [OrderConnectionInvoice]
-  requestedShippingDate: [OrderConnectionRequestedShippingDate]
-  deliveryInstruction: [OrderConnectionDeliveryInstruction]
-  poNumber: [OrderConnectionPoNumber]
-}
-
-type OrderConnectionId {
-  key: ID
-  connection: OrderConnection
-}
-
-type OrderConnection_id {
-  key: ID
-  connection: OrderConnection
-}
-
-type OrderConnectionCreatedAt {
-  key: DateTime
-  connection: OrderConnection
-}
-
-type OrderConnectionUpdatedAt {
-  key: DateTime
-  connection: OrderConnection
-}
-
-type OrderConnectionStatus {
-  key: String
-  connection: OrderConnection
-}
-
-type OrderConnectionUser {
-  key: ID
-  connection: OrderConnection
-}
-
-type OrderConnectionInvoice {
-  key: String
-  connection: OrderConnection
-}
-
-type OrderConnectionRequestedShippingDate {
-  key: ID
-  connection: OrderConnection
-}
-
-type OrderConnectionDeliveryInstruction {
-  key: String
-  connection: OrderConnection
-}
-
-type OrderConnectionPoNumber {
-  key: String
-  connection: OrderConnection
-}
-
-input OrderInput {
-  status: ENUM_ORDER_STATUS
-  saleProductData: [ComponentSaleProductDataSaleProductDatumInput]
-  user: ID
-  invoice: String
-  requestedShippingDate: Date
-  deliveryInstruction: String
-  poNumber: String
-  created_by: ID
-  updated_by: ID
-}
-
-input editOrderInput {
-  status: ENUM_ORDER_STATUS
-  saleProductData: [editComponentSaleProductDataSaleProductDatumInput]
-  user: ID
-  invoice: String
-  requestedShippingDate: Date
-  deliveryInstruction: String
-  poNumber: String
-  created_by: ID
-  updated_by: ID
-}
-
-input createOrderInput {
-  data: OrderInput
-}
-
-type createOrderPayload {
-  order: Order
-}
-
-input updateOrderInput {
-  where: InputID
-  data: editOrderInput
-}
-
-type updateOrderPayload {
-  order: Order
-}
-
-input deleteOrderInput {
-  where: InputID
-}
-
-type deleteOrderPayload {
-  order: Order
-}
-
-enum ENUM_PRODUCT_UNITDIMENSION {
-  unit
-}
-
-type Product {
-  id: ID!
-  _id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  pn: String
-  description_ru: String
-  longRead_ru: String
-  uom: String
-  code_1c_uom: String
-  color: String
-  mfg: String
-  price_ru: Float!
-  price_en: Float!
-  photo: UploadFile
-  code_1c: String
-  description_en: String
-  longRead_en: String
-  group: Group
-  link: String
-  unitDimension: ENUM_PRODUCT_UNITDIMENSION
-  brand: Brand
-  sync1cDisplay: Boolean
-  deletedFromSearch: Boolean
-  expectedDeliveryDate: Date
-  consignments(sort: String, limit: Int, start: Int, where: JSON): [Consignment]
-}
-
-type ProductConnection {
-  values: [Product]
-  groupBy: ProductGroupBy
-  aggregate: ProductAggregator
-}
-
-type ProductAggregator {
-  count: Int
-  totalCount: Int
-  sum: ProductAggregatorSum
-  avg: ProductAggregatorAvg
-  min: ProductAggregatorMin
-  max: ProductAggregatorMax
-}
-
-type ProductAggregatorSum {
-  price_ru: Float
-  price_en: Float
-}
-
-type ProductAggregatorAvg {
-  price_ru: Float
-  price_en: Float
-}
-
-type ProductAggregatorMin {
-  price_ru: Float
-  price_en: Float
-}
-
-type ProductAggregatorMax {
-  price_ru: Float
-  price_en: Float
-}
-
-type ProductGroupBy {
-  id: [ProductConnectionId]
-  _id: [ProductConnection_id]
-  createdAt: [ProductConnectionCreatedAt]
-  updatedAt: [ProductConnectionUpdatedAt]
-  pn: [ProductConnectionPn]
-  description_ru: [ProductConnectionDescription_ru]
-  longRead_ru: [ProductConnectionLongRead_ru]
-  uom: [ProductConnectionUom]
-  code_1c_uom: [ProductConnectionCode_1c_uom]
-  color: [ProductConnectionColor]
-  mfg: [ProductConnectionMfg]
-  price_ru: [ProductConnectionPrice_ru]
-  price_en: [ProductConnectionPrice_en]
-  photo: [ProductConnectionPhoto]
-  code_1c: [ProductConnectionCode_1c]
-  description_en: [ProductConnectionDescription_en]
-  longRead_en: [ProductConnectionLongRead_en]
-  group: [ProductConnectionGroup]
-  link: [ProductConnectionLink]
-  unitDimension: [ProductConnectionUnitDimension]
-  brand: [ProductConnectionBrand]
-  sync1cDisplay: [ProductConnectionSync1cDisplay]
-  deletedFromSearch: [ProductConnectionDeletedFromSearch]
-  expectedDeliveryDate: [ProductConnectionExpectedDeliveryDate]
-}
-
-type ProductConnectionId {
-  key: ID
-  connection: ProductConnection
-}
-
-type ProductConnection_id {
-  key: ID
-  connection: ProductConnection
-}
-
-type ProductConnectionCreatedAt {
-  key: DateTime
-  connection: ProductConnection
-}
-
-type ProductConnectionUpdatedAt {
-  key: DateTime
-  connection: ProductConnection
-}
-
-type ProductConnectionPn {
-  key: String
-  connection: ProductConnection
-}
-
-type ProductConnectionDescription_ru {
-  key: String
-  connection: ProductConnection
-}
-
-type ProductConnectionLongRead_ru {
-  key: String
-  connection: ProductConnection
-}
-
-type ProductConnectionUom {
-  key: String
-  connection: ProductConnection
-}
-
-type ProductConnectionCode_1c_uom {
-  key: String
-  connection: ProductConnection
-}
-
-type ProductConnectionColor {
-  key: String
-  connection: ProductConnection
-}
-
-type ProductConnectionMfg {
-  key: String
-  connection: ProductConnection
-}
-
-type ProductConnectionPrice_ru {
-  key: Float
-  connection: ProductConnection
-}
-
-type ProductConnectionPrice_en {
-  key: Float
-  connection: ProductConnection
-}
-
-type ProductConnectionPhoto {
-  key: ID
-  connection: ProductConnection
-}
-
-type ProductConnectionCode_1c {
-  key: String
-  connection: ProductConnection
-}
-
-type ProductConnectionDescription_en {
-  key: String
-  connection: ProductConnection
-}
-
-type ProductConnectionLongRead_en {
-  key: String
-  connection: ProductConnection
-}
-
-type ProductConnectionGroup {
-  key: ID
-  connection: ProductConnection
-}
-
-type ProductConnectionLink {
-  key: String
-  connection: ProductConnection
-}
-
-type ProductConnectionUnitDimension {
-  key: String
-  connection: ProductConnection
-}
-
-type ProductConnectionBrand {
-  key: ID
-  connection: ProductConnection
-}
-
-type ProductConnectionSync1cDisplay {
-  key: Boolean
-  connection: ProductConnection
-}
-
-type ProductConnectionDeletedFromSearch {
-  key: Boolean
-  connection: ProductConnection
-}
-
-type ProductConnectionExpectedDeliveryDate {
-  key: ID
-  connection: ProductConnection
-}
-
-input ProductInput {
-  pn: String
-  description_ru: String
-  longRead_ru: String
-  uom: String
-  code_1c_uom: String
-  color: String
-  mfg: String
-  price_ru: Float
-  price_en: Float
-  photo: ID
-  code_1c: String
-  description_en: String
-  longRead_en: String
-  group: ID
-  consignments: [ID]
-  link: String
-  unitDimension: ENUM_PRODUCT_UNITDIMENSION
-  brand: ID
-  sync1cDisplay: Boolean
-  deletedFromSearch: Boolean
-  expectedDeliveryDate: Date
-  created_by: ID
-  updated_by: ID
-}
-
-input editProductInput {
-  pn: String
-  description_ru: String
-  longRead_ru: String
-  uom: String
-  code_1c_uom: String
-  color: String
-  mfg: String
-  price_ru: Float
-  price_en: Float
-  photo: ID
-  code_1c: String
-  description_en: String
-  longRead_en: String
-  group: ID
-  consignments: [ID]
-  link: String
-  unitDimension: ENUM_PRODUCT_UNITDIMENSION
-  brand: ID
-  sync1cDisplay: Boolean
-  deletedFromSearch: Boolean
-  expectedDeliveryDate: Date
-  created_by: ID
-  updated_by: ID
-}
-
-input createProductInput {
-  data: ProductInput
-}
-
-type createProductPayload {
-  product: Product
-}
-
-input updateProductInput {
-  where: InputID
-  data: editProductInput
-}
-
-type updateProductPayload {
-  product: Product
-}
-
-input deleteProductInput {
-  where: InputID
-}
-
-type deleteProductPayload {
-  product: Product
-}
-
-type Stock {
-  id: ID!
-  _id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  name: String
-}
-
-type StockConnection {
-  values: [Stock]
-  groupBy: StockGroupBy
-  aggregate: StockAggregator
-}
-
-type StockAggregator {
-  count: Int
-  totalCount: Int
-}
-
-type StockGroupBy {
-  id: [StockConnectionId]
-  _id: [StockConnection_id]
-  createdAt: [StockConnectionCreatedAt]
-  updatedAt: [StockConnectionUpdatedAt]
-  name: [StockConnectionName]
-}
-
-type StockConnectionId {
-  key: ID
-  connection: StockConnection
-}
-
-type StockConnection_id {
-  key: ID
-  connection: StockConnection
-}
-
-type StockConnectionCreatedAt {
-  key: DateTime
-  connection: StockConnection
-}
-
-type StockConnectionUpdatedAt {
-  key: DateTime
-  connection: StockConnection
-}
-
-type StockConnectionName {
-  key: String
-  connection: StockConnection
-}
-
-input StockInput {
-  name: String
-  created_by: ID
-  updated_by: ID
-}
-
-input editStockInput {
-  name: String
-  created_by: ID
-  updated_by: ID
-}
-
-input createStockInput {
-  data: StockInput
-}
-
-type createStockPayload {
-  stock: Stock
-}
-
-input updateStockInput {
-  where: InputID
-  data: editStockInput
-}
-
-type updateStockPayload {
-  stock: Stock
-}
-
-input deleteStockInput {
-  where: InputID
-}
-
-type deleteStockPayload {
-  stock: Stock
-}
-
-type UploadFile {
-  id: ID!
-  _id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  name: String!
-  alternativeText: String
-  caption: String
-  width: Int
-  height: Int
-  formats: JSON
-  hash: String!
-  ext: String
-  mime: String!
-  size: Float!
-  url: String!
-  previewUrl: String
-  provider: String!
-  provider_metadata: JSON
-  related(sort: String, limit: Int, start: Int, where: JSON): [Morph]
-}
-
-type UploadFileConnection {
-  values: [UploadFile]
-  groupBy: UploadFileGroupBy
-  aggregate: UploadFileAggregator
-}
-
-type UploadFileAggregator {
-  count: Int
-  totalCount: Int
-  sum: UploadFileAggregatorSum
-  avg: UploadFileAggregatorAvg
-  min: UploadFileAggregatorMin
-  max: UploadFileAggregatorMax
-}
-
-type UploadFileAggregatorSum {
-  width: Float
-  height: Float
-  size: Float
-}
-
-type UploadFileAggregatorAvg {
-  width: Float
-  height: Float
-  size: Float
-}
-
-type UploadFileAggregatorMin {
-  width: Float
-  height: Float
-  size: Float
-}
-
-type UploadFileAggregatorMax {
-  width: Float
-  height: Float
-  size: Float
-}
-
-type UploadFileGroupBy {
-  id: [UploadFileConnectionId]
-  _id: [UploadFileConnection_id]
-  createdAt: [UploadFileConnectionCreatedAt]
-  updatedAt: [UploadFileConnectionUpdatedAt]
-  name: [UploadFileConnectionName]
-  alternativeText: [UploadFileConnectionAlternativeText]
-  caption: [UploadFileConnectionCaption]
-  width: [UploadFileConnectionWidth]
-  height: [UploadFileConnectionHeight]
-  formats: [UploadFileConnectionFormats]
-  hash: [UploadFileConnectionHash]
-  ext: [UploadFileConnectionExt]
-  mime: [UploadFileConnectionMime]
-  size: [UploadFileConnectionSize]
-  url: [UploadFileConnectionUrl]
-  previewUrl: [UploadFileConnectionPreviewUrl]
-  provider: [UploadFileConnectionProvider]
-  provider_metadata: [UploadFileConnectionProvider_metadata]
-}
-
-type UploadFileConnectionId {
-  key: ID
-  connection: UploadFileConnection
-}
-
-type UploadFileConnection_id {
-  key: ID
-  connection: UploadFileConnection
-}
-
-type UploadFileConnectionCreatedAt {
-  key: DateTime
-  connection: UploadFileConnection
-}
-
-type UploadFileConnectionUpdatedAt {
-  key: DateTime
-  connection: UploadFileConnection
-}
-
-type UploadFileConnectionName {
-  key: String
-  connection: UploadFileConnection
-}
-
-type UploadFileConnectionAlternativeText {
-  key: String
-  connection: UploadFileConnection
-}
-
-type UploadFileConnectionCaption {
-  key: String
-  connection: UploadFileConnection
-}
-
-type UploadFileConnectionWidth {
-  key: Int
-  connection: UploadFileConnection
-}
-
-type UploadFileConnectionHeight {
-  key: Int
-  connection: UploadFileConnection
-}
-
-type UploadFileConnectionFormats {
-  key: JSON
-  connection: UploadFileConnection
-}
-
-type UploadFileConnectionHash {
-  key: String
-  connection: UploadFileConnection
-}
-
-type UploadFileConnectionExt {
-  key: String
-  connection: UploadFileConnection
-}
-
-type UploadFileConnectionMime {
-  key: String
-  connection: UploadFileConnection
-}
-
-type UploadFileConnectionSize {
-  key: Float
-  connection: UploadFileConnection
-}
-
-type UploadFileConnectionUrl {
-  key: String
-  connection: UploadFileConnection
-}
-
-type UploadFileConnectionPreviewUrl {
-  key: String
-  connection: UploadFileConnection
-}
-
-type UploadFileConnectionProvider {
-  key: String
-  connection: UploadFileConnection
-}
-
-type UploadFileConnectionProvider_metadata {
-  key: JSON
-  connection: UploadFileConnection
-}
-
-input FileInput {
-  name: String!
-  alternativeText: String
-  caption: String
-  width: Int
-  height: Int
-  formats: JSON
-  hash: String!
-  ext: String
-  mime: String!
-  size: Float!
-  url: String!
-  previewUrl: String
-  provider: String!
-  provider_metadata: JSON
-  related: [ID]
-  created_by: ID
-  updated_by: ID
-}
-
-input editFileInput {
-  name: String
-  alternativeText: String
-  caption: String
-  width: Int
-  height: Int
-  formats: JSON
-  hash: String
-  ext: String
-  mime: String
-  size: Float
-  url: String
-  previewUrl: String
-  provider: String
-  provider_metadata: JSON
-  related: [ID]
-  created_by: ID
-  updated_by: ID
-}
-
-input deleteFileInput {
-  where: InputID
-}
-
-type deleteFilePayload {
-  file: UploadFile
-}
-
-type UsersPermissionsPermission {
-  id: ID!
-  _id: ID!
-  type: String!
-  controller: String!
-  action: String!
-  enabled: Boolean!
-  policy: String
-  role: UsersPermissionsRole
-}
-
-type UsersPermissionsRole {
-  id: ID!
-  _id: ID!
-  name: String!
-  description: String
-  type: String
-  permissions(
-    sort: String
-    limit: Int
-    start: Int
-    where: JSON
-  ): [UsersPermissionsPermission]
-  users(
-    sort: String
-    limit: Int
-    start: Int
-    where: JSON
-  ): [UsersPermissionsUser]
-}
-
-type UsersPermissionsRoleConnection {
-  values: [UsersPermissionsRole]
-  groupBy: UsersPermissionsRoleGroupBy
-  aggregate: UsersPermissionsRoleAggregator
-}
-
-type UsersPermissionsRoleAggregator {
-  count: Int
-  totalCount: Int
-}
-
-type UsersPermissionsRoleGroupBy {
-  id: [UsersPermissionsRoleConnectionId]
-  _id: [UsersPermissionsRoleConnection_id]
-  name: [UsersPermissionsRoleConnectionName]
-  description: [UsersPermissionsRoleConnectionDescription]
-  type: [UsersPermissionsRoleConnectionType]
-}
-
-type UsersPermissionsRoleConnectionId {
-  key: ID
-  connection: UsersPermissionsRoleConnection
-}
-
-type UsersPermissionsRoleConnection_id {
-  key: ID
-  connection: UsersPermissionsRoleConnection
-}
-
-type UsersPermissionsRoleConnectionName {
-  key: String
-  connection: UsersPermissionsRoleConnection
-}
-
-type UsersPermissionsRoleConnectionDescription {
-  key: String
-  connection: UsersPermissionsRoleConnection
-}
-
-type UsersPermissionsRoleConnectionType {
-  key: String
-  connection: UsersPermissionsRoleConnection
-}
-
-input RoleInput {
-  name: String!
-  description: String
-  type: String
-  permissions: [ID]
-  users: [ID]
-  created_by: ID
-  updated_by: ID
-}
-
-input editRoleInput {
-  name: String
-  description: String
-  type: String
-  permissions: [ID]
-  users: [ID]
-  created_by: ID
-  updated_by: ID
-}
-
-input createRoleInput {
-  data: RoleInput
-}
-
-type createRolePayload {
-  role: UsersPermissionsRole
-}
-
-input updateRoleInput {
-  where: InputID
-  data: editRoleInput
-}
-
-type updateRolePayload {
-  role: UsersPermissionsRole
-}
-
-input deleteRoleInput {
-  where: InputID
-}
-
-type deleteRolePayload {
-  role: UsersPermissionsRole
-}
-
-type UsersPermissionsUser {
-  id: ID!
-  _id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  username: String!
-  email: String!
-  provider: String
-  confirmed: Boolean
-  blocked: Boolean
-  role: UsersPermissionsRole
-  customerInfo: ComponentCustomerCustomer
-  cart: Cart
-  verifiedByAdmin: Boolean
-  orders(sort: String, limit: Int, start: Int, where: JSON): [Order]
-}
-
-type UsersPermissionsUserConnection {
-  values: [UsersPermissionsUser]
-  groupBy: UsersPermissionsUserGroupBy
-  aggregate: UsersPermissionsUserAggregator
-}
-
-type UsersPermissionsUserAggregator {
-  count: Int
-  totalCount: Int
-}
-
-type UsersPermissionsUserGroupBy {
-  id: [UsersPermissionsUserConnectionId]
-  _id: [UsersPermissionsUserConnection_id]
-  createdAt: [UsersPermissionsUserConnectionCreatedAt]
-  updatedAt: [UsersPermissionsUserConnectionUpdatedAt]
-  username: [UsersPermissionsUserConnectionUsername]
-  email: [UsersPermissionsUserConnectionEmail]
-  provider: [UsersPermissionsUserConnectionProvider]
-  confirmed: [UsersPermissionsUserConnectionConfirmed]
-  blocked: [UsersPermissionsUserConnectionBlocked]
-  role: [UsersPermissionsUserConnectionRole]
-  customerInfo: [UsersPermissionsUserConnectionCustomerInfo]
-  cart: [UsersPermissionsUserConnectionCart]
-  verifiedByAdmin: [UsersPermissionsUserConnectionVerifiedByAdmin]
-}
-
-type UsersPermissionsUserConnectionId {
-  key: ID
-  connection: UsersPermissionsUserConnection
-}
-
-type UsersPermissionsUserConnection_id {
-  key: ID
-  connection: UsersPermissionsUserConnection
-}
-
-type UsersPermissionsUserConnectionCreatedAt {
-  key: DateTime
-  connection: UsersPermissionsUserConnection
-}
-
-type UsersPermissionsUserConnectionUpdatedAt {
-  key: DateTime
-  connection: UsersPermissionsUserConnection
-}
-
-type UsersPermissionsUserConnectionUsername {
-  key: String
-  connection: UsersPermissionsUserConnection
-}
-
-type UsersPermissionsUserConnectionEmail {
-  key: String
-  connection: UsersPermissionsUserConnection
-}
-
-type UsersPermissionsUserConnectionProvider {
-  key: String
-  connection: UsersPermissionsUserConnection
-}
-
-type UsersPermissionsUserConnectionConfirmed {
-  key: Boolean
-  connection: UsersPermissionsUserConnection
-}
-
-type UsersPermissionsUserConnectionBlocked {
-  key: Boolean
-  connection: UsersPermissionsUserConnection
-}
-
-type UsersPermissionsUserConnectionRole {
-  key: ID
-  connection: UsersPermissionsUserConnection
-}
-
-type UsersPermissionsUserConnectionCustomerInfo {
-  key: ID
-  connection: UsersPermissionsUserConnection
-}
-
-type UsersPermissionsUserConnectionCart {
-  key: ID
-  connection: UsersPermissionsUserConnection
-}
-
-type UsersPermissionsUserConnectionVerifiedByAdmin {
-  key: Boolean
-  connection: UsersPermissionsUserConnection
-}
-
-input UserInput {
-  username: String!
-  email: String!
-  provider: String
-  password: String
-  resetPasswordToken: String
-  confirmationToken: String
-  confirmed: Boolean
-  blocked: Boolean
-  role: ID
-  customerInfo: ComponentCustomerCustomerInput
-  orders: [ID]
-  cart: ID
-  verifiedByAdmin: Boolean
-  created_by: ID
-  updated_by: ID
-}
-
-input editUserInput {
-  username: String
-  email: String
-  provider: String
-  password: String
-  resetPasswordToken: String
-  confirmationToken: String
-  confirmed: Boolean
-  blocked: Boolean
-  role: ID
-  customerInfo: editComponentCustomerCustomerInput
-  orders: [ID]
-  cart: ID
-  verifiedByAdmin: Boolean
-  created_by: ID
-  updated_by: ID
-}
-
-input createUserInput {
-  data: UserInput
-}
-
-type createUserPayload {
-  user: UsersPermissionsUser
-}
-
-input updateUserInput {
-  where: InputID
-  data: editUserInput
-}
-
-type updateUserPayload {
-  user: UsersPermissionsUser
-}
-
-input deleteUserInput {
-  where: InputID
-}
-
-type deleteUserPayload {
-  user: UsersPermissionsUser
+type CategoryGroupBy {
+    _id: [CategoryConnection_id]
+    createdAt: [CategoryConnectionCreatedAt]
+    id: [CategoryConnectionId]
+    name: [CategoryConnectionName]
+    updatedAt: [CategoryConnectionUpdatedAt]
 }
 
 type ComponentCartCartItem {
-  id: ID!
-  _id: ID!
-  product: Product
-  count: Int
-}
-
-input ComponentCartCartItemInput {
-  product: ID
-  count: Int
-}
-
-input editComponentCartCartItemInput {
-  id: ID
-  product: ID
-  count: Int
+    _id: ID!
+    count: Int
+    id: ID!
+    product: Product
 }
 
 type ComponentCustomerCustomer {
-  id: ID!
-  _id: ID!
-  company: String
-  phone: String
-}
-
-input ComponentCustomerCustomerInput {
-  company: String
-  phone: String
-}
-
-input editComponentCustomerCustomerInput {
-  id: ID
-  company: String
-  phone: String
+    _id: ID!
+    company: String
+    id: ID!
+    phone: String
 }
 
 type ComponentPlacementPlacement {
-  id: ID!
-  _id: ID!
-  balance: Int
-  stock: Stock
-}
-
-input ComponentPlacementPlacementInput {
-  balance: Int
-  stock: ID
-}
-
-input editComponentPlacementPlacementInput {
-  id: ID
-  balance: Int
-  stock: ID
+    _id: ID!
+    balance: Int
+    id: ID!
+    stock: Stock
 }
 
 type ComponentSaleProductDataSaleProductData {
-  id: ID!
-  _id: ID!
-  product: Product
-  count: Int
-  sellingPrice: Float
+    _id: ID!
+    count: Int
+    id: ID!
+    product: Product
+    sellingPrice: Float
 }
 
-input ComponentSaleProductDataSaleProductDatumInput {
-  product: ID
-  count: Int
-  sellingPrice: Float
+type ComponentVirtualStockAvailableOnVirtualStock {
+    _id: ID!
+    id: ID!
+    virtual_stocks(limit: Int, sort: String, start: Int, where: JSON): [VirtualStock]
 }
 
-input editComponentSaleProductDataSaleProductDatumInput {
-  id: ID
-  product: ID
-  count: Int
-  sellingPrice: Float
+type Consignment {
+    _id: ID!
+    code_1c: String
+    createdAt: DateTime!
+    id: ID!
+    name: String
+    placements: [ComponentPlacementPlacement]
+    product: Product
+    productionDate: Date
+    published_at: DateTime
+    updatedAt: DateTime!
+    validUntil: Date
 }
 
-union Morph =
-    UsersPermissionsMe
-  | UsersPermissionsMeRole
-  | UsersPermissionsLoginPayload
-  | UserPermissionsPasswordPayload
-  | Brand
-  | BrandConnection
-  | BrandAggregator
-  | BrandGroupBy
-  | BrandConnectionId
-  | BrandConnection_id
-  | BrandConnectionCreatedAt
-  | BrandConnectionUpdatedAt
-  | BrandConnectionName
-  | BrandConnectionPhoto
-  | createBrandPayload
-  | updateBrandPayload
-  | deleteBrandPayload
-  | Cart
-  | CartConnection
-  | CartAggregator
-  | CartGroupBy
-  | CartConnectionId
-  | CartConnection_id
-  | CartConnectionCreatedAt
-  | CartConnectionUpdatedAt
-  | CartConnectionUser
-  | createCartPayload
-  | updateCartPayload
-  | deleteCartPayload
-  | Category
-  | CategoryConnection
-  | CategoryAggregator
-  | CategoryGroupBy
-  | CategoryConnectionId
-  | CategoryConnection_id
-  | CategoryConnectionCreatedAt
-  | CategoryConnectionUpdatedAt
-  | CategoryConnectionName
-  | createCategoryPayload
-  | updateCategoryPayload
-  | deleteCategoryPayload
-  | Consignment
-  | ConsignmentConnection
-  | ConsignmentAggregator
-  | ConsignmentGroupBy
-  | ConsignmentConnectionId
-  | ConsignmentConnection_id
-  | ConsignmentConnectionCreatedAt
-  | ConsignmentConnectionUpdatedAt
-  | ConsignmentConnectionName
-  | ConsignmentConnectionProductionDate
-  | ConsignmentConnectionValidUntil
-  | ConsignmentConnectionCode_1c
-  | ConsignmentConnectionProduct
-  | ConsignmentConnectionPublished_at
-  | createConsignmentPayload
-  | updateConsignmentPayload
-  | deleteConsignmentPayload
-  | Contacts
-  | updateContactPayload
-  | deleteContactPayload
-  | Group
-  | GroupConnection
-  | GroupAggregator
-  | GroupGroupBy
-  | GroupConnectionId
-  | GroupConnection_id
-  | GroupConnectionCreatedAt
-  | GroupConnectionUpdatedAt
-  | GroupConnectionName
-  | GroupConnectionCategory
-  | createGroupPayload
-  | updateGroupPayload
-  | deleteGroupPayload
-  | Order
-  | OrderConnection
-  | OrderAggregator
-  | OrderGroupBy
-  | OrderConnectionId
-  | OrderConnection_id
-  | OrderConnectionCreatedAt
-  | OrderConnectionUpdatedAt
-  | OrderConnectionStatus
-  | OrderConnectionUser
-  | OrderConnectionInvoice
-  | OrderConnectionRequestedShippingDate
-  | OrderConnectionDeliveryInstruction
-  | OrderConnectionPoNumber
-  | createOrderPayload
-  | updateOrderPayload
-  | deleteOrderPayload
-  | Product
-  | ProductConnection
-  | ProductAggregator
-  | ProductAggregatorSum
-  | ProductAggregatorAvg
-  | ProductAggregatorMin
-  | ProductAggregatorMax
-  | ProductGroupBy
-  | ProductConnectionId
-  | ProductConnection_id
-  | ProductConnectionCreatedAt
-  | ProductConnectionUpdatedAt
-  | ProductConnectionPn
-  | ProductConnectionDescription_ru
-  | ProductConnectionLongRead_ru
-  | ProductConnectionUom
-  | ProductConnectionCode_1c_uom
-  | ProductConnectionColor
-  | ProductConnectionMfg
-  | ProductConnectionPrice_ru
-  | ProductConnectionPrice_en
-  | ProductConnectionPhoto
-  | ProductConnectionCode_1c
-  | ProductConnectionDescription_en
-  | ProductConnectionLongRead_en
-  | ProductConnectionGroup
-  | ProductConnectionLink
-  | ProductConnectionUnitDimension
-  | ProductConnectionBrand
-  | ProductConnectionSync1cDisplay
-  | ProductConnectionDeletedFromSearch
-  | ProductConnectionExpectedDeliveryDate
-  | createProductPayload
-  | updateProductPayload
-  | deleteProductPayload
-  | Stock
-  | StockConnection
-  | StockAggregator
-  | StockGroupBy
-  | StockConnectionId
-  | StockConnection_id
-  | StockConnectionCreatedAt
-  | StockConnectionUpdatedAt
-  | StockConnectionName
-  | createStockPayload
-  | updateStockPayload
-  | deleteStockPayload
-  | UploadFile
-  | UploadFileConnection
-  | UploadFileAggregator
-  | UploadFileAggregatorSum
-  | UploadFileAggregatorAvg
-  | UploadFileAggregatorMin
-  | UploadFileAggregatorMax
-  | UploadFileGroupBy
-  | UploadFileConnectionId
-  | UploadFileConnection_id
-  | UploadFileConnectionCreatedAt
-  | UploadFileConnectionUpdatedAt
-  | UploadFileConnectionName
-  | UploadFileConnectionAlternativeText
-  | UploadFileConnectionCaption
-  | UploadFileConnectionWidth
-  | UploadFileConnectionHeight
-  | UploadFileConnectionFormats
-  | UploadFileConnectionHash
-  | UploadFileConnectionExt
-  | UploadFileConnectionMime
-  | UploadFileConnectionSize
-  | UploadFileConnectionUrl
-  | UploadFileConnectionPreviewUrl
-  | UploadFileConnectionProvider
-  | UploadFileConnectionProvider_metadata
-  | deleteFilePayload
-  | UsersPermissionsPermission
-  | UsersPermissionsRole
-  | UsersPermissionsRoleConnection
-  | UsersPermissionsRoleAggregator
-  | UsersPermissionsRoleGroupBy
-  | UsersPermissionsRoleConnectionId
-  | UsersPermissionsRoleConnection_id
-  | UsersPermissionsRoleConnectionName
-  | UsersPermissionsRoleConnectionDescription
-  | UsersPermissionsRoleConnectionType
-  | createRolePayload
-  | updateRolePayload
-  | deleteRolePayload
-  | UsersPermissionsUser
-  | UsersPermissionsUserConnection
-  | UsersPermissionsUserAggregator
-  | UsersPermissionsUserGroupBy
-  | UsersPermissionsUserConnectionId
-  | UsersPermissionsUserConnection_id
-  | UsersPermissionsUserConnectionCreatedAt
-  | UsersPermissionsUserConnectionUpdatedAt
-  | UsersPermissionsUserConnectionUsername
-  | UsersPermissionsUserConnectionEmail
-  | UsersPermissionsUserConnectionProvider
-  | UsersPermissionsUserConnectionConfirmed
-  | UsersPermissionsUserConnectionBlocked
-  | UsersPermissionsUserConnectionRole
-  | UsersPermissionsUserConnectionCustomerInfo
-  | UsersPermissionsUserConnectionCart
-  | UsersPermissionsUserConnectionVerifiedByAdmin
-  | createUserPayload
-  | updateUserPayload
-  | deleteUserPayload
-  | ComponentCartCartItem
-  | ComponentCustomerCustomer
-  | ComponentPlacementPlacement
-  | ComponentSaleProductDataSaleProductData
-
-input InputID {
-  id: ID!
+type ConsignmentAggregator {
+    count: Int
+    totalCount: Int
 }
 
-enum PublicationState {
-  LIVE
-  PREVIEW
+type ConsignmentConnection {
+    aggregate: ConsignmentAggregator
+    groupBy: ConsignmentGroupBy
+    values: [Consignment]
 }
 
-type AdminUser {
-  id: ID!
-  username: String
-  firstname: String!
-  lastname: String!
+type ConsignmentConnectionCode_1c {
+    connection: ConsignmentConnection
+    key: String
 }
 
-type Query {
-  brand(id: ID!, publicationState: PublicationState): Brand
-  brands(
-    sort: String
-    limit: Int
-    start: Int
-    where: JSON
-    publicationState: PublicationState
-  ): [Brand]
-  brandsConnection(
-    sort: String
-    limit: Int
-    start: Int
-    where: JSON
-  ): BrandConnection
-  cart(id: ID!, publicationState: PublicationState): Cart
-  carts(
-    sort: String
-    limit: Int
-    start: Int
-    where: JSON
-    publicationState: PublicationState
-  ): [Cart]
-  cartsConnection(
-    sort: String
-    limit: Int
-    start: Int
-    where: JSON
-  ): CartConnection
-  category(id: ID!, publicationState: PublicationState): Category
-  categories(
-    sort: String
-    limit: Int
-    start: Int
-    where: JSON
-    publicationState: PublicationState
-  ): [Category]
-  categoriesConnection(
-    sort: String
-    limit: Int
-    start: Int
-    where: JSON
-  ): CategoryConnection
-  consignment(id: ID!, publicationState: PublicationState): Consignment
-  consignments(
-    sort: String
-    limit: Int
-    start: Int
-    where: JSON
-    publicationState: PublicationState
-  ): [Consignment]
-  consignmentsConnection(
-    sort: String
-    limit: Int
-    start: Int
-    where: JSON
-  ): ConsignmentConnection
-  contact(publicationState: PublicationState): Contacts
-  group(id: ID!, publicationState: PublicationState): Group
-  groups(
-    sort: String
-    limit: Int
-    start: Int
-    where: JSON
-    publicationState: PublicationState
-  ): [Group]
-  groupsConnection(
-    sort: String
-    limit: Int
-    start: Int
-    where: JSON
-  ): GroupConnection
-  order(id: ID!, publicationState: PublicationState): Order
-  orders(
-    sort: String
-    limit: Int
-    start: Int
-    where: JSON
-    publicationState: PublicationState
-  ): [Order]
-  ordersConnection(
-    sort: String
-    limit: Int
-    start: Int
-    where: JSON
-  ): OrderConnection
-  product(id: ID!, publicationState: PublicationState): Product
-  products(
-    sort: String
-    limit: Int
-    start: Int
-    where: JSON
-    publicationState: PublicationState
-  ): [Product]
-  productsConnection(
-    sort: String
-    limit: Int
-    start: Int
-    where: JSON
-  ): ProductConnection
-  stock(id: ID!, publicationState: PublicationState): Stock
-  stocks(
-    sort: String
-    limit: Int
-    start: Int
-    where: JSON
-    publicationState: PublicationState
-  ): [Stock]
-  stocksConnection(
-    sort: String
-    limit: Int
-    start: Int
-    where: JSON
-  ): StockConnection
-  files(
-    sort: String
-    limit: Int
-    start: Int
-    where: JSON
-    publicationState: PublicationState
-  ): [UploadFile]
-  filesConnection(
-    sort: String
-    limit: Int
-    start: Int
-    where: JSON
-  ): UploadFileConnection
-  role(id: ID!, publicationState: PublicationState): UsersPermissionsRole
+type ConsignmentConnectionCreatedAt {
+    connection: ConsignmentConnection
+    key: DateTime
+}
 
-  # Retrieve all the existing roles. You can't apply filters on this query.
-  roles(
-    sort: String
-    limit: Int
-    start: Int
-    where: JSON
-    publicationState: PublicationState
-  ): [UsersPermissionsRole]
-  rolesConnection(
-    sort: String
-    limit: Int
-    start: Int
-    where: JSON
-  ): UsersPermissionsRoleConnection
-  user(id: ID!, publicationState: PublicationState): UsersPermissionsUser
-  users(
-    sort: String
-    limit: Int
-    start: Int
-    where: JSON
-    publicationState: PublicationState
-  ): [UsersPermissionsUser]
-  usersConnection(
-    sort: String
-    limit: Int
-    start: Int
-    where: JSON
-  ): UsersPermissionsUserConnection
-  me: UsersPermissionsMe
-  countProductsInCart: Int
-  getCart: Cart!
+type ConsignmentConnectionId {
+    connection: ConsignmentConnection
+    key: ID
+}
+
+type ConsignmentConnectionName {
+    connection: ConsignmentConnection
+    key: String
+}
+
+type ConsignmentConnectionProduct {
+    connection: ConsignmentConnection
+    key: ID
+}
+
+type ConsignmentConnectionProductionDate {
+    connection: ConsignmentConnection
+    key: ID
+}
+
+type ConsignmentConnectionPublished_at {
+    connection: ConsignmentConnection
+    key: DateTime
+}
+
+type ConsignmentConnectionUpdatedAt {
+    connection: ConsignmentConnection
+    key: DateTime
+}
+
+type ConsignmentConnectionValidUntil {
+    connection: ConsignmentConnection
+    key: ID
+}
+
+type ConsignmentConnection_id {
+    connection: ConsignmentConnection
+    key: ID
+}
+
+type ConsignmentGroupBy {
+    _id: [ConsignmentConnection_id]
+    code_1c: [ConsignmentConnectionCode_1c]
+    createdAt: [ConsignmentConnectionCreatedAt]
+    id: [ConsignmentConnectionId]
+    name: [ConsignmentConnectionName]
+    product: [ConsignmentConnectionProduct]
+    productionDate: [ConsignmentConnectionProductionDate]
+    published_at: [ConsignmentConnectionPublished_at]
+    updatedAt: [ConsignmentConnectionUpdatedAt]
+    validUntil: [ConsignmentConnectionValidUntil]
+}
+
+type Contacts {
+    _id: ID!
+    address: String
+    createdAt: DateTime!
+    email: String
+    id: ID!
+    phone: String
+    published_at: DateTime
+    updatedAt: DateTime!
+}
+
+type Group {
+    _id: ID!
+    category: Category
+    createdAt: DateTime!
+    id: ID!
+    name: String
+    products(limit: Int, sort: String, start: Int, where: JSON): [Product]
+    updatedAt: DateTime!
+}
+
+type GroupAggregator {
+    count: Int
+    totalCount: Int
+}
+
+type GroupConnection {
+    aggregate: GroupAggregator
+    groupBy: GroupGroupBy
+    values: [Group]
+}
+
+type GroupConnectionCategory {
+    connection: GroupConnection
+    key: ID
+}
+
+type GroupConnectionCreatedAt {
+    connection: GroupConnection
+    key: DateTime
+}
+
+type GroupConnectionId {
+    connection: GroupConnection
+    key: ID
+}
+
+type GroupConnectionName {
+    connection: GroupConnection
+    key: String
+}
+
+type GroupConnectionUpdatedAt {
+    connection: GroupConnection
+    key: DateTime
+}
+
+type GroupConnection_id {
+    connection: GroupConnection
+    key: ID
+}
+
+type GroupGroupBy {
+    _id: [GroupConnection_id]
+    category: [GroupConnectionCategory]
+    createdAt: [GroupConnectionCreatedAt]
+    id: [GroupConnectionId]
+    name: [GroupConnectionName]
+    updatedAt: [GroupConnectionUpdatedAt]
 }
 
 type Mutation {
-  createBrand(input: createBrandInput): createBrandPayload
-  updateBrand(input: updateBrandInput): updateBrandPayload
-  deleteBrand(input: deleteBrandInput): deleteBrandPayload
-  createCart(input: createCartInput): createCartPayload
-  updateCart(input: updateCartInput): updateCartPayload
-  deleteCart(input: deleteCartInput): deleteCartPayload
-  createCategory(input: createCategoryInput): createCategoryPayload
-  updateCategory(input: updateCategoryInput): updateCategoryPayload
-  deleteCategory(input: deleteCategoryInput): deleteCategoryPayload
-  createConsignment(input: createConsignmentInput): createConsignmentPayload
-  updateConsignment(input: updateConsignmentInput): updateConsignmentPayload
-  deleteConsignment(input: deleteConsignmentInput): deleteConsignmentPayload
-  updateContact(input: updateContactInput): updateContactPayload
-  deleteContact: deleteContactPayload
-  createGroup(input: createGroupInput): createGroupPayload
-  updateGroup(input: updateGroupInput): updateGroupPayload
-  deleteGroup(input: deleteGroupInput): deleteGroupPayload
-  createOrder(input: createOrderInput): createOrderPayload
-  updateOrder(input: updateOrderInput): updateOrderPayload
-  deleteOrder(input: deleteOrderInput): deleteOrderPayload
-  createProduct(input: createProductInput): createProductPayload
-  updateProduct(input: updateProductInput): updateProductPayload
-  deleteProduct(input: deleteProductInput): deleteProductPayload
-  createStock(input: createStockInput): createStockPayload
-  updateStock(input: updateStockInput): updateStockPayload
-  deleteStock(input: deleteStockInput): deleteStockPayload
-
-  # Delete one file
-  deleteFile(input: deleteFileInput): deleteFilePayload
-
-  # Create a new role
-  createRole(input: createRoleInput): createRolePayload
-
-  # Update an existing role
-  updateRole(input: updateRoleInput): updateRolePayload
-
-  # Delete an existing role
-  deleteRole(input: deleteRoleInput): deleteRolePayload
-
-  # Create a new user
-  createUser(input: createUserInput): createUserPayload
-
-  # Update an existing user
-  updateUser(input: updateUserInput): updateUserPayload
-
-  # Delete an existing user
-  deleteUser(input: deleteUserInput): deleteUserPayload
-  upload(
-    refId: ID
-    ref: String
-    field: String
-    source: String
-    info: FileInfoInput
-    file: Upload!
-  ): UploadFile!
-  multipleUpload(
-    refId: ID
-    ref: String
-    field: String
-    source: String
-    files: [Upload]!
-  ): [UploadFile]!
-  updateFileInfo(id: ID!, info: FileInfoInput!): UploadFile!
-  login(input: UsersPermissionsLoginInput!): UsersPermissionsLoginPayload!
-  register(input: UsersPermissionsRegisterInput!): UsersPermissionsLoginPayload!
-  forgotPassword(email: String!): UserPermissionsPasswordPayload
-  resetPassword(
-    password: String!
-    passwordConfirmation: String!
-    code: String!
-  ): UsersPermissionsLoginPayload
-  emailConfirmation(confirmation: String!): UsersPermissionsLoginPayload
-  addToCart(productId: ID!, count: Int): Cart!
-  changeProductCountInCart(productId: ID!, count: Int!): Cart!
-  deleteProductFromCart(productId: ID!): Cart!
-  resetCart: Cart!
-  createOrderFromCart(
-    region: String!
-    requestedShippingDate: String
-    deliveryInstruction: String
-    poNumber: String
-  ): Order!
-  requestQuote(id: ID!): String
+    addToCart(count: Int, productId: ID!): Cart!
+    changeProductCountInCart(count: Int!, productId: ID!): Cart!
+    createBrand(input: createBrandInput): createBrandPayload
+    createCart(input: createCartInput): createCartPayload
+    createCategory(input: createCategoryInput): createCategoryPayload
+    createConsignment(input: createConsignmentInput): createConsignmentPayload
+    createGroup(input: createGroupInput): createGroupPayload
+    createOrder(input: createOrderInput): createOrderPayload
+    createOrderFromCart(deliveryInstruction: String, poNumber: String, region: String!, requestedShippingDate: String): Order!
+    createProduct(input: createProductInput): createProductPayload
+    "Create a new role"
+    createRole(input: createRoleInput): createRolePayload
+    createStock(input: createStockInput): createStockPayload
+    "Create a new user"
+    createUser(input: createUserInput): createUserPayload
+    createVirtualStock(input: createVirtualStockInput): createVirtualStockPayload
+    deleteBrand(input: deleteBrandInput): deleteBrandPayload
+    deleteCart(input: deleteCartInput): deleteCartPayload
+    deleteCategory(input: deleteCategoryInput): deleteCategoryPayload
+    deleteConsignment(input: deleteConsignmentInput): deleteConsignmentPayload
+    deleteContact: deleteContactPayload
+    "Delete one file"
+    deleteFile(input: deleteFileInput): deleteFilePayload
+    deleteGroup(input: deleteGroupInput): deleteGroupPayload
+    deleteOrder(input: deleteOrderInput): deleteOrderPayload
+    deleteProduct(input: deleteProductInput): deleteProductPayload
+    deleteProductFromCart(productId: ID!): Cart!
+    "Delete an existing role"
+    deleteRole(input: deleteRoleInput): deleteRolePayload
+    deleteStock(input: deleteStockInput): deleteStockPayload
+    "Delete an existing user"
+    deleteUser(input: deleteUserInput): deleteUserPayload
+    deleteVirtualStock(input: deleteVirtualStockInput): deleteVirtualStockPayload
+    emailConfirmation(confirmation: String!): UsersPermissionsLoginPayload
+    forgotPassword(email: String!): UserPermissionsPasswordPayload
+    login(input: UsersPermissionsLoginInput!): UsersPermissionsLoginPayload!
+    multipleUpload(field: String, files: [Upload]!, ref: String, refId: ID, source: String): [UploadFile]!
+    register(input: UsersPermissionsRegisterInput!): UsersPermissionsLoginPayload!
+    requestQuote(id: ID!): String
+    resetCart: Cart!
+    resetPassword(code: String!, password: String!, passwordConfirmation: String!): UsersPermissionsLoginPayload
+    updateBrand(input: updateBrandInput): updateBrandPayload
+    updateCart(input: updateCartInput): updateCartPayload
+    updateCategory(input: updateCategoryInput): updateCategoryPayload
+    updateConsignment(input: updateConsignmentInput): updateConsignmentPayload
+    updateContact(input: updateContactInput): updateContactPayload
+    updateFileInfo(id: ID!, info: FileInfoInput!): UploadFile!
+    updateGroup(input: updateGroupInput): updateGroupPayload
+    updateOrder(input: updateOrderInput): updateOrderPayload
+    updateProduct(input: updateProductInput): updateProductPayload
+    "Update an existing role"
+    updateRole(input: updateRoleInput): updateRolePayload
+    updateStock(input: updateStockInput): updateStockPayload
+    "Update an existing user"
+    updateUser(input: updateUserInput): updateUserPayload
+    updateVirtualStock(input: updateVirtualStockInput): updateVirtualStockPayload
+    upload(field: String, file: Upload!, info: FileInfoInput, ref: String, refId: ID, source: String): UploadFile!
 }
 
-# The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+type Order {
+    _id: ID!
+    createdAt: DateTime!
+    deliveryInstruction: String
+    id: ID!
+    invoice: String
+    poNumber: String
+    requestedShippingDate: Date
+    saleProductData: [ComponentSaleProductDataSaleProductData]
+    status: ENUM_ORDER_STATUS
+    updatedAt: DateTime!
+    user: UsersPermissionsUser
+}
+
+type OrderAggregator {
+    count: Int
+    totalCount: Int
+}
+
+type OrderConnection {
+    aggregate: OrderAggregator
+    groupBy: OrderGroupBy
+    values: [Order]
+}
+
+type OrderConnectionCreatedAt {
+    connection: OrderConnection
+    key: DateTime
+}
+
+type OrderConnectionDeliveryInstruction {
+    connection: OrderConnection
+    key: String
+}
+
+type OrderConnectionId {
+    connection: OrderConnection
+    key: ID
+}
+
+type OrderConnectionInvoice {
+    connection: OrderConnection
+    key: String
+}
+
+type OrderConnectionPoNumber {
+    connection: OrderConnection
+    key: String
+}
+
+type OrderConnectionRequestedShippingDate {
+    connection: OrderConnection
+    key: ID
+}
+
+type OrderConnectionStatus {
+    connection: OrderConnection
+    key: String
+}
+
+type OrderConnectionUpdatedAt {
+    connection: OrderConnection
+    key: DateTime
+}
+
+type OrderConnectionUser {
+    connection: OrderConnection
+    key: ID
+}
+
+type OrderConnection_id {
+    connection: OrderConnection
+    key: ID
+}
+
+type OrderGroupBy {
+    _id: [OrderConnection_id]
+    createdAt: [OrderConnectionCreatedAt]
+    deliveryInstruction: [OrderConnectionDeliveryInstruction]
+    id: [OrderConnectionId]
+    invoice: [OrderConnectionInvoice]
+    poNumber: [OrderConnectionPoNumber]
+    requestedShippingDate: [OrderConnectionRequestedShippingDate]
+    status: [OrderConnectionStatus]
+    updatedAt: [OrderConnectionUpdatedAt]
+    user: [OrderConnectionUser]
+}
+
+type Product {
+    _id: ID!
+    availableOnVirtualStock: [ComponentVirtualStockAvailableOnVirtualStock]
+    brand: Brand
+    code_1c: String
+    code_1c_uom: String
+    color: String
+    consignments(limit: Int, sort: String, start: Int, where: JSON): [Consignment]
+    createdAt: DateTime!
+    deletedFromSearch: Boolean
+    description_en: String
+    description_ru: String
+    expectedDeliveryDate: Date
+    group: Group
+    id: ID!
+    link: String
+    longRead_en: String
+    longRead_ru: String
+    mfg: String
+    photo: UploadFile
+    pn: String
+    price_en: Float!
+    price_ru: Float!
+    sync1cDisplay: Boolean
+    unitDimension: ENUM_PRODUCT_UNITDIMENSION
+    uom: String
+    updatedAt: DateTime!
+}
+
+type ProductAggregator {
+    avg: ProductAggregatorAvg
+    count: Int
+    max: ProductAggregatorMax
+    min: ProductAggregatorMin
+    sum: ProductAggregatorSum
+    totalCount: Int
+}
+
+type ProductAggregatorAvg {
+    price_en: Float
+    price_ru: Float
+}
+
+type ProductAggregatorMax {
+    price_en: Float
+    price_ru: Float
+}
+
+type ProductAggregatorMin {
+    price_en: Float
+    price_ru: Float
+}
+
+type ProductAggregatorSum {
+    price_en: Float
+    price_ru: Float
+}
+
+type ProductConnection {
+    aggregate: ProductAggregator
+    groupBy: ProductGroupBy
+    values: [Product]
+}
+
+type ProductConnectionBrand {
+    connection: ProductConnection
+    key: ID
+}
+
+type ProductConnectionCode_1c {
+    connection: ProductConnection
+    key: String
+}
+
+type ProductConnectionCode_1c_uom {
+    connection: ProductConnection
+    key: String
+}
+
+type ProductConnectionColor {
+    connection: ProductConnection
+    key: String
+}
+
+type ProductConnectionCreatedAt {
+    connection: ProductConnection
+    key: DateTime
+}
+
+type ProductConnectionDeletedFromSearch {
+    connection: ProductConnection
+    key: Boolean
+}
+
+type ProductConnectionDescription_en {
+    connection: ProductConnection
+    key: String
+}
+
+type ProductConnectionDescription_ru {
+    connection: ProductConnection
+    key: String
+}
+
+type ProductConnectionExpectedDeliveryDate {
+    connection: ProductConnection
+    key: ID
+}
+
+type ProductConnectionGroup {
+    connection: ProductConnection
+    key: ID
+}
+
+type ProductConnectionId {
+    connection: ProductConnection
+    key: ID
+}
+
+type ProductConnectionLink {
+    connection: ProductConnection
+    key: String
+}
+
+type ProductConnectionLongRead_en {
+    connection: ProductConnection
+    key: String
+}
+
+type ProductConnectionLongRead_ru {
+    connection: ProductConnection
+    key: String
+}
+
+type ProductConnectionMfg {
+    connection: ProductConnection
+    key: String
+}
+
+type ProductConnectionPhoto {
+    connection: ProductConnection
+    key: ID
+}
+
+type ProductConnectionPn {
+    connection: ProductConnection
+    key: String
+}
+
+type ProductConnectionPrice_en {
+    connection: ProductConnection
+    key: Float
+}
+
+type ProductConnectionPrice_ru {
+    connection: ProductConnection
+    key: Float
+}
+
+type ProductConnectionSync1cDisplay {
+    connection: ProductConnection
+    key: Boolean
+}
+
+type ProductConnectionUnitDimension {
+    connection: ProductConnection
+    key: String
+}
+
+type ProductConnectionUom {
+    connection: ProductConnection
+    key: String
+}
+
+type ProductConnectionUpdatedAt {
+    connection: ProductConnection
+    key: DateTime
+}
+
+type ProductConnection_id {
+    connection: ProductConnection
+    key: ID
+}
+
+type ProductGroupBy {
+    _id: [ProductConnection_id]
+    brand: [ProductConnectionBrand]
+    code_1c: [ProductConnectionCode_1c]
+    code_1c_uom: [ProductConnectionCode_1c_uom]
+    color: [ProductConnectionColor]
+    createdAt: [ProductConnectionCreatedAt]
+    deletedFromSearch: [ProductConnectionDeletedFromSearch]
+    description_en: [ProductConnectionDescription_en]
+    description_ru: [ProductConnectionDescription_ru]
+    expectedDeliveryDate: [ProductConnectionExpectedDeliveryDate]
+    group: [ProductConnectionGroup]
+    id: [ProductConnectionId]
+    link: [ProductConnectionLink]
+    longRead_en: [ProductConnectionLongRead_en]
+    longRead_ru: [ProductConnectionLongRead_ru]
+    mfg: [ProductConnectionMfg]
+    photo: [ProductConnectionPhoto]
+    pn: [ProductConnectionPn]
+    price_en: [ProductConnectionPrice_en]
+    price_ru: [ProductConnectionPrice_ru]
+    sync1cDisplay: [ProductConnectionSync1cDisplay]
+    unitDimension: [ProductConnectionUnitDimension]
+    uom: [ProductConnectionUom]
+    updatedAt: [ProductConnectionUpdatedAt]
+}
+
+type Query {
+    brand(id: ID!, publicationState: PublicationState): Brand
+    brands(limit: Int, publicationState: PublicationState, sort: String, start: Int, where: JSON): [Brand]
+    brandsConnection(limit: Int, sort: String, start: Int, where: JSON): BrandConnection
+    cart(id: ID!, publicationState: PublicationState): Cart
+    carts(limit: Int, publicationState: PublicationState, sort: String, start: Int, where: JSON): [Cart]
+    cartsConnection(limit: Int, sort: String, start: Int, where: JSON): CartConnection
+    categories(limit: Int, publicationState: PublicationState, sort: String, start: Int, where: JSON): [Category]
+    categoriesConnection(limit: Int, sort: String, start: Int, where: JSON): CategoryConnection
+    category(id: ID!, publicationState: PublicationState): Category
+    consignment(id: ID!, publicationState: PublicationState): Consignment
+    consignments(limit: Int, publicationState: PublicationState, sort: String, start: Int, where: JSON): [Consignment]
+    consignmentsConnection(limit: Int, sort: String, start: Int, where: JSON): ConsignmentConnection
+    contact(publicationState: PublicationState): Contacts
+    countProductsInCart: Int
+    files(limit: Int, publicationState: PublicationState, sort: String, start: Int, where: JSON): [UploadFile]
+    filesConnection(limit: Int, sort: String, start: Int, where: JSON): UploadFileConnection
+    getCart: Cart!
+    group(id: ID!, publicationState: PublicationState): Group
+    groups(limit: Int, publicationState: PublicationState, sort: String, start: Int, where: JSON): [Group]
+    groupsConnection(limit: Int, sort: String, start: Int, where: JSON): GroupConnection
+    me: UsersPermissionsMe
+    order(id: ID!, publicationState: PublicationState): Order
+    orders(limit: Int, publicationState: PublicationState, sort: String, start: Int, where: JSON): [Order]
+    ordersConnection(limit: Int, sort: String, start: Int, where: JSON): OrderConnection
+    product(id: ID!, publicationState: PublicationState): Product
+    products(limit: Int, publicationState: PublicationState, sort: String, start: Int, where: JSON): [Product]
+    productsConnection(limit: Int, sort: String, start: Int, where: JSON): ProductConnection
+    role(id: ID!, publicationState: PublicationState): UsersPermissionsRole
+    "Retrieve all the existing roles. You can't apply filters on this query."
+    roles(limit: Int, publicationState: PublicationState, sort: String, start: Int, where: JSON): [UsersPermissionsRole]
+    rolesConnection(limit: Int, sort: String, start: Int, where: JSON): UsersPermissionsRoleConnection
+    stock(id: ID!, publicationState: PublicationState): Stock
+    stocks(limit: Int, publicationState: PublicationState, sort: String, start: Int, where: JSON): [Stock]
+    stocksConnection(limit: Int, sort: String, start: Int, where: JSON): StockConnection
+    user(id: ID!, publicationState: PublicationState): UsersPermissionsUser
+    users(limit: Int, publicationState: PublicationState, sort: String, start: Int, where: JSON): [UsersPermissionsUser]
+    usersConnection(limit: Int, sort: String, start: Int, where: JSON): UsersPermissionsUserConnection
+    virtualStock(id: ID!, publicationState: PublicationState): VirtualStock
+    virtualStocks(limit: Int, publicationState: PublicationState, sort: String, start: Int, where: JSON): [VirtualStock]
+    virtualStocksConnection(limit: Int, sort: String, start: Int, where: JSON): VirtualStockConnection
+}
+
+type Stock {
+    _id: ID!
+    createdAt: DateTime!
+    id: ID!
+    name: String
+    updatedAt: DateTime!
+}
+
+type StockAggregator {
+    count: Int
+    totalCount: Int
+}
+
+type StockConnection {
+    aggregate: StockAggregator
+    groupBy: StockGroupBy
+    values: [Stock]
+}
+
+type StockConnectionCreatedAt {
+    connection: StockConnection
+    key: DateTime
+}
+
+type StockConnectionId {
+    connection: StockConnection
+    key: ID
+}
+
+type StockConnectionName {
+    connection: StockConnection
+    key: String
+}
+
+type StockConnectionUpdatedAt {
+    connection: StockConnection
+    key: DateTime
+}
+
+type StockConnection_id {
+    connection: StockConnection
+    key: ID
+}
+
+type StockGroupBy {
+    _id: [StockConnection_id]
+    createdAt: [StockConnectionCreatedAt]
+    id: [StockConnectionId]
+    name: [StockConnectionName]
+    updatedAt: [StockConnectionUpdatedAt]
+}
+
+type UploadFile {
+    _id: ID!
+    alternativeText: String
+    caption: String
+    createdAt: DateTime!
+    ext: String
+    formats: JSON
+    hash: String!
+    height: Int
+    id: ID!
+    mime: String!
+    name: String!
+    previewUrl: String
+    provider: String!
+    provider_metadata: JSON
+    related(limit: Int, sort: String, start: Int, where: JSON): [Morph]
+    size: Float!
+    updatedAt: DateTime!
+    url: String!
+    width: Int
+}
+
+type UploadFileAggregator {
+    avg: UploadFileAggregatorAvg
+    count: Int
+    max: UploadFileAggregatorMax
+    min: UploadFileAggregatorMin
+    sum: UploadFileAggregatorSum
+    totalCount: Int
+}
+
+type UploadFileAggregatorAvg {
+    height: Float
+    size: Float
+    width: Float
+}
+
+type UploadFileAggregatorMax {
+    height: Float
+    size: Float
+    width: Float
+}
+
+type UploadFileAggregatorMin {
+    height: Float
+    size: Float
+    width: Float
+}
+
+type UploadFileAggregatorSum {
+    height: Float
+    size: Float
+    width: Float
+}
+
+type UploadFileConnection {
+    aggregate: UploadFileAggregator
+    groupBy: UploadFileGroupBy
+    values: [UploadFile]
+}
+
+type UploadFileConnectionAlternativeText {
+    connection: UploadFileConnection
+    key: String
+}
+
+type UploadFileConnectionCaption {
+    connection: UploadFileConnection
+    key: String
+}
+
+type UploadFileConnectionCreatedAt {
+    connection: UploadFileConnection
+    key: DateTime
+}
+
+type UploadFileConnectionExt {
+    connection: UploadFileConnection
+    key: String
+}
+
+type UploadFileConnectionFormats {
+    connection: UploadFileConnection
+    key: JSON
+}
+
+type UploadFileConnectionHash {
+    connection: UploadFileConnection
+    key: String
+}
+
+type UploadFileConnectionHeight {
+    connection: UploadFileConnection
+    key: Int
+}
+
+type UploadFileConnectionId {
+    connection: UploadFileConnection
+    key: ID
+}
+
+type UploadFileConnectionMime {
+    connection: UploadFileConnection
+    key: String
+}
+
+type UploadFileConnectionName {
+    connection: UploadFileConnection
+    key: String
+}
+
+type UploadFileConnectionPreviewUrl {
+    connection: UploadFileConnection
+    key: String
+}
+
+type UploadFileConnectionProvider {
+    connection: UploadFileConnection
+    key: String
+}
+
+type UploadFileConnectionProvider_metadata {
+    connection: UploadFileConnection
+    key: JSON
+}
+
+type UploadFileConnectionSize {
+    connection: UploadFileConnection
+    key: Float
+}
+
+type UploadFileConnectionUpdatedAt {
+    connection: UploadFileConnection
+    key: DateTime
+}
+
+type UploadFileConnectionUrl {
+    connection: UploadFileConnection
+    key: String
+}
+
+type UploadFileConnectionWidth {
+    connection: UploadFileConnection
+    key: Int
+}
+
+type UploadFileConnection_id {
+    connection: UploadFileConnection
+    key: ID
+}
+
+type UploadFileGroupBy {
+    _id: [UploadFileConnection_id]
+    alternativeText: [UploadFileConnectionAlternativeText]
+    caption: [UploadFileConnectionCaption]
+    createdAt: [UploadFileConnectionCreatedAt]
+    ext: [UploadFileConnectionExt]
+    formats: [UploadFileConnectionFormats]
+    hash: [UploadFileConnectionHash]
+    height: [UploadFileConnectionHeight]
+    id: [UploadFileConnectionId]
+    mime: [UploadFileConnectionMime]
+    name: [UploadFileConnectionName]
+    previewUrl: [UploadFileConnectionPreviewUrl]
+    provider: [UploadFileConnectionProvider]
+    provider_metadata: [UploadFileConnectionProvider_metadata]
+    size: [UploadFileConnectionSize]
+    updatedAt: [UploadFileConnectionUpdatedAt]
+    url: [UploadFileConnectionUrl]
+    width: [UploadFileConnectionWidth]
+}
+
+type UserPermissionsPasswordPayload {
+    ok: Boolean!
+}
+
+type UsersPermissionsLoginPayload {
+    jwt: String
+    user: UsersPermissionsMe!
+}
+
+type UsersPermissionsMe {
+    blocked: Boolean
+    cart: Cart
+    confirmed: Boolean
+    email: String!
+    id: ID!
+    role: UsersPermissionsMeRole
+    user: UsersPermissionsUser
+    username: String!
+}
+
+type UsersPermissionsMeRole {
+    description: String
+    id: ID!
+    name: String!
+    type: String
+}
+
+type UsersPermissionsPermission {
+    _id: ID!
+    action: String!
+    controller: String!
+    enabled: Boolean!
+    id: ID!
+    policy: String
+    role: UsersPermissionsRole
+    type: String!
+}
+
+type UsersPermissionsRole {
+    _id: ID!
+    description: String
+    id: ID!
+    name: String!
+    permissions(limit: Int, sort: String, start: Int, where: JSON): [UsersPermissionsPermission]
+    type: String
+    users(limit: Int, sort: String, start: Int, where: JSON): [UsersPermissionsUser]
+}
+
+type UsersPermissionsRoleAggregator {
+    count: Int
+    totalCount: Int
+}
+
+type UsersPermissionsRoleConnection {
+    aggregate: UsersPermissionsRoleAggregator
+    groupBy: UsersPermissionsRoleGroupBy
+    values: [UsersPermissionsRole]
+}
+
+type UsersPermissionsRoleConnectionDescription {
+    connection: UsersPermissionsRoleConnection
+    key: String
+}
+
+type UsersPermissionsRoleConnectionId {
+    connection: UsersPermissionsRoleConnection
+    key: ID
+}
+
+type UsersPermissionsRoleConnectionName {
+    connection: UsersPermissionsRoleConnection
+    key: String
+}
+
+type UsersPermissionsRoleConnectionType {
+    connection: UsersPermissionsRoleConnection
+    key: String
+}
+
+type UsersPermissionsRoleConnection_id {
+    connection: UsersPermissionsRoleConnection
+    key: ID
+}
+
+type UsersPermissionsRoleGroupBy {
+    _id: [UsersPermissionsRoleConnection_id]
+    description: [UsersPermissionsRoleConnectionDescription]
+    id: [UsersPermissionsRoleConnectionId]
+    name: [UsersPermissionsRoleConnectionName]
+    type: [UsersPermissionsRoleConnectionType]
+}
+
+type UsersPermissionsUser {
+    _id: ID!
+    blocked: Boolean
+    cart: Cart
+    confirmed: Boolean
+    createdAt: DateTime!
+    customerInfo: ComponentCustomerCustomer
+    email: String!
+    id: ID!
+    orders(limit: Int, sort: String, start: Int, where: JSON): [Order]
+    provider: String
+    role: UsersPermissionsRole
+    updatedAt: DateTime!
+    username: String!
+    verifiedByAdmin: Boolean
+}
+
+type UsersPermissionsUserAggregator {
+    count: Int
+    totalCount: Int
+}
+
+type UsersPermissionsUserConnection {
+    aggregate: UsersPermissionsUserAggregator
+    groupBy: UsersPermissionsUserGroupBy
+    values: [UsersPermissionsUser]
+}
+
+type UsersPermissionsUserConnectionBlocked {
+    connection: UsersPermissionsUserConnection
+    key: Boolean
+}
+
+type UsersPermissionsUserConnectionCart {
+    connection: UsersPermissionsUserConnection
+    key: ID
+}
+
+type UsersPermissionsUserConnectionConfirmed {
+    connection: UsersPermissionsUserConnection
+    key: Boolean
+}
+
+type UsersPermissionsUserConnectionCreatedAt {
+    connection: UsersPermissionsUserConnection
+    key: DateTime
+}
+
+type UsersPermissionsUserConnectionCustomerInfo {
+    connection: UsersPermissionsUserConnection
+    key: ID
+}
+
+type UsersPermissionsUserConnectionEmail {
+    connection: UsersPermissionsUserConnection
+    key: String
+}
+
+type UsersPermissionsUserConnectionId {
+    connection: UsersPermissionsUserConnection
+    key: ID
+}
+
+type UsersPermissionsUserConnectionProvider {
+    connection: UsersPermissionsUserConnection
+    key: String
+}
+
+type UsersPermissionsUserConnectionRole {
+    connection: UsersPermissionsUserConnection
+    key: ID
+}
+
+type UsersPermissionsUserConnectionUpdatedAt {
+    connection: UsersPermissionsUserConnection
+    key: DateTime
+}
+
+type UsersPermissionsUserConnectionUsername {
+    connection: UsersPermissionsUserConnection
+    key: String
+}
+
+type UsersPermissionsUserConnectionVerifiedByAdmin {
+    connection: UsersPermissionsUserConnection
+    key: Boolean
+}
+
+type UsersPermissionsUserConnection_id {
+    connection: UsersPermissionsUserConnection
+    key: ID
+}
+
+type UsersPermissionsUserGroupBy {
+    _id: [UsersPermissionsUserConnection_id]
+    blocked: [UsersPermissionsUserConnectionBlocked]
+    cart: [UsersPermissionsUserConnectionCart]
+    confirmed: [UsersPermissionsUserConnectionConfirmed]
+    createdAt: [UsersPermissionsUserConnectionCreatedAt]
+    customerInfo: [UsersPermissionsUserConnectionCustomerInfo]
+    email: [UsersPermissionsUserConnectionEmail]
+    id: [UsersPermissionsUserConnectionId]
+    provider: [UsersPermissionsUserConnectionProvider]
+    role: [UsersPermissionsUserConnectionRole]
+    updatedAt: [UsersPermissionsUserConnectionUpdatedAt]
+    username: [UsersPermissionsUserConnectionUsername]
+    verifiedByAdmin: [UsersPermissionsUserConnectionVerifiedByAdmin]
+}
+
+type VirtualStock {
+    _id: ID!
+    address: String
+    createdAt: DateTime!
+    id: ID!
+    name: String
+    updatedAt: DateTime!
+}
+
+type VirtualStockAggregator {
+    count: Int
+    totalCount: Int
+}
+
+type VirtualStockConnection {
+    aggregate: VirtualStockAggregator
+    groupBy: VirtualStockGroupBy
+    values: [VirtualStock]
+}
+
+type VirtualStockConnectionAddress {
+    connection: VirtualStockConnection
+    key: String
+}
+
+type VirtualStockConnectionCreatedAt {
+    connection: VirtualStockConnection
+    key: DateTime
+}
+
+type VirtualStockConnectionId {
+    connection: VirtualStockConnection
+    key: ID
+}
+
+type VirtualStockConnectionName {
+    connection: VirtualStockConnection
+    key: String
+}
+
+type VirtualStockConnectionUpdatedAt {
+    connection: VirtualStockConnection
+    key: DateTime
+}
+
+type VirtualStockConnection_id {
+    connection: VirtualStockConnection
+    key: ID
+}
+
+type VirtualStockGroupBy {
+    _id: [VirtualStockConnection_id]
+    address: [VirtualStockConnectionAddress]
+    createdAt: [VirtualStockConnectionCreatedAt]
+    id: [VirtualStockConnectionId]
+    name: [VirtualStockConnectionName]
+    updatedAt: [VirtualStockConnectionUpdatedAt]
+}
+
+type createBrandPayload {
+    brand: Brand
+}
+
+type createCartPayload {
+    cart: Cart
+}
+
+type createCategoryPayload {
+    category: Category
+}
+
+type createConsignmentPayload {
+    consignment: Consignment
+}
+
+type createGroupPayload {
+    group: Group
+}
+
+type createOrderPayload {
+    order: Order
+}
+
+type createProductPayload {
+    product: Product
+}
+
+type createRolePayload {
+    role: UsersPermissionsRole
+}
+
+type createStockPayload {
+    stock: Stock
+}
+
+type createUserPayload {
+    user: UsersPermissionsUser
+}
+
+type createVirtualStockPayload {
+    virtualStock: VirtualStock
+}
+
+type deleteBrandPayload {
+    brand: Brand
+}
+
+type deleteCartPayload {
+    cart: Cart
+}
+
+type deleteCategoryPayload {
+    category: Category
+}
+
+type deleteConsignmentPayload {
+    consignment: Consignment
+}
+
+type deleteContactPayload {
+    contact: Contacts
+}
+
+type deleteFilePayload {
+    file: UploadFile
+}
+
+type deleteGroupPayload {
+    group: Group
+}
+
+type deleteOrderPayload {
+    order: Order
+}
+
+type deleteProductPayload {
+    product: Product
+}
+
+type deleteRolePayload {
+    role: UsersPermissionsRole
+}
+
+type deleteStockPayload {
+    stock: Stock
+}
+
+type deleteUserPayload {
+    user: UsersPermissionsUser
+}
+
+type deleteVirtualStockPayload {
+    virtualStock: VirtualStock
+}
+
+type updateBrandPayload {
+    brand: Brand
+}
+
+type updateCartPayload {
+    cart: Cart
+}
+
+type updateCategoryPayload {
+    category: Category
+}
+
+type updateConsignmentPayload {
+    consignment: Consignment
+}
+
+type updateContactPayload {
+    contact: Contacts
+}
+
+type updateGroupPayload {
+    group: Group
+}
+
+type updateOrderPayload {
+    order: Order
+}
+
+type updateProductPayload {
+    product: Product
+}
+
+type updateRolePayload {
+    role: UsersPermissionsRole
+}
+
+type updateStockPayload {
+    stock: Stock
+}
+
+type updateUserPayload {
+    user: UsersPermissionsUser
+}
+
+type updateVirtualStockPayload {
+    virtualStock: VirtualStock
+}
+
+enum ENUM_ORDER_STATUS {
+    closed
+    inProgress
+    open
+    paid
+}
+
+enum ENUM_PRODUCT_UNITDIMENSION {
+    unit
+}
+
+enum PublicationState {
+    LIVE
+    PREVIEW
+}
+
+input BrandInput {
+    created_by: ID
+    name: String
+    photo: ID
+    products: [ID]
+    updated_by: ID
+}
+
+input CartInput {
+    cartItems: [ComponentCartCartItemInput]
+    created_by: ID
+    updated_by: ID
+    user: ID
+}
+
+input CategoryInput {
+    created_by: ID
+    groups: [ID]
+    name: String!
+    updated_by: ID
+}
+
+input ComponentCartCartItemInput {
+    count: Int
+    product: ID
+}
+
+input ComponentCustomerCustomerInput {
+    company: String
+    phone: String
+}
+
+input ComponentPlacementPlacementInput {
+    balance: Int
+    stock: ID
+}
+
+input ComponentSaleProductDataSaleProductDatumInput {
+    count: Int
+    product: ID
+    sellingPrice: Float
+}
+
+input ComponentVirtualStockAvailableOnVirtualStockInput {
+    virtual_stocks: [ID]
+}
+
+input ConsignmentInput {
+    code_1c: String
+    created_by: ID
+    name: String
+    placements: [ComponentPlacementPlacementInput]
+    product: ID
+    productionDate: Date
+    published_at: DateTime
+    updated_by: ID
+    validUntil: Date
+}
+
+input ContactInput {
+    address: String
+    created_by: ID
+    email: String
+    phone: String
+    published_at: DateTime
+    updated_by: ID
+}
+
+input FileInfoInput {
+    alternativeText: String
+    caption: String
+    name: String
+}
+
+input FileInput {
+    alternativeText: String
+    caption: String
+    created_by: ID
+    ext: String
+    formats: JSON
+    hash: String!
+    height: Int
+    mime: String!
+    name: String!
+    previewUrl: String
+    provider: String!
+    provider_metadata: JSON
+    related: [ID]
+    size: Float!
+    updated_by: ID
+    url: String!
+    width: Int
+}
+
+input GroupInput {
+    category: ID
+    created_by: ID
+    name: String
+    products: [ID]
+    updated_by: ID
+}
+
+input InputID {
+    id: ID!
+}
+
+input OrderInput {
+    created_by: ID
+    deliveryInstruction: String
+    invoice: String
+    poNumber: String
+    requestedShippingDate: Date
+    saleProductData: [ComponentSaleProductDataSaleProductDatumInput]
+    status: ENUM_ORDER_STATUS
+    updated_by: ID
+    user: ID
+}
+
+input ProductInput {
+    availableOnVirtualStock: [ComponentVirtualStockAvailableOnVirtualStockInput]
+    brand: ID
+    code_1c: String
+    code_1c_uom: String
+    color: String
+    consignments: [ID]
+    created_by: ID
+    deletedFromSearch: Boolean
+    description_en: String
+    description_ru: String
+    expectedDeliveryDate: Date
+    group: ID
+    link: String
+    longRead_en: String
+    longRead_ru: String
+    mfg: String
+    photo: ID
+    pn: String
+    price_en: Float
+    price_ru: Float
+    sync1cDisplay: Boolean
+    unitDimension: ENUM_PRODUCT_UNITDIMENSION
+    uom: String
+    updated_by: ID
+}
+
+input RoleInput {
+    created_by: ID
+    description: String
+    name: String!
+    permissions: [ID]
+    type: String
+    updated_by: ID
+    users: [ID]
+}
+
+input StockInput {
+    created_by: ID
+    name: String
+    updated_by: ID
+}
+
+input UserInput {
+    blocked: Boolean
+    cart: ID
+    confirmationToken: String
+    confirmed: Boolean
+    created_by: ID
+    customerInfo: ComponentCustomerCustomerInput
+    email: String!
+    orders: [ID]
+    password: String
+    provider: String
+    resetPasswordToken: String
+    role: ID
+    updated_by: ID
+    username: String!
+    verifiedByAdmin: Boolean
+}
+
+input UsersPermissionsLoginInput {
+    identifier: String!
+    password: String!
+    provider: String = "local"
+}
+
+input UsersPermissionsRegisterInput {
+    email: String!
+    password: String!
+    username: String!
+}
+
+input VirtualStockInput {
+    address: String
+    created_by: ID
+    name: String
+    updated_by: ID
+}
+
+input createBrandInput {
+    data: BrandInput
+}
+
+input createCartInput {
+    data: CartInput
+}
+
+input createCategoryInput {
+    data: CategoryInput
+}
+
+input createConsignmentInput {
+    data: ConsignmentInput
+}
+
+input createGroupInput {
+    data: GroupInput
+}
+
+input createOrderInput {
+    data: OrderInput
+}
+
+input createProductInput {
+    data: ProductInput
+}
+
+input createRoleInput {
+    data: RoleInput
+}
+
+input createStockInput {
+    data: StockInput
+}
+
+input createUserInput {
+    data: UserInput
+}
+
+input createVirtualStockInput {
+    data: VirtualStockInput
+}
+
+input deleteBrandInput {
+    where: InputID
+}
+
+input deleteCartInput {
+    where: InputID
+}
+
+input deleteCategoryInput {
+    where: InputID
+}
+
+input deleteConsignmentInput {
+    where: InputID
+}
+
+input deleteFileInput {
+    where: InputID
+}
+
+input deleteGroupInput {
+    where: InputID
+}
+
+input deleteOrderInput {
+    where: InputID
+}
+
+input deleteProductInput {
+    where: InputID
+}
+
+input deleteRoleInput {
+    where: InputID
+}
+
+input deleteStockInput {
+    where: InputID
+}
+
+input deleteUserInput {
+    where: InputID
+}
+
+input deleteVirtualStockInput {
+    where: InputID
+}
+
+input editBrandInput {
+    created_by: ID
+    name: String
+    photo: ID
+    products: [ID]
+    updated_by: ID
+}
+
+input editCartInput {
+    cartItems: [editComponentCartCartItemInput]
+    created_by: ID
+    updated_by: ID
+    user: ID
+}
+
+input editCategoryInput {
+    created_by: ID
+    groups: [ID]
+    name: String
+    updated_by: ID
+}
+
+input editComponentCartCartItemInput {
+    count: Int
+    id: ID
+    product: ID
+}
+
+input editComponentCustomerCustomerInput {
+    company: String
+    id: ID
+    phone: String
+}
+
+input editComponentPlacementPlacementInput {
+    balance: Int
+    id: ID
+    stock: ID
+}
+
+input editComponentSaleProductDataSaleProductDatumInput {
+    count: Int
+    id: ID
+    product: ID
+    sellingPrice: Float
+}
+
+input editComponentVirtualStockAvailableOnVirtualStockInput {
+    id: ID
+    virtual_stocks: [ID]
+}
+
+input editConsignmentInput {
+    code_1c: String
+    created_by: ID
+    name: String
+    placements: [editComponentPlacementPlacementInput]
+    product: ID
+    productionDate: Date
+    published_at: DateTime
+    updated_by: ID
+    validUntil: Date
+}
+
+input editContactInput {
+    address: String
+    created_by: ID
+    email: String
+    phone: String
+    published_at: DateTime
+    updated_by: ID
+}
+
+input editFileInput {
+    alternativeText: String
+    caption: String
+    created_by: ID
+    ext: String
+    formats: JSON
+    hash: String
+    height: Int
+    mime: String
+    name: String
+    previewUrl: String
+    provider: String
+    provider_metadata: JSON
+    related: [ID]
+    size: Float
+    updated_by: ID
+    url: String
+    width: Int
+}
+
+input editGroupInput {
+    category: ID
+    created_by: ID
+    name: String
+    products: [ID]
+    updated_by: ID
+}
+
+input editOrderInput {
+    created_by: ID
+    deliveryInstruction: String
+    invoice: String
+    poNumber: String
+    requestedShippingDate: Date
+    saleProductData: [editComponentSaleProductDataSaleProductDatumInput]
+    status: ENUM_ORDER_STATUS
+    updated_by: ID
+    user: ID
+}
+
+input editProductInput {
+    availableOnVirtualStock: [editComponentVirtualStockAvailableOnVirtualStockInput]
+    brand: ID
+    code_1c: String
+    code_1c_uom: String
+    color: String
+    consignments: [ID]
+    created_by: ID
+    deletedFromSearch: Boolean
+    description_en: String
+    description_ru: String
+    expectedDeliveryDate: Date
+    group: ID
+    link: String
+    longRead_en: String
+    longRead_ru: String
+    mfg: String
+    photo: ID
+    pn: String
+    price_en: Float
+    price_ru: Float
+    sync1cDisplay: Boolean
+    unitDimension: ENUM_PRODUCT_UNITDIMENSION
+    uom: String
+    updated_by: ID
+}
+
+input editRoleInput {
+    created_by: ID
+    description: String
+    name: String
+    permissions: [ID]
+    type: String
+    updated_by: ID
+    users: [ID]
+}
+
+input editStockInput {
+    created_by: ID
+    name: String
+    updated_by: ID
+}
+
+input editUserInput {
+    blocked: Boolean
+    cart: ID
+    confirmationToken: String
+    confirmed: Boolean
+    created_by: ID
+    customerInfo: editComponentCustomerCustomerInput
+    email: String
+    orders: [ID]
+    password: String
+    provider: String
+    resetPasswordToken: String
+    role: ID
+    updated_by: ID
+    username: String
+    verifiedByAdmin: Boolean
+}
+
+input editVirtualStockInput {
+    address: String
+    created_by: ID
+    name: String
+    updated_by: ID
+}
+
+input updateBrandInput {
+    data: editBrandInput
+    where: InputID
+}
+
+input updateCartInput {
+    data: editCartInput
+    where: InputID
+}
+
+input updateCategoryInput {
+    data: editCategoryInput
+    where: InputID
+}
+
+input updateConsignmentInput {
+    data: editConsignmentInput
+    where: InputID
+}
+
+input updateContactInput {
+    data: editContactInput
+}
+
+input updateGroupInput {
+    data: editGroupInput
+    where: InputID
+}
+
+input updateOrderInput {
+    data: editOrderInput
+    where: InputID
+}
+
+input updateProductInput {
+    data: editProductInput
+    where: InputID
+}
+
+input updateRoleInput {
+    data: editRoleInput
+    where: InputID
+}
+
+input updateStockInput {
+    data: editStockInput
+    where: InputID
+}
+
+input updateUserInput {
+    data: editUserInput
+    where: InputID
+}
+
+input updateVirtualStockInput {
+    data: editVirtualStockInput
+    where: InputID
+}
+
+
+"The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf)."
 scalar JSON
 
-# A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+"A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar."
 scalar DateTime
 
-# A time string with format: HH:mm:ss.SSS
+"A time string with format: HH:mm:ss.SSS"
 scalar Time
 
-# A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+"A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar."
 scalar Date
 
-# The `Long` scalar type represents 52-bit integers
+"The `Long` scalar type represents 52-bit integers"
 scalar Long
 
-# The `Upload` scalar type represents a file upload.
+"The `Upload` scalar type represents a file upload."
 scalar Upload

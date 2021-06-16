@@ -152,7 +152,10 @@ const Product: NextPage<ProductPageProps> = ({products, id, host}) => {
                                     </Grid>
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <ConsignmentStatus consignments={selectedProduct.consignments} expectedDeliveryDate={selectedProduct.expectedDeliveryDate} />
+                                    <ConsignmentStatus consignments={selectedProduct.consignments}
+                                                       expectedDeliveryDate={selectedProduct.expectedDeliveryDate}
+                                                        availableOnVirtualStock={selectedProduct?.availableOnVirtualStock}
+                                    />
                                 </Grid>
                             </Grid>
                         </Grid>

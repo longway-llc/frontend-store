@@ -1,5 +1,6 @@
 import React, {ChangeEvent, FC, FormEvent, useEffect} from 'react'
 import {
+    Box,
     Button,
     Divider,
     FormControl,
@@ -24,6 +25,7 @@ import {useRouter} from 'next/router'
 import {signOut, useSession} from 'next-auth/client'
 import {useTranslation} from '../../utils/localization'
 import {useSearch} from '../../utils/useSearch'
+import LocaleSelect from "../LocaleSelect/LocaleSelect";
 
 
 type Props = {
@@ -46,6 +48,9 @@ const useStyle = makeStyles((theme: Theme) => ({
     },
     bgName: {
         backgroundColor: '#fafafa'
+    },
+    m1: {
+        margin: theme.spacing('auto', 1, 1,1)
     }
 }))
 
@@ -167,6 +172,9 @@ const MenuDrawer:FC<Props> = ({anchor, open, setState}) => {
                     </Grid>
                 </ListItem>
             </List>
+            <Box className={classes.m1}>
+                <LocaleSelect bottom/>
+            </Box>
         </SwipeableDrawer>
     )
 }

@@ -1,6 +1,3 @@
-import OrderSearch from '../components/OrderSearch/OrderSearch'
-
-
 export const en = {
     meta: {
         index: {
@@ -43,6 +40,10 @@ export const en = {
     components: {
         AlgoliaSearch: {
             filters: 'filters'
+        },
+        AvailableOnVirtualStock:{
+            option: 'You can also request this product from the following warehouses by contacting the manager',
+            for: 'for'
         },
         ASHit: {
             specifications: 'Specifications',

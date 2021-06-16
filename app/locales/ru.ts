@@ -41,6 +41,10 @@ export const ru = {
         AlgoliaSearch: {
             filters: 'фильтры'
         },
+        AvailableOnVirtualStock:{
+            option: 'Также можете запросить этот товар со следующих складов, связавшись с менеджером',
+            for: 'за'
+        },
         ASHit: {
             specifications: 'Характеристики',
             price: 'Цена',

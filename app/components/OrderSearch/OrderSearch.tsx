@@ -1,4 +1,4 @@
-import {createStyles, IconButton, InputBase, makeStyles, Theme} from '@material-ui/core'
+import {createStyles, IconButton, InputAdornment, InputBase, makeStyles, TextField, Theme} from '@material-ui/core'
 import React from 'react'
 import {Search} from '@material-ui/icons'
 import {useRouter} from 'next/router'
@@ -8,7 +8,7 @@ import {useTranslation} from '../../utils/localization'
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            padding: '2px 4px',
+            padding: theme.spacing(2,1),
             display: 'flex',
             alignItems: 'center',
             margin: 0,
@@ -39,16 +39,21 @@ const OrderSearch = ({value, onChange}: any) => {
     const styles = useStyles()
     return (
         <div className={styles.root}>
-            <InputBase
-                value={value}
-                onChange={changeHandler}
-                className={styles.input}
-                placeholder={t.components.OrderSearch.searchBy}
-                inputProps={{'aria-label': t.components.OrderSearch.searchBy}}
-            />
-            <IconButton type="submit" className={styles.iconButton} aria-label="search">
-                <Search/>
-            </IconButton>
+          <TextField
+            variant={'outlined'}
+            value={value}
+            onChange={changeHandler}
+            className={styles.input}
+            placeholder={t.components.OrderSearch.searchBy}
+            label={t.components.OrderSearch.searchBy}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="end">
+                  <Search/>
+                </InputAdornment>
+              ),
+            }}
+          />
         </div>
     )
 }

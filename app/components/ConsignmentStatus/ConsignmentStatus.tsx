@@ -9,9 +9,11 @@ import {useTranslation} from '../../utils/localization'
 import moment from 'moment'
 import {gql, useLazyQuery} from '@apollo/client'
 import {verifiedStatus} from './__generated__/verifiedStatus'
+import AvailableOnVirtualStock from "../AvailableOnVirtualStock/AvailableOnVirtualStock";
 
 
 type ConsignmentStatusProps = {
+    availableOnVirtualStock: Array<any>
     consignments: Array<any>
     expectedDeliveryDate: string
 }
@@ -57,7 +59,7 @@ const useStyles = makeStyles(() =>
     })
 )
 
-const ConsignmentStatus: FC<ConsignmentStatusProps> = ({consignments, expectedDeliveryDate}) => {
+const ConsignmentStatus: FC<ConsignmentStatusProps> = ({availableOnVirtualStock, consignments, expectedDeliveryDate}) => {
     const styles = useStyles()
     const {locale} = useRouter()
     const t = useTranslation(locale)
@@ -92,6 +94,7 @@ const ConsignmentStatus: FC<ConsignmentStatusProps> = ({consignments, expectedDe
                             data?.me?.user?.verifiedByAdmin ?
                                 <Box className={styles.mt1}>
                                     <ConsignmentDisplay consignments={consignments}/>
+                                    <AvailableOnVirtualStock availableOnVirtualStock={availableOnVirtualStock}/>
                                 </Box>
                                 :
                                 <Box className={[styles.bordered, styles.mt1,styles.pd1].join(' ')}>

@@ -24,6 +24,7 @@ import {useTranslation} from '../../utils/localization'
 import {useRouter} from 'next/router'
 import HeaderAccountMenu from '../HeaderAccountMenu/HeaderAccountMenu'
 import ShoppingCartBadge from '../ShoppingCartBadge/ShoppingCartBadge'
+import LocaleSelect from "../LocaleSelect/LocaleSelect";
 
 
 export type HeaderMode = 'main' | 'black'
@@ -177,6 +178,9 @@ const Header: FC<HeaderModeType> = ({headerMode = 'black'}) => {
                                             </Typography>
                                         </a>
                                     </ActiveLink>
+                                </Grid>
+                                <Grid item component={'li'}>
+                                    <LocaleSelect/>
                                 </Grid>
                             </Grid>
                         </Grid>
