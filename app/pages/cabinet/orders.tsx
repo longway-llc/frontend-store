@@ -47,13 +47,14 @@ const Orders: NextPage<OrdersPageProps> = ({session}) => {
     const isPhone = useMediaQuery(theme.breakpoints.down('md'))
     const router = useRouter()
     const t = useTranslation(router?.locale)
+    const title = router?.locale == 'en' ? 'Orders' : 'Заказы'
     return (
-        <AppLayout title={'Мои заказы'}>
+        <AppLayout title={title}>
             <Container maxWidth={'lg'} className={styles.container}>
                 <Grid spacing={3} container>
                     <Hidden mdUp>
                         <Grid item xs={12}>
-                            <Typography variant={'h6'}><b>Мои заказы</b></Typography>
+                            <Typography variant={'h6'}><b>{t.page.orders.title}</b></Typography>
                         </Grid>
                     </Hidden>
                     <CabinetMenu/>

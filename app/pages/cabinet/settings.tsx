@@ -7,6 +7,7 @@ import {Container, createStyles, Grid, makeStyles, useMediaQuery, useTheme} from
 import CabinetMenu from '../../components/CabinetMenu/CabinetMenu'
 import PhoneSetForm from '../../components/PhoneSetForm/PhoneSetForm'
 import LocaleSetForm from '../../components/LocaleSetForm/LocaleSetForm'
+import {useRouter} from 'next/router'
 
 
 const useStyles = makeStyles(theme => createStyles({
@@ -30,9 +31,10 @@ const Settings: NextPage<SettingsPageProps> = () => {
     const styles = useStyles()
     const theme = useTheme()
     const isPhone = useMediaQuery(theme.breakpoints.down('md'))
-
+    const router = useRouter()
+    const title = router?.locale == 'en' ? 'Settings' : 'Настройки'
     return (
-        <AppLayout title={'Настройки'}>
+        <AppLayout title={title}>
             <Container maxWidth={'lg'} className={styles.root}>
                 <Grid container spacing={3}>
                     <CabinetMenu/>

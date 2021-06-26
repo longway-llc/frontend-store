@@ -106,11 +106,22 @@ const Product: NextPage<ProductPageProps> = ({products, id, host}) => {
         <MenuItem key={p.id} value={p.id}>{p.uom}</MenuItem>
     ), [products])
 
+    const metaDescription = useMemo(() => locale == 'en' ?
+        `Purchase ${selectedProduct.pn} ${selectedProduct.uom} by prefer price in LWaero store. World wide delivery.`
+      :
+        `Купить ${selectedProduct.pn} ${selectedProduct.uom} по выгодной цене в магазине LWaero. Доставка по всему миру.`
+    , [selectedProduct, locale])
+
+    const metaKeywords = useMemo(() => locale == 'en' ?
+      `${selectedProduct.pn}, ${selectedProduct.description_en}, ${selectedProduct.uom}`
+      :
+      `${selectedProduct.pn}, ${selectedProduct.description_ru}, ${selectedProduct.uom}`
+    ,[selectedProduct, locale])
     return (
         <>
             <Head>
-                <meta name="description"
-                      content={`Product: ${selectedProduct.pn} UOM:${selectedProduct.uom} Description: ${selectedProduct.description_en}`}/>
+                <meta name="description" content={metaDescription}/>
+                <meta name="keywords" content={metaKeywords}/>
                 <link rel="alternate" hrefLang="ru" href={`https://lwaero.net/ru/products/${selectedProduct.id}`}/>
                 <link rel="alternate" hrefLang="en" href={`https://lwaero.net/products/${selectedProduct.id}`}/>
                 <link rel="alternate" hrefLang="x-default" href={`https://lwaero.net/products/${selectedProduct.id}`}/>

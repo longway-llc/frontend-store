@@ -84,7 +84,7 @@ const Login: NextPage<LoginProps> = ({providers, session, csrfToken, error}) => 
             setFetching(true)
             const res = await signIn('email', {email, redirect: false})
             if (!res?.error) {
-                enqueueSnackbar('На ваш почтовый ящик было отправлено письмо', {variant: 'info'})
+                enqueueSnackbar(t.page.login.sendEmail, {variant: 'info'})
             }
         } catch (e) {
             enqueueSnackbar(e.message, {variant: 'error'})
@@ -95,17 +95,16 @@ const Login: NextPage<LoginProps> = ({providers, session, csrfToken, error}) => 
 
     useEffect(() => {
         if (error) enqueueSnackbar(error == 'Callback'
-            ? 'Войдите способом, который использовали  при регистрации'
-            : 'Необработанная ошибка, обратитесь в поддержку'
+            ? t.page.login.callbackError
+            : t.page.login.unhandingError
             , {variant: 'error', autoHideDuration: 10000})
-    }, [error, enqueueSnackbar])
+    }, [t, enqueueSnackbar, error])
 
     return (
         <>
             <Head>
-                <meta name="description" content="Вход в личный кабинет LWAero"/>
-                <meta name="keywords"
-                      content="авиация, техническое обслуживание, самолёты, aviation, maintenance, aircraft, longway, лонгвей"/>
+                <meta name="description" content={t.meta.login.description}/>
+                <meta name="keywords" content={t.meta.login.keywords}/>
                 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css"/>
                 <link rel="alternate" hrefLang="ru" href="https://lwaero.net/ru/login"/>
                 <link rel="alternate" hrefLang="en" href="https://lwaero.net/login"/>
@@ -119,7 +118,7 @@ const Login: NextPage<LoginProps> = ({providers, session, csrfToken, error}) => 
                                 <VpnKey/>
                             </Avatar>
                             <Typography component="h1" variant="h5">
-                                Вход в личный кабинет
+                                {t.page.login.loginToCabinet}
                             </Typography>
                         </Grid>
                         <Grid item xs={12}>
@@ -137,7 +136,7 @@ const Login: NextPage<LoginProps> = ({providers, session, csrfToken, error}) => 
                                         fullWidth
                                         id="email"
                                         name="email"
-                                        label="Email адрес"
+                                        label="Email"
                                         autoComplete="email"
                                         required
                                         error={!!errors.email}

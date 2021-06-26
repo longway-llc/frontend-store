@@ -2,7 +2,19 @@ export const en = {
     meta: {
         index: {
             description: 'Shop of specialized materials for the maintenance of aviation equipment',
-            keywords: 'lwaero, longway, aviation, aviation chemistry, maintenance, aircraft'
+            keywords: 'lwaero, longway, aviation, aviation chemistry, aircraft maintenance, aircraft'
+        },
+        login: {
+            description: 'Login into LWaero system',
+            keywords: 'lwaero, longway, aviation, aviation chemistry, maintenance, aircraft, authorization in LWaero'
+        },
+        policies: {
+            description: 'Private policies rules of LWaero store',
+            keywords: 'LWaero private policies, rules of collect personal data on LWaero'
+        },
+        search: {
+            description: 'Search products in LWaero store',
+            keywords: 'LWaero search, products LWaero, filtering products LWaero'
         }
     },
     page: {
@@ -21,10 +33,16 @@ export const en = {
         },
         login: {
             policies: 'Log in to the site, you agree to ',
-            policiesLink: 'our privacy policy'
+            policiesLink: 'our privacy policy',
+            sendEmail: 'Authorize message was sending to your email!',
+            loginToCabinet: 'Sign in personal cabinet',
+            // TODO: перевести корректно
+            callbackError: 'Please use authorize method when you login first time',
+            unhandingError: 'Unhanding error, connect to support please'
         },
         orders: {
-            orderList: 'Orders list'
+            orderList: 'Orders list',
+            title: 'Orders'
         }
     },
     header: {

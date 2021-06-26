@@ -10,6 +10,7 @@ import {Container, createStyles, makeStyles} from '@material-ui/core'
 import qs from 'qs'
 import superjson from 'superjson'
 import {searchClient} from '../utils/AlgoliaUtils'
+import {useTranslation} from "../utils/localization";
 
 
 const useStyles = makeStyles(theme => createStyles({
@@ -22,6 +23,7 @@ const useStyles = makeStyles(theme => createStyles({
 const Search: NextPage<SearchPageProps> = (props) => {
     const styles = useStyles()
     const router = useRouter()
+    const t = useTranslation(router?.locale)
     const title = useMemo(() => router?.query.item
         ? ': "' + router.query.item + '"'
         : '',
@@ -30,10 +32,8 @@ const Search: NextPage<SearchPageProps> = (props) => {
     return (
         <>
             <Head>
-                <meta name="description"
-                      content="Поиск среди товаров магазина LWAero для технического обслуживания авиационной техники"/>
-                <meta name="keywords"
-                      content="авиация, магазин, техническое обслуживание, самолёты, aviation, maintenance, aircraft, shop, longway, лонгвей"/>
+                <meta name="description" content={t.meta.search.description}/>
+                <meta name="keywords" content={t.meta.search.keywords}/>
                 <link rel="alternate" hrefLang="ru" href="https://lwaero.net/ru/search"/>
                 <link rel="alternate" hrefLang="en" href="https://lwaero.net/search"/>
                 <link rel="alternate" hrefLang="x-default" href="https://lwaero.net/search"/>

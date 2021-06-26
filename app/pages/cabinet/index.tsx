@@ -52,9 +52,9 @@ const Cabinet: NextPage<CabinetPageProps> = ({session}) => {
     const theme = useTheme()
     const isPhone = useMediaQuery(theme.breakpoints.down('md'))
     const styles = useStyles()
-
+    const title = router?.locale == 'en' ? 'Personal cabinet' : 'Персональный кабинет'
     return (
-        <AppLayout title={'Кабинет'}>
+        <AppLayout title={title}>
             <Container className={styles.container} maxWidth={'lg'}>
                 <Grid container spacing={3} justify={isPhone ? 'center' : 'flex-start'}>
                     <CabinetMenu/>

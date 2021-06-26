@@ -2,7 +2,19 @@ export const ru = {
     meta: {
         index: {
             description: 'Магазин специализированных материалов для технического обслуживания авиационной техники',
-            keywords: 'логнгвей, лваеро, авиахимия, авиация, техническое обслуживание, самолёты'
+            keywords: 'логнгвей, лваеро, авиахимия, авиация, техническое обслуживание самолётов, самолёты'
+        },
+        login: {
+            description: 'Вход в систему LWaero',
+            keywords: 'авторизация LWaero, лонгвей, вход в лонгвей, lwaero, longway, aviation, aviation chemistry, maintenance, aircraft, authorization in LWaero'
+        },
+        policies: {
+            description: 'Политика в отношении персональных данных',
+            keywords: 'основные положения по сбору персональных данных LWAero store, политика безопасности'
+        },
+        search: {
+            description: 'Поиск среди товаров в магазине LWaero',
+            keywords: 'поиск LWaero, товары LWaero, фильтрация по товарам LWaero'
         }
     },
     page: {
@@ -21,10 +33,15 @@ export const ru = {
         },
         login: {
             policies: 'Авторизуйтесь на сайте, Вы соглашаетесь с ',
-            policiesLink: 'нашей политикой конфиденциальности'
+            policiesLink: 'нашей политикой конфиденциальности',
+            sendEmail: 'На ваш почтовый ящик было отправлено письмо',
+            loginToCabinet: 'Вход в линый кабинет',
+            callbackError: 'Войдите способом, который использовали  при регистрации',
+            unhandingError: 'Необработанная ошибка, обратитесь в поддержку'
         },
         orders: {
-            orderList: 'Список заказов'
+            orderList: 'Список заказов',
+            title: 'Мои заказы'
         }
     },
     header: {

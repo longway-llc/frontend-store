@@ -69,7 +69,7 @@ const Home: FC = () => {
         <link rel="alternate" hrefLang="x-default" href="https://lwaero.net" />
       </Head>
 
-      <MainLayout logoVariant={'main'} title={'LWAero | Главная'}>
+      <MainLayout logoVariant={'main'} title={'LWAero'}>
         <Container>
           <Grid container direction="column" alignItems="center" spacing={isPhone ? 4 : 8} className={styles.container}>
             <Grid item xs>
