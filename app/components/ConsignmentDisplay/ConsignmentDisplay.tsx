@@ -6,17 +6,19 @@ import moment from 'moment'
 import {useTranslation} from '../../utils/localization'
 
 
-const ConsignmentDisplay: FC<any> = ({consignments, expectedDeliveryDate}) => {
+const ConsignmentDisplay: FC<any> = ({consignments}) => {
     const {locale} = useRouter()
     const t = useTranslation(locale)
-    const consignmentsDisplay = useMemo(() => consignments.map((consignment:any) => (
+    const consignmentsDisplay = useMemo(() => consignments
+        .filter((consignment:any) => consignment?.placements[0]?.stock?.location == locale)
+        .map((consignment:any) => (
         <Accordion key={consignment.id}>
             <AccordionSummary
                 expandIcon={<ExpandMore/>}
                 aria-controls={`${consignment.name}-content`}
                 id={consignment.id}
             >
-                <Typography >{consignment.name} </Typography>
+                <Typography >{consignment.name}</Typography>
             </AccordionSummary>
             <AccordionDetails>
                 <Grid container>

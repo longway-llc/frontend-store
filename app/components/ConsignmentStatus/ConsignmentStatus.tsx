@@ -9,13 +9,11 @@ import {useTranslation} from '../../utils/localization'
 import moment from 'moment'
 import {gql, useLazyQuery} from '@apollo/client'
 import {verifiedStatus} from './__generated__/verifiedStatus'
-import AvailableOnVirtualStock from "../AvailableOnVirtualStock/AvailableOnVirtualStock";
+import {MailOutline} from '@material-ui/icons'
 
 
 type ConsignmentStatusProps = {
-    availableOnVirtualStock: Array<any>
-    consignments: Array<any>
-    expectedDeliveryDate: string
+    product: any
 }
 
 const GET_VERIFIED_STATUS = gql`
@@ -53,23 +51,37 @@ const useStyles = makeStyles(() =>
             border: `1px solid ${grey['200']}`,
             borderRadius: `${theme.shape.borderRadius}px`
         },
-        pd1:{
+        pd1: {
             padding: theme.spacing(1)
+        },
+        contactLink: {
+            color: green['700'],
+            fontWeight: 'bold',
+            display: 'flex',
+            justifyContent: 'center',
+            '&:hover': {
+                textDecoration: 'underline'
+            },
+            '& > span': {
+                marginLeft: theme.spacing(1)
+            }
         }
     })
 )
 
-const ConsignmentStatus: FC<ConsignmentStatusProps> = ({availableOnVirtualStock, consignments, expectedDeliveryDate}) => {
+const ConsignmentStatus: FC<ConsignmentStatusProps> = ({product}) => {
     const styles = useStyles()
     const {locale} = useRouter()
     const t = useTranslation(locale)
     const [session] = useSession()
 
+    const {consignments, expectedDeliveryDate} = product
+
     const [invoke, {data}] = useLazyQuery<verifiedStatus>(GET_VERIFIED_STATUS)
 
     useEffect(() => {
         if (session)
-            invoke({context:{headers:{authorization: `Bearer ${session.jwt}`}}})
+            invoke({context: {headers: {authorization: `Bearer ${session.jwt}`}}})
     }, [invoke, session])
 
 
@@ -81,6 +93,7 @@ const ConsignmentStatus: FC<ConsignmentStatusProps> = ({availableOnVirtualStock,
         )
     }
 
+    const totalQuantity = consignments.flatMap((c: any) => c.placements).map((p: any) => p.balance).reduce((acc: number, b: number) => acc + b, 0)
 
     return (
         <Grid container>
@@ -88,16 +101,19 @@ const ConsignmentStatus: FC<ConsignmentStatusProps> = ({availableOnVirtualStock,
                 {consignments.length > 0 ?
                     <>
                         <Typography variant={'subtitle1'} className={styles.available}>
-                            {t.components.ConsignmentStatus.available}!
+                            {t.components.ConsignmentStatus.available}: {totalQuantity} <br/>
+                            <a className={styles.contactLink}
+                               href={`mailto:sales@lwaero.net?subject=Request for detailing the quantity of ${product.pn} ${product.uom}`}>
+                                <MailOutline/> <span>{t.components.ConsignmentStatus.detail}</span>
+                            </a>
                         </Typography>
                         {
                             data?.me?.user?.verifiedByAdmin ?
                                 <Box className={styles.mt1}>
                                     <ConsignmentDisplay consignments={consignments}/>
-                                    <AvailableOnVirtualStock availableOnVirtualStock={availableOnVirtualStock}/>
                                 </Box>
                                 :
-                                <Box className={[styles.bordered, styles.mt1,styles.pd1].join(' ')}>
+                                <Box className={[styles.bordered, styles.mt1, styles.pd1].join(' ')}>
                                     <Typography variant={'caption'} className={styles.ml1}>
                                         <i>{t.components.ConsignmentStatus.verifiedRequirement}</i>
                                     </Typography>

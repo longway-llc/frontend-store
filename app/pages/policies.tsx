@@ -1,7 +1,7 @@
 import {Container, Typography} from '@material-ui/core'
 import React from 'react'
 import AppLayout from '../layouts/AppLayout'
-import {Head} from 'next/document'
+import Head from 'next/head'
 import {useRouter} from 'next/router'
 import {useTranslation} from '../utils/localization'
 
@@ -11,14 +11,14 @@ const Policies = () => {
     const t = useTranslation(router?.locale)
     return (
       <>
-          <Head>
-              <meta name="description" content={t.meta.policies.description}/>
-              <meta name="keywords" content={t.meta.policies.keywords}/>
-              <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css"/>
-              <link rel="alternate" hrefLang="ru" href="https://lwaero.net/ru/policies"/>
-              <link rel="alternate" hrefLang="en" href="https://lwaero.net/policies"/>
-              <link rel="alternate" hrefLang="x-default" href="https://lwaero.net/ru/policies"/>
-          </Head>
+      <Head>
+          <meta name="description" content={t.meta.policies.description}/>
+          <meta name="keywords" content={t.meta.policies.keywords}/>
+          <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css"/>
+          <link rel="alternate" hrefLang="ru" href="https://lwaero.net/ru/policies"/>
+          <link rel="alternate" hrefLang="en" href="https://lwaero.net/policies"/>
+          <link rel="alternate" hrefLang="x-default" href="https://lwaero.net/ru/policies"/>
+      </Head>
         <AppLayout title={'Политика в отношении обработки персональных данных'}>
             <Container style={{margin: '30px auto'}}>
                 <Typography variant={'h4'} component={'h1'}>

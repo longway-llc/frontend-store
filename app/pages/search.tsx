@@ -10,7 +10,7 @@ import {Container, createStyles, makeStyles} from '@material-ui/core'
 import qs from 'qs'
 import superjson from 'superjson'
 import {searchClient} from '../utils/AlgoliaUtils'
-import {useTranslation} from "../utils/localization";
+import {useTranslation} from '../utils/localization'
 
 
 const useStyles = makeStyles(theme => createStyles({

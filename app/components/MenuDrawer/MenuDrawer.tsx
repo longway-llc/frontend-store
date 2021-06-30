@@ -25,7 +25,7 @@ import {useRouter} from 'next/router'
 import {signOut, useSession} from 'next-auth/client'
 import {useTranslation} from '../../utils/localization'
 import {useSearch} from '../../utils/useSearch'
-import LocaleSelect from "../LocaleSelect/LocaleSelect";
+import LocaleSelect from '../LocaleSelect/LocaleSelect'
 
 
 type Props = {

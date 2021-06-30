@@ -108,7 +108,7 @@ const OrderList: FC<OrderListProps> = ({jwt}) => {
         error
     } = useQuery<getUserOrders>(GET_USER_ORDERS, {context: {headers: {authorization: `Bearer ${jwt}`}}})
 
-    const orders = useMemo(() => data && data?.me?.user?.orders?.filter(item => item?.invoice?.search(filter) != -1).map(item => item && (
+    const orders = useMemo(() => data?.me?.user?.orders?.filter(item => item?.invoice?.search(filter) != -1).map(item => item && (
         <Grid item key={item.id} xs={12} component="li" className={styles.listItem}>
             <Accordion expanded={expanded == item.id} onChange={openOrder(item.id)}>
                 <AccordionSummary

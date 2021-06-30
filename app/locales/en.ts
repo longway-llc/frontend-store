@@ -118,7 +118,8 @@ export const en = {
             sellBy: 'Sell by'
         },
         ConsignmentStatus: {
-            available: 'Product is available in stock',
+            available: 'Available total products units on stocks',
+            detail: 'Contact with the manager for details',
             unavailable: 'Product available upon request',
             expectedDelivery: 'Expected delivery date',
             verifiedRequirement: 'Wait for the admin to set your verified status to see the details of the placement in warehouses'

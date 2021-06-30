@@ -24,7 +24,7 @@ import {useTranslation} from '../../utils/localization'
 import {useRouter} from 'next/router'
 import HeaderAccountMenu from '../HeaderAccountMenu/HeaderAccountMenu'
 import ShoppingCartBadge from '../ShoppingCartBadge/ShoppingCartBadge'
-import LocaleSelect from "../LocaleSelect/LocaleSelect";
+import LocaleSelect from '../LocaleSelect/LocaleSelect'
 
 
 export type HeaderMode = 'main' | 'black'

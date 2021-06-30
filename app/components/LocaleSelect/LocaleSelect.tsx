@@ -21,7 +21,8 @@ const useStyles = makeStyles<Theme,PropsStyle>(() => createStyles({
     position: 'relative',
     display: 'block',
     width: '40px',
-    height: '40px'
+    height: '40px',
+    cursor: 'pointer'
   },
   dropdown: {
     display: (props) => props.open ? 'block' : 'none',
@@ -38,7 +39,7 @@ const LocaleSelect:FC<LocaleSelectProps> = ({bottom = false}) => {
   const [open, setOpen] = useState(false)
   const styles = useStyles({open, bottom})
   const router = useRouter()
-  const [currentLocale, setCurrentLocale] = useCookie('NEXT_LOCALE')
+  const [,setCurrentLocale] = useCookie('NEXT_LOCALE')
 
   const toggleOpen = () => {
     setOpen(!open)
@@ -55,16 +56,16 @@ const LocaleSelect:FC<LocaleSelectProps> = ({bottom = false}) => {
     <div className={styles.root} role={'select'}>
       <div onClick={toggleOpen}>
         <Image
-          src={currentLocale == 'ru' ? ru_flag : en_flag}
-          alt={currentLocale == 'ru' ? 'флаг России' : 'international flag'}
+          src={router?.locale == 'ru' ? ru_flag : en_flag}
+          alt={router?.locale == 'ru' ? 'флаг России' : 'international flag'}
           layout={'fixed'}
           width={40}
           height={40}/>
       </div>
       <div className={styles.dropdown} onClick={handleSelect}>
         <Image
-          src={currentLocale != 'ru' ? ru_flag : en_flag}
-          alt={currentLocale != 'ru' ? 'флаг России' : 'international flag'}
+          src={router?.locale != 'ru' ? ru_flag : en_flag}
+          alt={router?.locale != 'ru' ? 'флаг России' : 'international flag'}
           layout={'fixed'}
           width={40}
           height={40}/>
