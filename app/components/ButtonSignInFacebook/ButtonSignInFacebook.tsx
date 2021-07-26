@@ -1,20 +1,22 @@
 import React from 'react'
-import {signIn} from 'next-auth/client'
-
+import { signIn } from 'next-auth/client'
 
 const ButtonSignInFacebook = (props: any) => {
-    const handleClick = async () => {
-        await signIn(props.provider.id)
-    }
-    return (
-        <>
-            <div id="facebookBtn" className="customGPlusSignIn" {...props} onClick={handleClick}>
-                <div className="wrapper">
-                    <span className="icon"/>
-                    <span className="buttonText">Login with Facebook</span>
-                </div>
-            </div>
-            <style jsx>{`
+  const handleClick = async () => {
+    await signIn(props.provider.id)
+  }
+  return (
+    <>
+      {/* eslint-disable-next-line max-len */}
+      {/* eslint-disable-next-line react/jsx-props-no-spreading,jsx-a11y/click-events-have-key-events,jsx-a11y/interactive-supports-focus */}
+      <div id="facebookBtn" className="customGPlusSignIn" {...props} onClick={handleClick} role="button">
+        <div className="wrapper">
+          <span className="icon" />
+          <span className="buttonText">Login with Facebook</span>
+        </div>
+      </div>
+      <style jsx>
+        {`
   #facebookBtn {
       cursor: pointer;
       display: flex;
@@ -50,9 +52,10 @@ const ButtonSignInFacebook = (props: any) => {
       font-size: 14px;
       font-weight: bold;
     }
-`}</style>
-        </>
-    )
+`}
+      </style>
+    </>
+  )
 }
 
 export default ButtonSignInFacebook

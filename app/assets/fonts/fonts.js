@@ -15,16 +15,16 @@ import romanWoff from './HelveticaRoman/HelveticaNeueCyr-Roman.woff'
 import romanWoff2 from './HelveticaRoman/HelveticaNeueCyr-Roman.woff2'
 
 export const F = {
-    boldTtf,
-    boldWoff,
-    boldWoff2,
-    lightTtf,
-    lightWoff,
-    lightWoff2,
-    mediumTtf,
-    mediumWoff,
-    mediumWoff2,
-    romanTtf,
-    romanWoff,
-    romanWoff2
+  boldTtf,
+  boldWoff,
+  boldWoff2,
+  lightTtf,
+  lightWoff,
+  lightWoff2,
+  mediumTtf,
+  mediumWoff,
+  mediumWoff2,
+  romanTtf,
+  romanWoff,
+  romanWoff2,
 }

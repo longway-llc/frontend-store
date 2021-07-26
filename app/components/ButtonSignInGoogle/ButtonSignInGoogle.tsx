@@ -1,20 +1,22 @@
 import React from 'react'
-import {signIn} from 'next-auth/client'
-
+import { signIn } from 'next-auth/client'
 
 const ButtonSignInGoogle = (props:any) => {
-    const handleClick = async () => {
-        await signIn(props.provider.id)
-    }
-    return (
-        <>
-            <div id="googleBtn" className="customGPlusSignIn" {...props} onClick={handleClick}>
-                <div className="wrapper">
-                    <span className="icon"/>
-                    <span className="buttonText">Login with Google</span>
-                </div>
-            </div>
-            <style jsx>{`
+  const handleClick = async () => {
+    await signIn(props.provider.id)
+  }
+  return (
+    <>
+      {/* eslint-disable-next-line max-len */}
+      {/* eslint-disable-next-line react/jsx-props-no-spreading,jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+      <div id="googleBtn" className="customGPlusSignIn" {...props} onClick={handleClick}>
+        <div className="wrapper">
+          <span className="icon" />
+          <span className="buttonText">Login with Google</span>
+        </div>
+      </div>
+      <style jsx>
+        {`
   #googleBtn {
       cursor: pointer;
       display: flex;
@@ -52,9 +54,10 @@ const ButtonSignInGoogle = (props:any) => {
       /* Use the Roboto font that is loaded in the <head> */
       font-family: 'Roboto', sans-serif;
     }
-`}</style>
-        </>
-    )
+`}
+      </style>
+    </>
+  )
 }
 
 export default ButtonSignInGoogle

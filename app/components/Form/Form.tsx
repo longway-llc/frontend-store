@@ -1,18 +1,19 @@
 // @ts-ignore
 const Form = ({ errorMessage, onSubmit }) => (
-    <form onSubmit={onSubmit}>
-        <label>
-            <span>Email</span>
-            <input type="email" name="email" required />
-        </label>
+  <form onSubmit={onSubmit}>
+    <label htmlFor="email">
+      <span>Email</span>
+      <input type="email" id="email" name="email" required />
+    </label>
 
-        <div className="submit">
-            <button type="submit">Sign Up / Login</button>
-        </div>
+    <div className="submit">
+      <button type="submit">Sign Up / Login</button>
+    </div>
 
-        {errorMessage && <p className="error">{errorMessage}</p>}
+    {errorMessage && <p className="error">{errorMessage}</p>}
 
-        <style jsx>{`
+    <style jsx>
+      {`
       form,
       label {
         display: flex;
@@ -49,8 +50,9 @@ const Form = ({ errorMessage, onSubmit }) => (
         color: brown;
         margin: 1rem 0 0;
       }
-    `}</style>
-    </form>
+    `}
+    </style>
+  </form>
 )
 
 export default Form

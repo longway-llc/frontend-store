@@ -1,7 +1,6 @@
 import React, { FC, useMemo, useState } from 'react'
 import { gql, useMutation, useQuery } from '@apollo/client'
-import { createOrderFromCart, createOrderFromCartVariables } from './__generated__/createOrderFromCart'
-import { Session } from 'next-auth'
+import DateFnsUtils from '@date-io/date-fns'
 import {
   Box,
   Button,
@@ -15,56 +14,55 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core'
-import { getContactPhone } from './__generated__/getContactPhone'
+import { grey } from '@material-ui/core/colors'
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
+import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date'
+import NextLink from 'next/link'
+import { useRouter } from 'next/router'
+import { Session } from 'next-auth'
+import { useSnackbar } from 'notistack'
+
+import 'date-fns'
+import { useTranslation } from '../../utils/localization'
 import { getCart, getCart_getCart } from '../CartItemList/__generated__/getCart'
 import { GET_CART } from '../CartItemList/CartItemList'
-import { useRouter } from 'next/router'
-import { useTranslation } from '../../utils/localization'
-import NextLink from 'next/link'
-import { useSnackbar } from 'notistack'
-import { cartReset } from './__generated__/cartReset'
 import { getCartCount } from '../ShoppingCartBadge/__generated__/getCartCount'
 import { GET_CART_ITEMS_COUNT } from '../ShoppingCartBadge/ShoppingCartBadge'
-import DateFnsUtils from '@date-io/date-fns'
-import 'date-fns'
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers'
-import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date'
-import moment from 'moment'
-import { grey } from '@material-ui/core/colors'
+import { cartReset } from './__generated__/cartReset'
+import { createOrderFromCart, createOrderFromCartVariables } from './__generated__/createOrderFromCart'
+import { getContactPhone } from './__generated__/getContactPhone'
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    header: {
-      padding: theme.spacing(2),
-      backgroundColor: theme.palette.common.black,
-    },
-    mt20: {
-      margin: theme.spacing(3, 0, -1),
-    },
-    contactField: {
-      '& .MuiTextField-root': {
-        width: '100%',
-      },
-    },
-    contactLabel: {
-      display: 'inline-block',
-      width: 70,
-    },
-    link: {
-      cursor: 'pointer',
-    },
-    optional: {
-      color: grey['700'],
-    },
-    deliveryInstructionCaption: {
-      padding: theme.spacing(1, 0),
-    },
-    deliveryInstructionInput: {
+const useStyles = makeStyles((theme) => createStyles({
+  header: {
+    padding: theme.spacing(2),
+    backgroundColor: theme.palette.common.black,
+  },
+  mt20: {
+    margin: theme.spacing(3, 0, -1),
+  },
+  contactField: {
+    '& .MuiTextField-root': {
       width: '100%',
-      borderColor: grey[200],
     },
-  })
-)
+  },
+  contactLabel: {
+    display: 'inline-block',
+    width: 70,
+  },
+  link: {
+    cursor: 'pointer',
+  },
+  optional: {
+    color: grey['700'],
+  },
+  deliveryInstructionCaption: {
+    padding: theme.spacing(1, 0),
+  },
+  deliveryInstructionInput: {
+    width: '100%',
+    borderColor: grey[200],
+  },
+}))
 
 export const GET_CONTACT_PHONE = gql`
   query getContactPhone {
@@ -113,7 +111,7 @@ type OrderCreateFormProps = {
 const OrderCreateForm: FC<OrderCreateFormProps> = ({ session }) => {
   const styles = useStyles()
 
-  const locale = useRouter().locale == 'ru' ? 'ru' : 'en'
+  const locale = useRouter().locale === 'ru' ? 'ru' : 'en'
   const t = useTranslation(locale)
 
   const { enqueueSnackbar } = useSnackbar()
@@ -131,45 +129,51 @@ const OrderCreateForm: FC<OrderCreateFormProps> = ({ session }) => {
   })
 
   const [createOrder, { loading: createLoading, error }] = useMutation<
-    createOrderFromCart,
-    createOrderFromCartVariables
+  createOrderFromCart,
+  createOrderFromCartVariables
   >(CREATE_ORDER, {
     context: { headers: { authorization: `Bearer ${session.jwt}` } },
   })
 
-  const [resetCart, { loading: loadingReset, error: resetError }] = useMutation<cartReset>(RESET_CART, {
-    context: { headers: { authorization: `Bearer ${session.jwt}` } },
-    update: (cache) => {
-      const cart = cache.readQuery<getCart>({ query: GET_CART })?.getCart as getCart_getCart
-      cache.writeQuery<getCart>({
-        query: GET_CART,
-        data: {
-          getCart: {
-            ...cart,
-            cartItems: [],
+  const [
+    resetCart,
+    { loading: loadingReset, error: resetError },
+  ] = useMutation<cartReset>(
+    RESET_CART,
+    {
+      context: { headers: { authorization: `Bearer ${session.jwt}` } },
+      update: (cache) => {
+        const cart = cache.readQuery<getCart>({ query: GET_CART })?.getCart as getCart_getCart
+        cache.writeQuery<getCart>({
+          query: GET_CART,
+          data: {
+            getCart: {
+              ...cart,
+              cartItems: [],
+            },
           },
-        },
-      })
-      cache.writeQuery<getCartCount>({
-        query: GET_CART_ITEMS_COUNT,
-        data: { countProductsInCart: 0 },
-      })
+        })
+        cache.writeQuery<getCartCount>({
+          query: GET_CART_ITEMS_COUNT,
+          data: { countProductsInCart: 0 },
+        })
+      },
     },
-  })
+  )
 
   const fullCount = useMemo(
-    () => orderData && orderData.getCart.cartItems?.reduce((acc, item) => acc + (item?.count ?? 0), 0),
-    [orderData]
+    () => orderData && orderData.getCart.cartItems
+      ?.reduce((acc, item) => acc + (item?.count ?? 0), 0),
+    [orderData],
   )
 
   const fullPrice = useMemo(
-    () =>
-      orderData &&
-      orderData.getCart.cartItems?.reduce((acc, item) => {
-        const price = locale == 'ru' ? item?.product?.price_ru : item?.product?.price_en
+    () => orderData
+      && orderData.getCart.cartItems?.reduce((acc, item) => {
+        const price = locale === 'ru' ? item?.product?.price_ru : item?.product?.price_en
         return acc + (price ?? 0) * (item?.count ?? 0)
       }, 0),
-    [orderData, locale]
+    [orderData, locale],
   )
 
   const phone = phoneData?.me?.user?.customerInfo?.phone
@@ -181,12 +185,12 @@ const OrderCreateForm: FC<OrderCreateFormProps> = ({ session }) => {
     await resetCart()
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     try {
-      e.preventDefault()
+      event.preventDefault()
       await createOrder({
         variables: {
-          locale: locale,
+          locale,
           requestedShippingDate: selectedDate?.getTime().toString(),
           deliveryInstruction,
           poNumber,
@@ -204,40 +208,52 @@ const OrderCreateForm: FC<OrderCreateFormProps> = ({ session }) => {
 
   if (orderData?.getCart?.cartItems?.length) {
     return (
-      <Paper component={'form'} onSubmit={handleSubmit}>
+      <Paper component="form" onSubmit={handleSubmit}>
         <Box className={styles.header}>
-          <Typography style={{ color: 'white' }} variant={'subtitle1'} component={'span'}>
-            {t.components.OrderCreateForm.totalQuantity}: <b>{fullCount}</b>
+          <Typography style={{ color: 'white' }} variant="subtitle1" component="span">
+            {t.components.OrderCreateForm.totalQuantity}
+            :
+            <b>{fullCount}</b>
             <br />
-            {t.components.OrderCreateForm.totalPrice}: <b>{Number(fullPrice).toLocaleString()}</b> USD
+            {t.components.OrderCreateForm.totalPrice}
+            :
+            <b>{Number(fullPrice).toLocaleString()}</b>
+            {' '}
+            USD
           </Typography>
         </Box>
 
         <Container>
-          <Grid container justify={'center'} spacing={3} className={styles.contactField}>
+          <Grid container justifyContent="center" spacing={3} className={styles.contactField}>
             <Grid item xs={12}>
-              <Typography className={styles.mt20} variant={'subtitle1'} component={'p'}>
+              <Typography className={styles.mt20} variant="subtitle1" component="p">
                 {t.components.OrderCreateForm.contacts}
               </Typography>
             </Grid>
             <Grid item xs={12} className={styles.contactField}>
-              <Typography variant={'caption'} component={'span'} className={styles.contactLabel}>
-                <i>{t.components.OrderCreateForm.email}:</i>
+              <Typography variant="caption" component="span" className={styles.contactLabel}>
+                <i>
+                  {t.components.OrderCreateForm.email}
+                  :
+                </i>
               </Typography>
-              <Typography variant={'body2'} component={'span'}>
+              <Typography variant="body2" component="span">
                 {session?.user?.email}
               </Typography>
             </Grid>
             <Grid item xs={12} className={styles.contactField}>
-              <Typography variant={'caption'} component={'span'} className={styles.contactLabel}>
-                <i>{t.components.OrderCreateForm.phone}:</i>
+              <Typography variant="caption" component="span" className={styles.contactLabel}>
+                <i>
+                  {t.components.OrderCreateForm.phone}
+                  :
+                </i>
               </Typography>
               {phone ? (
-                <Typography variant={'body2'} component={'span'}>
+                <Typography variant="body2" component="span">
                   {phone}
                 </Typography>
               ) : (
-                <NextLink href={'/cabinet/settings'}>
+                <NextLink href="/cabinet/settings">
                   <Link className={styles.link}>{t.components.OrderCreateForm.fillInSettings}</Link>
                 </NextLink>
               )}
@@ -251,7 +267,7 @@ const OrderCreateForm: FC<OrderCreateFormProps> = ({ session }) => {
                   disableToolbar
                   disablePast
                   variant="inline"
-                  format={locale == 'ru' ? 'dd.MM.yyyy' : 'MM.dd.yyyy'}
+                  format={locale === 'ru' ? 'dd.MM.yyyy' : 'MM.dd.yyyy'}
                   margin="normal"
                   id="date-picker-inline"
                   label={t.components.OrderCreateForm.requestedShippingDate}
@@ -279,20 +295,20 @@ const OrderCreateForm: FC<OrderCreateFormProps> = ({ session }) => {
             </Grid>
             <Grid item>
               <Button
-                type={'submit'}
+                type="submit"
                 disabled={loading || !phone || createLoading}
-                variant={'contained'}
-                color={'primary'}
+                variant="contained"
+                color="primary"
               >
                 {t.components.OrderCreateForm.checkout}
               </Button>
             </Grid>
             <Grid item>
               <Button
-                type={'button'}
+                type="button"
                 disabled={loadingReset || createLoading}
-                variant={'text'}
-                color={'default'}
+                variant="text"
+                color="default"
                 onClick={handleReset}
               >
                 {t.components.OrderCreateForm.resetCart}
@@ -302,9 +318,8 @@ const OrderCreateForm: FC<OrderCreateFormProps> = ({ session }) => {
         </Container>
       </Paper>
     )
-  } else {
-    return null
   }
+  return null
 }
 
 export default OrderCreateForm

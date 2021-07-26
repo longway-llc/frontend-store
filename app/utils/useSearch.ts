@@ -1,12 +1,12 @@
-import {useRouter} from 'next/router'
-import { SetStateAction } from 'react'
-import {Dispatch, useCallback, useState} from 'react'
-import useEventListener from './useEventListener.hook'
+import {
+  Dispatch, SetStateAction, useCallback, useState,
+} from 'react'
+import { useRouter } from 'next/router'
 
-type useSearchReturnObject = {
-    searchRequest: string
-    setSearchRequest: Dispatch<SetStateAction<string>>
-    searchItem: () => Promise<void>
+type UseSearchReturnObject = {
+  searchRequest: string
+  setSearchRequest: Dispatch<SetStateAction<string>>
+  searchItem: () => Promise<void>
 }
 
 /**
@@ -16,23 +16,23 @@ type useSearchReturnObject = {
  * setSearchRequest - dispatch function for setting search value,
  * searchItem - promise for redirect on search page in app with searchRequest
  * */
-export const useSearch = ():useSearchReturnObject => {
-    const router = useRouter()
-    const [searchRequest, setSearchRequest] = useState('')
+export const useSearch = ():UseSearchReturnObject => {
+  const router = useRouter()
+  const [searchRequest, setSearchRequest] = useState('')
 
-    const searchItem = useCallback(async () => {
-        await router.push({
-            pathname: '/search',
-            query: {query: searchRequest.trim(),page:1},
-        })
-    }, [searchRequest, router])
+  const searchItem = useCallback(async () => {
+    await router.push({
+      pathname: '/search',
+      query: { query: searchRequest.trim(), page: 1 },
+    })
+  }, [searchRequest, router])
 
-    // useEventListener('keypress', async (e: React.KeyboardEvent) => {
-    //     // keyCode = 13 => Enter button
-    //     if (e.code == 'Enter' && searchRequest.trim().length > 0) {
-    //         await router.push({pathname: '/search', query: {query: searchRequest.trim(),page:1}})
-    //     }
-    // })
+  // useEventListener('keypress', async (e: React.KeyboardEvent) => {
+  //     // keyCode = 13 => Enter button
+  //     if (e.code == 'Enter' && searchRequest.trim().length > 0) {
+  //         await router.push({pathname: '/search', query: {query: searchRequest.trim(),page:1}})
+  //     }
+  // })
 
-    return {searchRequest, setSearchRequest, searchItem}
+  return { searchRequest, setSearchRequest, searchItem }
 }

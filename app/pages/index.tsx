@@ -1,57 +1,58 @@
 import React, { FC } from 'react'
+import {
+  Container, createStyles, Grid, makeStyles, Typography, useMediaQuery, useTheme,
+} from '@material-ui/core'
 import Head from 'next/head'
-import MainLayout from '../layouts/AppLayout'
+import { useRouter } from 'next/router'
+
 import { typographyColor } from '../assets/theme'
 import SearchField from '../components/SearchField/SearchField'
-import { Container, createStyles, Grid, makeStyles, Typography, useMediaQuery, useTheme } from '@material-ui/core'
-import { useRouter } from 'next/router'
+import MainLayout from '../layouts/AppLayout'
 import { useTranslation } from '../utils/localization'
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    title: {
-      fontSize: '4rem',
-      fontWeight: 'lighter',
-      color: theme.palette.secondary.main,
-      textAlign: 'center',
-      [theme.breakpoints.down('md')]: {
-        fontSize: '3rem',
-      },
-      [theme.breakpoints.down('sm')]: {
-        fontSize: '2rem',
-      },
-      [theme.breakpoints.down('xs')]: {
-        fontSize: '1rem',
-      },
+const useStyles = makeStyles((theme) => createStyles({
+  title: {
+    fontSize: '4rem',
+    fontWeight: 'lighter',
+    color: theme.palette.secondary.main,
+    textAlign: 'center',
+    [theme.breakpoints.down('md')]: {
+      fontSize: '3rem',
     },
-    subtitle: {
+    [theme.breakpoints.down('sm')]: {
       fontSize: '2rem',
-      fontWeight: 'lighter',
-      color: 'white',
-      textAlign: 'center',
-      [theme.breakpoints.down('md')]: {
-        fontSize: '1.6rem',
-      },
-      [theme.breakpoints.down('sm')]: {
-        fontSize: '1.3rem',
-      },
-      [theme.breakpoints.down('xs')]: {
-        fontSize: '1rem',
-      },
     },
-    container: {
-      marginTop: 100,
-      marginBottom: 100,
-      [theme.breakpoints.down('md')]: {
-        marginTop: 60,
-        marginBottom: 60,
-      },
-      [theme.breakpoints.down('sm')]: {
-        marginTop: 0,
-      },
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '1rem',
     },
-  })
-)
+  },
+  subtitle: {
+    fontSize: '2rem',
+    fontWeight: 'lighter',
+    color: 'white',
+    textAlign: 'center',
+    [theme.breakpoints.down('md')]: {
+      fontSize: '1.6rem',
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '1.3rem',
+    },
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '1rem',
+    },
+  },
+  container: {
+    marginTop: 100,
+    marginBottom: 100,
+    [theme.breakpoints.down('md')]: {
+      marginTop: 60,
+      marginBottom: 60,
+    },
+    [theme.breakpoints.down('sm')]: {
+      marginTop: 0,
+    },
+  },
+}))
 
 const Home: FC = () => {
   const styles = useStyles()
@@ -69,26 +70,27 @@ const Home: FC = () => {
         <link rel="alternate" hrefLang="x-default" href="https://lwaero.net" />
       </Head>
 
-      <MainLayout logoVariant={'main'} title={'LWAero'}>
+      <MainLayout logoVariant="main" title="LWAero">
         <Container>
           <Grid container direction="column" alignItems="center" spacing={isPhone ? 4 : 8} className={styles.container}>
             <Grid item xs>
-              <Typography variant={'h1'} className={styles.title}>
+              <Typography variant="h1" className={styles.title}>
                 {t.page.index.title}
               </Typography>
             </Grid>
             <Grid item xs>
-              <Typography variant={'h2'} className={styles.subtitle}>
+              <Typography variant="h2" className={styles.subtitle}>
                 {t.page.index.subtitle}
               </Typography>
             </Grid>
             <Grid item xs>
-              <SearchField mode={'main'} />
+              <SearchField mode="main" />
             </Grid>
           </Grid>
         </Container>
       </MainLayout>
-      <style global jsx>{`
+      <style global jsx>
+        {`
         body {
           background: linear-gradient(180deg, ${typographyColor} 0%, rgba(196, 196, 196, 0) 100%),
             url('/AirplaneZip.jpg') no-repeat center;
@@ -100,7 +102,8 @@ const Home: FC = () => {
             background-position: 80% 50%;
           }
         }
-      `}</style>
+      `}
+      </style>
     </>
   )
 }

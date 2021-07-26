@@ -1,31 +1,30 @@
 import React from 'react'
 import { createStyles, makeStyles, Typography } from '@material-ui/core'
-import { useRouter } from 'next/router'
-import { useTranslation } from '../../utils/localization'
 import { green, orange } from '@material-ui/core/colors'
+import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/client'
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    root: {
-      marginRight: theme.spacing(1),
-    },
-    available: {
-      padding: theme.spacing(0, 1),
-      color: theme.palette.common.white,
-      textAlign: 'center',
-      backgroundColor: green['200'],
-      borderRadius: `${theme.shape.borderRadius}px`,
-    },
-    notAvailable: {
-      padding: theme.spacing(0, 1),
-      color: theme.palette.common.white,
-      textAlign: 'center',
-      backgroundColor: orange['200'],
-      borderRadius: `${theme.shape.borderRadius}px`,
-    },
-  })
-)
+import { useTranslation } from '../../utils/localization'
+
+const useStyles = makeStyles((theme) => createStyles({
+  root: {
+    marginRight: theme.spacing(1),
+  },
+  available: {
+    padding: theme.spacing(0, 1),
+    color: theme.palette.common.white,
+    textAlign: 'center',
+    backgroundColor: green['200'],
+    borderRadius: `${theme.shape.borderRadius}px`,
+  },
+  notAvailable: {
+    padding: theme.spacing(0, 1),
+    color: theme.palette.common.white,
+    textAlign: 'center',
+    backgroundColor: orange['200'],
+    borderRadius: `${theme.shape.borderRadius}px`,
+  },
+}))
 
 const AsHitConsignmentStatus = ({ consignmnets }: any) => {
   const styles = useStyles()
@@ -38,11 +37,11 @@ const AsHitConsignmentStatus = ({ consignmnets }: any) => {
   return (
     <div className={styles.root}>
       {available || !session?.user ? (
-        <Typography variant={'subtitle1'} className={styles.available}>
+        <Typography variant="subtitle1" className={styles.available}>
           {t.components.AsHitConsignmentStatus.available}
         </Typography>
       ) : (
-        <Typography variant={'subtitle1'} className={styles.notAvailable}>
+        <Typography variant="subtitle1" className={styles.notAvailable}>
           {t.components.AsHitConsignmentStatus.unavailable}
         </Typography>
       )}
