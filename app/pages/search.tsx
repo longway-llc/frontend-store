@@ -24,10 +24,13 @@ const Search: NextPage<SearchPageProps> = (props) => {
     const styles = useStyles()
     const router = useRouter()
     const t = useTranslation(router?.locale)
-    const title = useMemo(() => router?.query.item
-        ? ': "' + router.query.item + '"'
-        : '',
-        [router])
+    const title = useMemo(() => {
+        const langPrefix = router?.locale == 'ru' ? 'Поиск' : 'Search'
+        const productName = router?.query.item
+            ? ': "' + router.query.item + '"'
+            : ''
+        return langPrefix + productName
+    },[router])
 
     return (
         <>
@@ -38,7 +41,7 @@ const Search: NextPage<SearchPageProps> = (props) => {
                 <link rel="alternate" hrefLang="en" href="https://lwaero.net/search"/>
                 <link rel="alternate" hrefLang="x-default" href="https://lwaero.net/search"/>
             </Head>
-            <AppLayout title={`Поиск${title}`}>
+            <AppLayout title={title}>
                 <Container maxWidth={'lg'} className={styles.root}>
                     <AlgoliaSearch {...props}/>
                 </Container>
