@@ -1,8 +1,8 @@
-import React, { Children, FC, ReactNode } from 'react'
+import React, { Children, FC } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-const ActiveLink: FC<any & { children?: ReactNode; }> = ({
+const ActiveLink: FC<any> = ({
   children,
   activeClassName,
   ...props
@@ -23,10 +23,10 @@ const ActiveLink: FC<any & { children?: ReactNode; }> = ({
     // eslint-disable-next-line react/jsx-props-no-spreading
     <Link {...props}>
       {
-                React.cloneElement(child, {
-                  className: className || null,
-                })
-}
+          React.cloneElement(child, {
+            className: className || null,
+          })
+      }
     </Link>
   )
 }

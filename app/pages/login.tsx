@@ -92,7 +92,7 @@ const Login: NextPage<LoginProps> = ({
       if (!res?.error) {
         enqueueSnackbar(t.page.login.sendEmail, { variant: 'info' })
       }
-    } catch (e) {
+    } catch (e:any) {
       enqueueSnackbar(e.message, { variant: 'error' })
     } finally {
       setFetching(false)

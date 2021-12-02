@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 import React from 'react'
 import { ServerStyleSheets } from '@material-ui/styles'
 import Document, {

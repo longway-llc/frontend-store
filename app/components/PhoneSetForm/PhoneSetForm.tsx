@@ -76,7 +76,7 @@ const PhoneSetForm = () => {
         context: { headers: { authorization: `Bearer ${session?.jwt}` } },
       })
       enqueueSnackbar(t.components.PhoneSetForm.phoneSuccessUpdate, { variant: 'success' })
-    } catch (e) {
+    } catch (e: any) {
       enqueueSnackbar(e.message, { variant: 'error' })
     }
   }
