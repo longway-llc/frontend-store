@@ -111,7 +111,7 @@ const MenuDrawer:FC<Props> = ({ anchor, open, setState }) => {
           <ListItemIcon><Home /></ListItemIcon>
           <ListItemText primary={t.components.MenuDrawer.home} />
         </ListItem>
-        <ListItem button onClick={async () => router.push('/about', '/about')}>
+        <ListItem button onClick={async () => router.push('/ooo_longway.pdf', '/ooo_longway.pdf')}>
           <ListItemIcon><Info /></ListItemIcon>
           <ListItemText primary={t.components.MenuDrawer.about} />
         </ListItem>

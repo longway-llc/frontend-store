@@ -176,13 +176,13 @@ const Header: FC<HeaderModeType> = ({ headerMode = 'black' }) => {
                   </ActiveLink>
                 </Grid>
                 <Grid item component="li">
-                  <ActiveLink activeClassName={classes.activeLink} href="/about">
-                    <a className={classes.link}>
-                      <Typography variant="h6" component="h6" className={classes.navItem}>
-                        {t.header.aboutUs}
-                      </Typography>
-                    </a>
-                  </ActiveLink>
+                  {/* <ActiveLink activeClassName={classes.activeLink} href="/ooo"> */}
+                  <a className={classes.link} href="/ooo_longway.pdf">
+                    <Typography variant="h6" component="h6" className={classes.navItem}>
+                      {t.header.aboutUs}
+                    </Typography>
+                  </a>
+                  {/* </ActiveLink> */}
                 </Grid>
                 <Grid item component="li">
                   <LocaleSelect />
