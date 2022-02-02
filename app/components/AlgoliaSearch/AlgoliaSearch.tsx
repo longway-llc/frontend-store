@@ -65,7 +65,7 @@ const AlgoliaSearch: FC<SearchPageProps> = (props) => {
               <ASHitList />
             </Grid>
             <Grid item xs={12} md={3} component="aside">
-              <Grid container spacing={2} justify="center" direction="row">
+              <Grid container spacing={2} justifyContent="center" direction="row">
                 <Grid item xs="auto">
                   <Typography component="h2" variant="subtitle2">
                     {t.components.AlgoliaSearch.filters.toUpperCase()}

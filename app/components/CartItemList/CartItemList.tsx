@@ -5,8 +5,11 @@ import {
 } from '@material-ui/core'
 import { useRouter } from 'next/router'
 import { Session } from 'next-auth'
+import { useSession } from 'next-auth/client'
 
 import { useTranslation } from '../../utils/localization'
+import { getUserRegion } from '../ASHit/__generated__/getUserRegion'
+import { GET_USER_REGION } from '../ASHit/query'
 // eslint-disable-next-line import/no-cycle
 import CartItem from '../CartItem/CartItem'
 import { getCart } from './__generated__/getCart'
@@ -56,10 +59,15 @@ const useStyles = makeStyles(() => createStyles({
   },
 }))
 
-const CartItemList: FC<CartItemListProps> = ({ jwt }) => {
+const CartItemList: FC<CartItemListProps> = () => {
   const styles = useStyles()
   const { locale } = useRouter()
   const t = useTranslation(locale)
+  // @ts-ignore
+  const [{ jwt }] = useSession()
+  const { data: regionData } = useQuery<getUserRegion>(GET_USER_REGION, {
+    context: { headers: { authorization: `Bearer ${jwt}` } },
+  })
   const { data, loading } = useQuery<getCart>(GET_CART, {
     context: { headers: { authorization: `Bearer ${jwt}` } },
   })
@@ -69,7 +77,7 @@ const CartItemList: FC<CartItemListProps> = ({ jwt }) => {
       <CartItem
         photo={p?.product?.photo}
         pn={p?.product?.pn as string}
-        price={locale === 'ru' ? (p?.product?.price_ru ?? 0) : (p?.product?.price_en ?? 0)}
+        price={regionData?.me?.user?.locale === 'en' ? (p?.product?.price_en ?? 0) : (p?.product?.price_ru ?? 0)}
         uom={p?.product?.uom as string}
         description={(locale === 'ru' ? p?.product?.description_ru : p?.product?.description_en) as string}
         id={p?.product?.id as string}
@@ -77,7 +85,7 @@ const CartItemList: FC<CartItemListProps> = ({ jwt }) => {
         count={p?.count as number}
       />
     </Grid>
-  )), [locale, data])
+  )), [data, regionData?.me?.user?.locale, locale])
 
   if (loading) {
     return (

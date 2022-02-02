@@ -7,7 +7,9 @@ import Footer from '../components/Footer/Footer'
 import Header, { HeaderMode } from '../components/Header/Header'
 
 type MainLayoutType = {
+  // eslint-disable-next-line react/require-default-props
   logoVariant?: HeaderMode,
+  // eslint-disable-next-line react/require-default-props
   title?: string
 }
 

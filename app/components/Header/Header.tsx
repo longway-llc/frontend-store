@@ -190,21 +190,21 @@ const Header: FC<HeaderModeType> = ({ headerMode = 'black' }) => {
               </Grid>
             </Grid>
             {
-                            session?.user
-                            && (
-                            <Grid item>
-                              <Link href="/cart">
-                                <a className={classes.cartLink}>
-                                  <ShoppingCartBadge
-                                    outlined
-                                    fontSize="large"
-                                    color={headerMode === 'main' ? 'secondary' : 'action'}
-                                  />
-                                </a>
-                              </Link>
-                            </Grid>
-                            )
-                        }
+                session?.user
+                && (
+                <Grid item>
+                  <Link href="/cart">
+                    <a className={classes.cartLink}>
+                      <ShoppingCartBadge
+                        outlined
+                        fontSize="large"
+                        color={headerMode === 'main' ? 'secondary' : 'action'}
+                      />
+                    </a>
+                  </Link>
+                </Grid>
+                )
+            }
             <Grid item hidden={isTablet}>
               <Grid container spacing={2}>
                 <HeaderAccountMenu headerMode={headerMode} />

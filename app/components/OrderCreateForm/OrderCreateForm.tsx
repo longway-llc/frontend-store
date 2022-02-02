@@ -24,6 +24,8 @@ import { useSnackbar } from 'notistack'
 
 import 'date-fns'
 import { useTranslation } from '../../utils/localization'
+import { getUserRegion } from '../ASHit/__generated__/getUserRegion'
+import { GET_USER_REGION } from '../ASHit/query'
 import { getCart, getCart_getCart } from '../CartItemList/__generated__/getCart'
 import { GET_CART } from '../CartItemList/CartItemList'
 import { getCartCount } from '../ShoppingCartBadge/__generated__/getCartCount'
@@ -120,6 +122,10 @@ const OrderCreateForm: FC<OrderCreateFormProps> = ({ session }) => {
   const [deliveryInstruction, setDeliveryInstruction] = useState('')
   const [poNumber, setPoNumber] = useState('')
 
+  const { data: regionData } = useQuery<getUserRegion>(GET_USER_REGION, {
+    context: { headers: { authorization: `Bearer ${session.jwt}` } },
+  })
+
   const { data: orderData, loading } = useQuery<getCart>(GET_CART, {
     context: { headers: { authorization: `Bearer ${session.jwt}` } },
   })
@@ -170,10 +176,10 @@ const OrderCreateForm: FC<OrderCreateFormProps> = ({ session }) => {
   const fullPrice = useMemo(
     () => orderData
       && orderData.getCart.cartItems?.reduce((acc, item) => {
-        const price = locale === 'ru' ? item?.product?.price_ru : item?.product?.price_en
+        const price = regionData?.me?.user?.locale === 'ru' ? item?.product?.price_ru : item?.product?.price_en
         return acc + (price ?? 0) * (item?.count ?? 0)
       }, 0),
-    [orderData, locale],
+    [orderData, regionData?.me?.user?.locale],
   )
 
   const phone = phoneData?.me?.user?.customerInfo?.phone
@@ -190,7 +196,7 @@ const OrderCreateForm: FC<OrderCreateFormProps> = ({ session }) => {
       event.preventDefault()
       await createOrder({
         variables: {
-          locale,
+          locale: regionData?.me?.user?.locale ?? 'en',
           requestedShippingDate: selectedDate?.getTime().toString(),
           deliveryInstruction,
           poNumber,

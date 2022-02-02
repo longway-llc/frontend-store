@@ -23,6 +23,9 @@ export interface updatePhone_updateUser {
 }
 
 export interface updatePhone {
+  /**
+   * Update an existing user
+   */
   updateUser: updatePhone_updateUser | null;
 }
 

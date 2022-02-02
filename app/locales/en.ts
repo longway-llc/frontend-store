@@ -1,5 +1,10 @@
 export const en = {
   meta: {
+    about: {
+      title: 'About',
+      description: 'About LWaero',
+      keywords: 'lwaero, longway, aviation, aviation chemistry, aircraft maintenance, aircraft, contacts',
+    },
     index: {
       description: 'Shop of specialized materials for the maintenance of aviation equipment',
       keywords: 'lwaero, longway, aviation, aviation chemistry, aircraft maintenance, aircraft',
@@ -18,6 +23,16 @@ export const en = {
     },
   },
   page: {
+    about: {
+      overview: {
+        title: 'Who we are?',
+        text1: 'We are a team of professionals occupying a leading position in the market of aviation products',
+        text2: 'provide a huge range of specialized materials for the maintenance of aviation equipment, and also help customers in finding the necessary goods, carrying out high-quality and timely delivery of orders anywhere in the world',
+      },
+      contacts: {
+        title: 'Contact us',
+      },
+    },
     index: {
       title: 'GLOBAL MRO SUPPLY MANAGEMENT',
       subtitle: 'we will help you purchase the right product at a great price',

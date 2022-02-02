@@ -14,6 +14,11 @@ export enum ENUM_ORDER_STATUS {
   paid = "paid",
 }
 
+export enum ENUM_USERSPERMISSIONSUSER_LOCALE {
+  en = "en",
+  ru = "ru",
+}
+
 //==============================================================
 // END Enums and Input Objects
 //==============================================================

@@ -1,4 +1,5 @@
 import React, { FC, useMemo } from 'react'
+import { useQuery } from '@apollo/client'
 import {
   Button,
   createStyles,
@@ -12,12 +13,15 @@ import {
 } from '@material-ui/core'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/client'
 
 import { useTranslation } from '../../utils/localization'
 import AsHitConsignmentStatus from '../ASHitConsignmentStatus/ASHitConsignmentStatus'
 import ButtonAddToCart from '../ButtonAddToCart/ButtonAddToCart'
 import Price from '../Price/Price'
 import ProductDetails from '../ProductDetails/ProductDetailsProps'
+import { getUserRegion } from './__generated__/getUserRegion'
+import { GET_USER_REGION } from './query'
 
 const useStyles = makeStyles((theme) => createStyles({
   root: {
@@ -100,6 +104,9 @@ const useStyles = makeStyles((theme) => createStyles({
 const host = process.env.NEXT_PUBLIC_API_URL ?? 'https://api.lwaero.net'
 
 const ASHit:FC<{ hit:any }> = ({ hit }) => {
+  // @ts-ignore
+  const [{ jwt }] = useSession()
+  const { data } = useQuery<getUserRegion>(GET_USER_REGION, { context: { headers: { authorization: `Bearer ${jwt}` } } })
   const styles = useStyles()
   const router = useRouter()
   const t = useTranslation(router.locale)
@@ -116,11 +123,11 @@ const ASHit:FC<{ hit:any }> = ({ hit }) => {
     : hit?.description_en),
   [hit, router])
 
-  const price = useMemo(() => (router.locale === 'ru' && Boolean(hit?.price_ru)
-    ? hit?.price_ru
-    : hit?.price_en
+  const price = useMemo(() => (data?.me?.user?.locale === 'en' && Boolean(hit?.price_en)
+    ? hit?.price_en
+    : hit?.price_ru
                 ?? 0),
-  [hit, router])
+  [data?.me?.user?.locale, hit?.price_en, hit?.price_ru])
 
   const imageSrc = useMemo(() => {
     let source = hit?.photo

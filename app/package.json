@@ -8,8 +8,9 @@
     "start": "next start",
     "lint": "tsc --noEmit && eslint ./**/*.ts{,x} --ignore-path .eslintignore --color",
     "lint:fix": "eslint ./**/*.ts{,x} --ignore-path .eslintignore --color --fix",
-    "apollo-sync": "cd .. && apollo client:download-schema .graphql/schema.json && apollo client:download-schema .graphql/schema.graphql",
-    "apollo-codegen": "cd .. && apollo client:codegen --target=typescript --globalTypesFile ./app/__generated__/globalTypes.ts"
+    "apollo-sync": "apollo-codegen introspect-schema http://localhost:1337/graphql --output ../.graphql/schema.json",
+    "apollo-codegen": "apollo-codegen generate **/*.graphql --schema ../.graphql/schema.json --target typescript --output __generated__/globalTypes.ts",
+    "apollo-types": "npx apollo codegen:generate --endpoint=http://localhost:1337/graphql --target=typescript --includes=app/**/*.ts* --tagName=gql --addTypename --globalTypesFile=__generated__/globalTypes.ts __generated__"
   },
   "peerDependencies": {
     "@date-io/core": "^1.3.6",
@@ -20,7 +21,7 @@
     "webpack": "^5.0.0"
   },
   "dependencies": {
-    "@apollo/client": "^3.3.12",
+    "@apollo/client": "^3.5.8",
     "@date-io/core": "^1.3.6",
     "@date-io/date-fns": "1.x",
     "@hookform/resolvers": "^1.3.7",
@@ -32,11 +33,12 @@
     "@prisma/client": "^2.16.1",
     "@svgr/webpack": "^5.5.0",
     "algoliasearch": "^4.8.6",
-    "apollo": "^2.33.2",
+    "apollo": "^2.33.9",
+    "apollo-codegen": "^0.20.2",
     "babel-plugin-styled-components": "^1.12.0",
     "babel-plugin-superjson-next": "^0.2.3",
     "date-fns": "^2.21.3",
-    "graphql": "^14.0.0",
+    "graphql": "^15.8.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "mongodb": "^3.6.5",
