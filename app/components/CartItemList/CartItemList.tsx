@@ -64,7 +64,7 @@ const CartItemList: FC<CartItemListProps> = () => {
   const { locale } = useRouter()
   const t = useTranslation(locale)
   // @ts-ignore
-  const [{ jwt }] = useSession()
+  const [{ jwt = undefined }] = useSession()
   const { data: regionData } = useQuery<getUserRegion>(GET_USER_REGION, {
     context: { headers: { authorization: `Bearer ${jwt}` } },
   })

@@ -105,7 +105,7 @@ const host = process.env.NEXT_PUBLIC_API_URL ?? 'https://api.lwaero.net'
 
 const ASHit:FC<{ hit:any }> = ({ hit }) => {
   // @ts-ignore
-  const [{ jwt }] = useSession()
+  const [{ jwt = undefined }] = useSession()
   const { data } = useQuery<getUserRegion>(GET_USER_REGION, { context: { headers: { authorization: `Bearer ${jwt}` } } })
   const styles = useStyles()
   const router = useRouter()
